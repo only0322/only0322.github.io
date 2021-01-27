@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="C&#43;&#43;面试题总结" />
+<meta property="og:description" content="1.多态的实现 存在虚函数的类至少有一个(多继承会有多个)一维的虚函数表叫做虚表(virtual table)，属于类成员，虚表的元素值是虚函数的入口地址，在编译时就已经为其在数据端分配了空间。
+编译器另外还为每个类的对象提供一个虚表指针(vptr)，指向虚表入口地址，属于对象成员。
+在实例化派生类对象时，先实例化基类，将基类的虚表入口地址赋值给基类的虚表指针，当基类构造函数执行完时，再将派生类的虚表入口地址赋值给基类的虚表指针（派生类和基类此时共享一个虚表指针，并没有各自都生成一个），在执行父类的构造函数。
+以上是C&#43;&#43;多态的实现过程，可以得出结论：
+ 1.有虚函数的类必存在一个虚表。 2.虚表的构建：基类的虚表构建，先填上虚析构函数的入口地址，之后所有虚函数的入口地址按在类中声明顺序填入虚表；派生类的虚表构建，先将基类的虚表内容复制到派生类虚表中，如果派生类覆盖了基类的虚函数，则虚表中对应的虚函数入口地址也会被覆盖，为了后面寻址的一致性。  虚函数表中有序放置了父类和子类中的所有虚函数，并且相同虚函数在类继承链中的每一个虚函数表中的偏移量都是一致的。所以确定的虚函数对应virtual table中一个固定位置n，n是一个在编译时期就确定的常量，所以，使用vptr加上对应的n，就可以得到对应的函数入口地址。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/cpp/interview/" />
+<meta property="article:published_time" content="2020-09-26T17:02:02+08:00" />
+<meta property="article:modified_time" content="2020-09-26T17:02:02+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43;面试题总结"/>
+<meta name="twitter:description" content="1.多态的实现 存在虚函数的类至少有一个(多继承会有多个)一维的虚函数表叫做虚表(virtual table)，属于类成员，虚表的元素值是虚函数的入口地址，在编译时就已经为其在数据端分配了空间。
+编译器另外还为每个类的对象提供一个虚表指针(vptr)，指向虚表入口地址，属于对象成员。
+在实例化派生类对象时，先实例化基类，将基类的虚表入口地址赋值给基类的虚表指针，当基类构造函数执行完时，再将派生类的虚表入口地址赋值给基类的虚表指针（派生类和基类此时共享一个虚表指针，并没有各自都生成一个），在执行父类的构造函数。
+以上是C&#43;&#43;多态的实现过程，可以得出结论：
+ 1.有虚函数的类必存在一个虚表。 2.虚表的构建：基类的虚表构建，先填上虚析构函数的入口地址，之后所有虚函数的入口地址按在类中声明顺序填入虚表；派生类的虚表构建，先将基类的虚表内容复制到派生类虚表中，如果派生类覆盖了基类的虚函数，则虚表中对应的虚函数入口地址也会被覆盖，为了后面寻址的一致性。  虚函数表中有序放置了父类和子类中的所有虚函数，并且相同虚函数在类继承链中的每一个虚函数表中的偏移量都是一致的。所以确定的虚函数对应virtual table中一个固定位置n，n是一个在编译时期就确定的常量，所以，使用vptr加上对应的n，就可以得到对应的函数入口地址。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C++面试题总结",
+  "url": "https://only0322.github.io/post/cpp/interview/",
+  "wordCount": "96",
+  "datePublished": "2020-09-26T17:02:02+08:00",
+  "dateModified": "2020-09-26T17:02:02+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/cpp/interview/">
+
+    <title>C&#43;&#43;面试题总结 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/interview/">C++面试题总结</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-09-26T17:02:02+08:00">Sat Sep 26, 2020</time>
+</p>
+  </header>
+  <h2 id="1多态的实现">1.多态的实现</h2>
+<p>存在虚函数的类至少有一个(多继承会有多个)一维的虚函数表叫做虚表(virtual table)，属于类成员，虚表的元素值是虚函数的入口地址，在编译时就已经为其在数据端分配了空间。</p>
+<p>编译器另外还为每个类的对象提供一个虚表指针(vptr)，指向虚表入口地址，属于对象成员。</p>
+<p>在实例化派生类对象时，先实例化基类，将基类的虚表入口地址赋值给基类的虚表指针，当基类构造函数执行完时，再将派生类的虚表入口地址赋值给基类的虚表指针（派生类和基类此时共享一个虚表指针，并没有各自都生成一个），在执行父类的构造函数。</p>
+<p>以上是C++多态的实现过程，可以得出结论：</p>
+<ul>
+<li>1.有虚函数的类必存在一个虚表。</li>
+<li>2.虚表的构建：基类的虚表构建，先填上虚析构函数的入口地址，之后所有虚函数的入口地址按在类中声明顺序填入虚表；派生类的虚表构建，先将基类的虚表内容复制到派生类虚表中，如果派生类覆盖了基类的虚函数，则虚表中对应的虚函数入口地址也会被覆盖，为了后面寻址的一致性。</li>
+</ul>
+<p>虚函数表中有序放置了父类和子类中的所有虚函数，并且相同虚函数在类继承链中的每一个虚函数表中的偏移量都是一致的。所以确定的虚函数对应virtual table中一个固定位置n，n是一个在编译时期就确定的常量，所以，使用vptr加上对应的n，就可以得到对应的函数入口地址。</p>
+<p>C++采用的这种绝对地址+偏移量的方法调用虚函数，查找速度快执行效率高，时间复杂度为O(1)</p>
+<p>这里概括一下虚函数的寻址过程：</p>
+<ul>
+<li>
+<p>1、获取类型名和函数名</p>
+</li>
+<li>
+<p>2、从符号表中获得当前虚函数的偏移量</p>
+</li>
+<li>
+<p>3、利用偏移量得到虚函数的访问地址，并调用虚函数。vptrn</p>
+</li>
+</ul>
+<h2 id="2const关键字">2.const关键字</h2>
+<p>常变量： const 类型说明符 变量名</p>
+<p>常引用： const 类型说明符 &amp;引用名</p>
+<p>常对象： 类名 const 对象名</p>
+<p>常成员函数： 类名::fun(形参) const</p>
+<p>常数组： 类型说明符 const 数组名[大小]</p>
+<p>常指针： const 类型说明符* 指针名 ，类型说明符* const 指针名</p>
+<h2 id="3c的空类">3.C++的空类</h2>
+<p>对于空类，编译器不会生成任何的成员函数，只会生成1个字节的占位符。</p>
+<p>有时可能会以为编译器会为空类生成默认构造函数等，事实上是不会的。</p>
+<p>编译器只会在需要的时候生成6个成员函数：一个缺省的构造函数、一个拷贝构造函数、一个析构函数、一个赋值运算符、一对取址运算符和一个this指针。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Empty</span>
+{
+};
+
+</code></pre></div><p>等价于</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Empty</span>
+{
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Empty();                            <span style="color:#75715e">//缺省构造函数
+</span><span style="color:#75715e"></span>    Empty(<span style="color:#66d9ef">const</span> Empty <span style="color:#f92672">&amp;</span>rhs);            <span style="color:#75715e">//拷贝构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">~</span>Empty();                           <span style="color:#75715e">//析构函数 
+</span><span style="color:#75715e"></span>    Empty<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">const</span> Empty <span style="color:#f92672">&amp;</span>rhs); <span style="color:#75715e">//赋值运算符
+</span><span style="color:#75715e"></span>    Empty<span style="color:#f92672">*</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&amp;</span>();                 <span style="color:#75715e">//取址运算符
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> Empty<span style="color:#f92672">*</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&amp;</span>() <span style="color:#66d9ef">const</span>;     <span style="color:#75715e">//取址运算符(const版本)
+</span><span style="color:#75715e"></span>};
+
+
+</code></pre></div><h2 id="4容器的优缺点">4.容器的优缺点</h2>
+<p>vector类似于C语言中的数组，它维护一段连续的内存空间，具有固定的起始地址。</p>
+<p>list类似于C语言中的双向链表，它通过指针来进行数据的访问，因此维护的内存空间可以不连续，这也非常有利于数据的随机存取，因而它没有提供 [] 操作符重载。</p>
+<p>deque类似于C语言中的双向队列，即两端都可以插入或者删除的队列。queue支持 [] 操作符，也就是支持随机存取，而且跟vector的效率相差无几。它支持两端的操作：push_back,push_front,pop_back,pop_front等，并且在两端操作上与list的效率
+也差不多。或者我们可以这么认为，deque是vector跟list的折中。</p>
+<p>map类似于数据库中的１:１关系，它是一种关联容器，提供一对一(C++ primer中文版中将第一个译为键，每个键只能在map中出现一次，第二个被译为该键对应的值)的数据处理能力，这种特性了使得map类似于数据结构里的红黑二叉树。</p>
+<p>multimap类似于数据库中的１:Ｎ关系，它是一种关联容器,提供一对多的数据处理能力。</p>
+<p>set类似于数学里面的集合，不过set的集合中不包含重复的元素，这是和vector的第一个区别，第二个区别是set内部用平衡二叉树实现，便于元素查找，而vector是使用连续内存存储，便于随机存取。</p>
+<p>multiset类似于数学里面的集合，集合中可以包含重复的元素。</p>
+<blockquote>
+<p>1.如果需要高效的随机存取，不在乎插入和删除的效率，使用vector；</p>
+</blockquote>
+<blockquote>
+<p>2、如果需要大量的插入和删除元素，不关心随机存取的效率，使用list；</p>
+</blockquote>
+<blockquote>
+<p>3、如果需要随机存取，并且关心两端数据的插入和删除效率，使用deque；</p>
+</blockquote>
+<blockquote>
+<p>4、如果打算存储数据字典，并且要求方便地根据key找到value，一对一的情况使用map，一对多的情况使用multimap；</p>
+</blockquote>
+<blockquote>
+<p>5、如果打算查找一个元素是否存在于某集合中，唯一存在的情况使用set，不唯一存在的情况使用multiset。</p>
+</blockquote>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2finterview%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2finterview%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2finterview%2f&amp;text=C%2b%2b%e9%9d%a2%e8%af%95%e9%a2%98%e6%80%bb%e7%bb%93" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

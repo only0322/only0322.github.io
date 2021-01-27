@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Rust基础语法" />
+<meta property="og:description" content="一、变量 1. 可变与不可变 Rust的变量分可变变量和不可变变量。
+let a = 1就是一个不可变变量。这一点对于写过C的程序员来说很难理解。但Rust此举其实是为了防止程序中的变量以一种不可控的方式更改了自身的值。
+let mut a = 1,此时a就是一个可变变量了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/rust/rustbase/" />
+<meta property="article:published_time" content="2020-06-13T07:38:43+08:00" />
+<meta property="article:modified_time" content="2020-06-13T07:38:43+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rust基础语法"/>
+<meta name="twitter:description" content="一、变量 1. 可变与不可变 Rust的变量分可变变量和不可变变量。
+let a = 1就是一个不可变变量。这一点对于写过C的程序员来说很难理解。但Rust此举其实是为了防止程序中的变量以一种不可控的方式更改了自身的值。
+let mut a = 1,此时a就是一个可变变量了。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rust基础语法",
+  "url": "https://only0322.github.io/post/rust/rustbase/",
+  "wordCount": "1032",
+  "datePublished": "2020-06-13T07:38:43+08:00",
+  "dateModified": "2020-06-13T07:38:43+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/rust/rustbase/">
+
+    <title>Rust基础语法 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/rustbase/">Rust基础语法</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-06-13T07:38:43+08:00">Sat Jun 13, 2020</time>
+</p>
+  </header>
+  <h2 id="一变量">一、变量</h2>
+<h3 id="1-可变与不可变">1. 可变与不可变</h3>
+<p>Rust的变量分可变变量和不可变变量。</p>
+<p><code>let a = 1</code>就是一个不可变变量。这一点对于写过C的程序员来说很难理解。但Rust此举其实是为了防止程序中的变量以一种不可控的方式更改了自身的值。</p>
+<p><code>let mut a = 1</code>,此时a就是一个可变变量了。</p>
+<p>但不可变变量是可以重新绑定数值的，比如如下写法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</code></pre></div><p>是合法的。</p>
+<h3 id="2-重影">2. 重影</h3>
+<p>重影就是指变量的名称可以被重新使用的机制：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;The value of x is: {}&#34;</span>, x);
+}
+</code></pre></div><p>重影与可变变量的赋值不是一个概念，重影是指用同一个名字重新代表另一个变量实体，其类型、可变属性和值都可以变化。但可变变量赋值仅能发生值的变化。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123&#34;</span>;
+s <span style="color:#f92672">=</span> s.len();
+</code></pre></div><p>这段程序就会出错，因为字符串变量不能被赋整形。</p>
+<h2 id="二输出">二、输出</h2>
+<h3 id="1-最简单的输出">1. 最简单的输出</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; 
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;a is {}&#34;</span>, a); 
+}
+</code></pre></div><p>在 {} 之间可以放一个数字，它将把之后的可变参数当作一个数组来访问，下标从 0 开始。</p>
+<p><code>println!(&quot;a is {0}, a again is {0}&quot;, a); </code></p>
+<p>转义符</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{{}}&#34;</span>); 
+} 
+</code></pre></div><p>输出结果是{}</p>
+<h2 id="三注释">三、注释</h2>
+<p>用//，没有什么特别的。</p>
+<h2 id="四函数">四、函数</h2>
+<h3 id="1常规用法">1.常规用法</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
+    another_function();
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>() {
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Hello, runoob!&#34;</span>);
+}
+</code></pre></div><p>rust的函数并不一定要写在主函数的前面，任意位置都可以。</p>
+<p>函数名建议用蛇形。</p>
+<h3 id="2函数参数">2.函数参数</h3>
+<p>Rust 中定义函数如果需要具备参数必须声明参数名称和类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    another_function(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>);
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>(x: <span style="color:#66d9ef">i32</span>, y: <span style="color:#66d9ef">i32</span>) {
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;x 的值为 : {}&#34;</span>, x);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;y 的值为 : {}&#34;</span>, y);
+}
+</code></pre></div><h3 id="3函数体语句表达式">3.函数体语句表达式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">fn main() {
+    let x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+
+    let y <span style="color:#f92672">=</span> {
+        let x <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+        x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+    };
+
+    println!(<span style="color:#e6db74">&#34;x 的值为 : {}&#34;</span>, x);
+    println!(<span style="color:#e6db74">&#34;y 的值为 : {}&#34;</span>, y);
+}
+</code></pre></div><p>和JS的语法有点类似，此时变量y的赋值，表达式是必须要返回值的，比如删掉x+1就会报错。</p>
+<h3 id="4函数返回值">4.函数返回值</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">add</span>(a: <span style="color:#66d9ef">i32</span>, b: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+}
+</code></pre></div><p>但是 Rust 不支持自动返回值类型判断！如果没有明确声明函数返回值的类型，函数将被认为是&quot;纯过程&quot;，不允许产生返回值，return 后面不能有返回值表达式。</p>
+<h2 id="五条件语句-if">五、条件语句 if</h2>
+<h3 id="1if的基本用法">1.if的基本用法</h3>
+<p>if语句不需要小括号，但不是不允许。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; 
+    <span style="color:#66d9ef">let</span> b; 
+    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> { 
+        b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
+    }  
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> { 
+        b <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; 
+    }  
+    <span style="color:#66d9ef">else</span> { 
+        b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+    }; 
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;b is {}&#34;</span>, b); 
+} 
+</code></pre></div><h3 id="2与c语言的区别">2.与C语言的区别</h3>
+<p>条件表达式必须是布尔类型的，不会出现C语言中if(number=0)这种难以察觉的错误了。</p>
+<p>比如下列代码就不被允许：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; 
+    <span style="color:#66d9ef">if</span> number {   <span style="color:#75715e">// 报错，expected `bool`, found integerrustc(E0308)
+</span><span style="color:#75715e"></span>        println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Yes&#34;</span>);
+    } 
+} 
+</code></pre></div><p>但if表达式支持函数式，三目运算符。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; 
+    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> { <span style="color:#ae81ff">1</span> } <span style="color:#66d9ef">else</span> { <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> }; 
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;number 为 {}&#34;</span>, number); 
+}
+</code></pre></div><h2 id="六循环">六、循环</h2>
+<h3 id="1while">1.while</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> number <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
+    <span style="color:#66d9ef">while</span> number <span style="color:#f92672">!=</span> <span style="color:#ae81ff">4</span> { 
+        println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, number); 
+        number <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>; 
+    } 
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;EXIT&#34;</span>); 
+} 
+</code></pre></div><h3 id="2for">2.for</h3>
+<p>rust不支持<code>for(int i=0;i&lt;10;i++)</code>这种三元语句，只能用如下的方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>]; 
+    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> a.iter() { 
+        println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;值为 : {}&#34;</span>, i); 
+    } 
+} 
+</code></pre></div><p>或者通过下标访问:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() { 
+<span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>]; 
+    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span>..<span style="color:#ae81ff">5</span> { 
+        println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;a[{}] = {}&#34;</span>, i, a[i]); 
+    } 
+} 
+</code></pre></div><h3 id="3无限循环">3.无限循环</h3>
+<p>一般用于在循环的开始处，无法预知要循环多少次的情况下，使用loop。</p>
+<pre><code>fn main() { 
+    let s = ['R', 'U', 'N', 'O', 'O', 'B']; 
+    let mut i = 0; 
+    loop { 
+        let ch = s[i]; 
+        if ch == 'O' { 
+            break; 
+        } 
+        println!(&quot;\'{}\'&quot;, ch);
+        i += 1; 
+    } 
+}
+</code></pre><h2 id="七所有权资源管理">七、所有权，资源管理</h2>
+<h3 id="1所有权概念">1.所有权概念</h3>
+<p>所有权有以下三条规则：</p>
+<p>1.Rust 中的每个值都有一个变量，称为其所有者。</p>
+<p>2.一次只能有一个所有者。</p>
+<p>3.当所有者不在程序运行范围时，该值将被删除。</p>
+<p>这三条规则是所有权概念的基础。</p>
+<p>例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">{
+    <span style="color:#75715e">// 在声明以前，变量 s 无效
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;runoob&#34;</span>;
+    <span style="color:#75715e">// 这里是变量 s 的可用范围
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">// 变量范围已经结束，变量 s 无效
+</span></code></pre></div><h3 id="2内存分配">2.内存分配</h3>
+<p>rust会在合适的地方自动添加一个释放资源的函数调用，而不需要程序员自己去释放资源。</p>
+<p>这种简单的机制，解决了一个令程序员头疼的编程问题。</p>
+<h3 id="3变量数据交互">3.变量数据交互</h3>
+<p>多个变量可以在 Rust 中以不同的方式与相同的数据交互：</p>
+<p>比如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+<span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> x;
+</code></pre></div><p>但如果是堆的对象就有比较特殊的情况了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+<span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s1; 
+println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}, world!&#34;</span>, s1); <span style="color:#75715e">// 错误！s1 已经失效
+</span></code></pre></div><p>两个 String 对象在栈中，每个 String 对象都有一个指针指向堆中的 &ldquo;hello&rdquo; 字符串。在给 s2 赋值时，只有栈中的数据被复制了，堆中的字符串依然还是原来的字符串。</p>
+<p>当变量超出范围时，Rust 自动调用释放资源函数并清理该变量的堆内存。但是 s1 和 s2 都被释放的话堆区中的 &ldquo;hello&rdquo; 被释放两次，这是不被系统允许的。为了确保安全，在给 s2 赋值时 s1 已经无效了。</p>
+<p>可以通过克隆的方式继续使用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s1.clone();
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;s1 = {}, s2 = {}&#34;</span>, s1, s2);
+}
+</code></pre></div><p>对于函数而言，上述说法依然有效，就是情况更为复杂</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#75715e">// s 被声明有效
+</span><span style="color:#75715e"></span>
+    takes_ownership(s);
+    <span style="color:#75715e">// s 的值被当作参数传入函数
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 所以可以当作 s 已经被移动，从这里开始已经无效
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    <span style="color:#75715e">// x 被声明有效
+</span><span style="color:#75715e"></span>
+    makes_copy(x);
+    <span style="color:#75715e">// x 的值被当作参数传入函数
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 但 x 是基本类型，依然有效
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 在这里依然可以使用 x 却不能使用 s
+</span><span style="color:#75715e"></span>
+} <span style="color:#75715e">// 函数结束, x 无效, 然后是 s. 但 s 已被移动, 所以不用被释放
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">takes_ownership</span>(some_string: String) { 
+    <span style="color:#75715e">// 一个 String 参数 some_string 传入，有效
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, some_string);
+} <span style="color:#75715e">// 函数结束, 参数 some_string 在这里释放
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">makes_copy</span>(some_integer: <span style="color:#66d9ef">i32</span>) { 
+    <span style="color:#75715e">// 一个 i32 参数 some_integer 传入，有效
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, some_integer);
+} <span style="color:#75715e">// 函数结束, 参数 some_integer 是基本类型, 无需释放
+</span></code></pre></div><p>函数的返回值：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> gives_ownership();
+    <span style="color:#75715e">// gives_ownership 移动它的返回值到 s1
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#75715e">// s2 被声明有效
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">let</span> s3 <span style="color:#f92672">=</span> takes_and_gives_back(s2);
+    <span style="color:#75715e">// s2 被当作参数移动, s3 获得返回值所有权
+</span><span style="color:#75715e"></span>} <span style="color:#75715e">// s3 无效被释放, s2 被移动, s1 无效被释放.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">gives_ownership</span>() -&gt; String {
+    <span style="color:#66d9ef">let</span> some_string <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#75715e">// some_string 被声明有效
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> some_string;
+    <span style="color:#75715e">// some_string 被当作返回值移动出函数
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">takes_and_gives_back</span>(a_string: String) -&gt; String { 
+    <span style="color:#75715e">// a_string 被声明有效
+</span><span style="color:#75715e"></span>
+    a_string  <span style="color:#75715e">// a_string 被当作返回值移出函数
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="4引用与租借">4.引用与租借</h3>
+<ul>
+<li>引用</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s1;
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;s1 is {}, s2 is {}&#34;</span>, s1, s2);
+}
+</code></pre></div><p>可以看做是指针。</p>
+<ul>
+<li>租借</li>
+</ul>
+<p>引用只能租借值的所有权，在所有权变更后就会失效。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s1;
+    <span style="color:#66d9ef">let</span> s3 <span style="color:#f92672">=</span> s1;
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, s2);
+}
+</code></pre></div><p>这段程序不正确：因为 s2 租借的 s1 已经将所有权移动到 s3，所以 s2 将无法继续租借使用 s1 的所有权。如果需要使用 s2 使用该值，必须重新租借：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> s2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s1;
+    <span style="color:#66d9ef">let</span> s3 <span style="color:#f92672">=</span> s2;
+    s2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s3; <span style="color:#75715e">// 重新从 s3 租借所有权
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, s2);
+}
+</code></pre></div><h2 id="八切片">八、切片</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;broadcast&#34;</span>);
+
+    <span style="color:#66d9ef">let</span> part1 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">0</span>..<span style="color:#ae81ff">5</span>];
+    <span style="color:#66d9ef">let</span> part2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">5</span>..<span style="color:#ae81ff">9</span>];
+
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}={}+{}&#34;</span>, s, part1, part2);
+}
+</code></pre></div><p>但切片的数据不能更改值:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;runoob&#34;</span>);
+    <span style="color:#66d9ef">let</span> slice <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">0</span>..<span style="color:#ae81ff">3</span>];
+    s.push_str(<span style="color:#e6db74">&#34;yes!&#34;</span>); <span style="color:#75715e">// 错误
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;slice = {}&#34;</span>, slice);
+}
+</code></pre></div><h2 id="九str与string类型">九、str与String类型</h2>
+<p>在 Rust 中有两种常用的字符串类型：str 和 String。str 是 Rust 核心语言类型，就是本章一直在讲的字符串切片（String Slice），常常以引用的形式出现（&amp;str）</p>
+<p>。
+凡是用双引号包括的字符串常量整体的类型性质都是 &amp;str：</p>
+<p>String 类型是 Rust 标准公共库提供的一种数据类型，它的功能更完善——它支持字符串的追加、清空等实用的操作。String 和 str 除了同样拥有一个字符开始位置属性和一个字符串长度属性以外还有一个容量（capacity）属性。</p>
+<p>String 和 str 都支持切片，切片的结果是 &amp;str 类型的数据。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>];
+    <span style="color:#66d9ef">let</span> part <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>arr[<span style="color:#ae81ff">0</span>..<span style="color:#ae81ff">3</span>];
+    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> part.iter() {
+        println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, i);
+    }
+}
+</code></pre></div><h2 id="十结构体与元组">十、结构体与元组</h2>
+<h3 id="1结构体">1.结构体</h3>
+<p>Rust 中的结构体（Struct）与元组（Tuple）都可以将若干个类型不一定相同的数据捆绑在一起形成整体，但结构体的每个成员和其本身都有一个名字，这样访问它成员的时候就不用记住下标了。</p>
+<p>元组常用于非定义的多值传递，而结构体用于规范常用的数据结构。结构体的每个成员叫做&quot;字段&quot;。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Site</span> {
+    domain: String,
+    name: String,
+    nation: String,
+    found: <span style="color:#66d9ef">u32</span>
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> site <span style="color:#f92672">=</span> Site {
+    domain: String::from(<span style="color:#e6db74">&#34;www.example.com&#34;</span>),
+    name: String::from(<span style="color:#e6db74">&#34;EXAMPLE&#34;</span>),
+    ..runoob
+};
+</code></pre></div><h3 id="2元组结构体">2.元组结构体</h3>
+<p>有一种更简单的定义和使用结构体的方式：元组结构体。</p>
+<p>元组结构体是一种形式是元组的结构体。</p>
+<p>与元组的区别是它有名字和固定的类型格式。它存在的意义是为了处理那些需要定义类型（经常使用）又不想太复杂的简单数据：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Color</span>(<span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>);
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span>(<span style="color:#66d9ef">f64</span>, <span style="color:#66d9ef">f64</span>);
+
+    <span style="color:#66d9ef">let</span> black <span style="color:#f92672">=</span> Color(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+    <span style="color:#66d9ef">let</span> origin <span style="color:#f92672">=</span> Point(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>);
+
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;black = ({}, {}, {})&#34;</span>, black.<span style="color:#ae81ff">0</span>, black.<span style="color:#ae81ff">1</span>, black.<span style="color:#ae81ff">2</span>);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;origin = ({}, {})&#34;</span>, origin.<span style="color:#ae81ff">0</span>, origin.<span style="color:#ae81ff">1</span>);
+}
+</code></pre></div><h3 id="3结构体方法">3.结构体方法</h3>
+<p>方法（Method）和函数（Function）类似，只不过它是用来操作结构体实例的。</p>
+<p>如果你学习过一些面向对象的语言，那你一定很清楚函数一般放在类定义里并在函数中用 this 表示所操作的实例。</p>
+<p>Rust 语言不是面向对象的，从它所有权机制的创新可以看出这一点。但是面向对象的珍贵思想可以在 Rust 实现。</p>
+<p>结构体方法的第一个参数必须是 &amp;self，不需声明类型，因为 self 不是一种风格而是关键字。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Rectangle</span> {
+    width: <span style="color:#66d9ef">u32</span>,
+    height: <span style="color:#66d9ef">u32</span>,
+}
+
+<span style="color:#66d9ef">impl</span> Rectangle {
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">area</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">u32</span> {
+        self.width <span style="color:#f92672">*</span> self.height
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">wider</span>(<span style="color:#f92672">&amp;</span>self, rect: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Rectangle</span>) -&gt; <span style="color:#66d9ef">bool</span> {
+        self.width <span style="color:#f92672">&gt;</span> rect.width
+    }
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> rect1 <span style="color:#f92672">=</span> Rectangle { width: <span style="color:#ae81ff">30</span>, height: <span style="color:#ae81ff">50</span> };
+    <span style="color:#66d9ef">let</span> rect2 <span style="color:#f92672">=</span> Rectangle { width: <span style="color:#ae81ff">40</span>, height: <span style="color:#ae81ff">20</span> };
+
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, rect1.wider(<span style="color:#f92672">&amp;</span>rect2));
+}
+</code></pre></div><p>调用结构体方法的时候，不需要写self，是出于方便性的考虑。</p>
+<h3 id="4结构体关联函数">4.结构体关联函数</h3>
+<p>之所以&quot;结构体方法&quot;不叫&quot;结构体函数&quot;是因为&quot;函数&quot;这个名字留给了这种函数：它在 impl 块中却没有 &amp;self 参数。
+这种函数不依赖实例，但是使用它需要声明是在哪个 impl 块中的。
+一直使用的 <code>String::from</code> 函数就是一个&quot;关联函数&quot;。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[derive(Debug)]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Rectangle</span> {
+    width: <span style="color:#66d9ef">u32</span>,
+    height: <span style="color:#66d9ef">u32</span>,
+}
+
+<span style="color:#66d9ef">impl</span> Rectangle {
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">create</span>(width: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>) -&gt; <span style="color:#a6e22e">Rectangle</span> {
+        Rectangle { width, height }
+    }
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> rect <span style="color:#f92672">=</span> Rectangle::create(<span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">50</span>);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{:?}&#34;</span>, rect);
+}
+</code></pre></div><h2 id="十一枚举类">十一、枚举类</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[derive(Debug)]</span>
+
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Book</span> {
+    Papery, Electronic
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> book <span style="color:#f92672">=</span> Book::Papery;
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{:?}&#34;</span>, book);
+}
+
+</code></pre></div><p>枚举类没有C++那么方便，但也不是很难用。在print函数里面用:?，需要引入debug模块。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2frustbase%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2frustbase%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2frustbase%2f&amp;text=Rust%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

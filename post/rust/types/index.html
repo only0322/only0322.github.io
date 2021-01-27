@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Rust的数据类型" />
+<meta property="og:description" content="一、整型 整数型简称整型，按照比特位长度和有无符号分为一下种类：
+   位长度 有符号 无符号     8-bit i8 u8   16-bit i16 u16   32-bit i32 u32   64-bit i64 u64   128-bit i128 u128   arch isize usize    通过let mut a :xxx = [value]来使用，例如：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/rust/types/" />
+<meta property="article:published_time" content="2020-06-13T09:20:00+08:00" />
+<meta property="article:modified_time" content="2020-06-13T09:20:00+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rust的数据类型"/>
+<meta name="twitter:description" content="一、整型 整数型简称整型，按照比特位长度和有无符号分为一下种类：
+   位长度 有符号 无符号     8-bit i8 u8   16-bit i16 u16   32-bit i32 u32   64-bit i64 u64   128-bit i128 u128   arch isize usize    通过let mut a :xxx = [value]来使用，例如："/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rust的数据类型",
+  "url": "https://only0322.github.io/post/rust/types/",
+  "wordCount": "158",
+  "datePublished": "2020-06-13T09:20:00+08:00",
+  "dateModified": "2020-06-13T09:20:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/rust/types/">
+
+    <title>Rust的数据类型 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/types/">Rust的数据类型</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-06-13T09:20:00+08:00">Sat Jun 13, 2020</time>
+</p>
+  </header>
+  <h2 id="一整型">一、整型</h2>
+<p>整数型简称整型，按照比特位长度和有无符号分为一下种类：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位长度</th>
+<th style="text-align:center">有符号</th>
+<th style="text-align:center">无符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">8-bit</td>
+<td style="text-align:center">i8</td>
+<td style="text-align:center">u8</td>
+</tr>
+<tr>
+<td style="text-align:center">16-bit</td>
+<td style="text-align:center">i16</td>
+<td style="text-align:center">u16</td>
+</tr>
+<tr>
+<td style="text-align:center">32-bit</td>
+<td style="text-align:center">i32</td>
+<td style="text-align:center">u32</td>
+</tr>
+<tr>
+<td style="text-align:center">64-bit</td>
+<td style="text-align:center">i64</td>
+<td style="text-align:center">u64</td>
+</tr>
+<tr>
+<td style="text-align:center">128-bit</td>
+<td style="text-align:center">i128</td>
+<td style="text-align:center">u128</td>
+</tr>
+<tr>
+<td style="text-align:center">arch</td>
+<td style="text-align:center">isize</td>
+<td style="text-align:center">usize</td>
+</tr>
+</tbody>
+</table>
+<p>通过<code>let mut a :xxx = [value]</code>来使用，例如：</p>
+<p><code>let mut a :i8 = 12</code></p>
+<p>整数的表述方法有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">进制</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">十进制</td>
+<td style="text-align:center">98_222</td>
+</tr>
+<tr>
+<td style="text-align:center">十六进制</td>
+<td style="text-align:center">0xff</td>
+</tr>
+<tr>
+<td style="text-align:center">八进制</td>
+<td style="text-align:center">0o77</td>
+</tr>
+<tr>
+<td style="text-align:center">二进制</td>
+<td style="text-align:center">0b1111_0000</td>
+</tr>
+<tr>
+<td style="text-align:center">字节(只能表示 u8 型)</td>
+<td style="text-align:center">b&rsquo;A'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二浮点数型">二、浮点数型</h2>
+<p>Rust 与其它语言一样支持 32 位浮点数（f32）和 64 位浮点数（f64）。</p>
+<p>默认情况下，64.0 将表示 64 位浮点数，因为现代计算机处理器对两种浮点数计算的速度几乎相同，但 64 位浮点数精度更高。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>; <span style="color:#75715e">// f64
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y: <span style="color:#66d9ef">f32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.0</span>; <span style="color:#75715e">// f32
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>布尔型用 bool 表示，值只能为 true 或 false。</p>
+<h2 id="三字符型">三、字符型</h2>
+<p>字符型用 char 表示。</p>
+<p>Rust的 char 类型大小为 4 个字节，代表 Unicode标量值，这意味着它可以支持中文，日文和韩文字符等非英文字符甚至表情符号和零宽度空格在 Rust 中都是有效的 char 值。</p>
+<p>Unicode 值的范围从 U+0000 到 U+D7FF 和 U+E000 到 U+10FFFF （包括两端）。 但是，&ldquo;字符&quot;这个概念并不存在于 Unicode 中，因此您对&quot;字符&quot;是什么的直觉可能与Rust中的字符概念不匹配。所以一般推荐使用字符串储存 UTF-8 文字（非英文字符尽可能地出现在字符串中）。</p>
+<p>注意：由于中文文字编码有两种（GBK 和 UTF-8），所以编程中使用中文字符串有可能导致乱码的出现，这是因为源程序与命令行的文字编码不一致，所以在 Rust 中字符串和字符都必须使用 UTF-8 编码，否则编译器会报错。</p>
+<h2 id="四复合类型">四、复合类型</h2>
+<p>元组用一对 ( ) 包括的一组数据，可以包含不同种类的数据：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> tup: (<span style="color:#66d9ef">i32</span>, <span style="color:#66d9ef">f64</span>, <span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">500</span>, <span style="color:#ae81ff">6.4</span>, <span style="color:#ae81ff">1</span>);
+<span style="color:#75715e">// tup.0 等于 500
+</span><span style="color:#75715e">// tup.1 等于 6.4
+</span><span style="color:#75715e">// tup.2 等于 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> (x, y, z) <span style="color:#f92672">=</span> tup;
+<span style="color:#75715e">// y 等于 6.4
+</span></code></pre></div>
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2ftypes%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2ftypes%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2frust%2ftypes%2f&amp;text=Rust%e7%9a%84%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

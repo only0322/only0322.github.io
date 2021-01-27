@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="趣谈Linux操作系统学习笔记" />
+<meta property="og:description" content="综述 1.命令配合grep组合使用 如：ps -ef | grep &quot;zsh&quot; 这样就可以找到名称中含有zsh的进程了。
+系统初始化 1. 0号进程和1号进程 0号进程不会通过fork和kernel_thread生成 其实是一个进程管理的工具，通过kernel_thread来创建一号进程。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/geek/linux/" />
+<meta property="article:published_time" content="2020-10-30T10:38:09+08:00" />
+<meta property="article:modified_time" content="2020-10-30T10:38:09+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="趣谈Linux操作系统学习笔记"/>
+<meta name="twitter:description" content="综述 1.命令配合grep组合使用 如：ps -ef | grep &quot;zsh&quot; 这样就可以找到名称中含有zsh的进程了。
+系统初始化 1. 0号进程和1号进程 0号进程不会通过fork和kernel_thread生成 其实是一个进程管理的工具，通过kernel_thread来创建一号进程。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "趣谈Linux操作系统学习笔记",
+  "url": "https://only0322.github.io/post/geek/linux/",
+  "wordCount": "689",
+  "datePublished": "2020-10-30T10:38:09+08:00",
+  "dateModified": "2020-10-30T10:38:09+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/geek/linux/">
+
+    <title>趣谈Linux操作系统学习笔记 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/linux/">趣谈Linux操作系统学习笔记</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-10-30T10:38:09+08:00">Fri Oct 30, 2020</time>
+</p>
+  </header>
+  <h2 id="综述">综述</h2>
+<h3 id="1命令配合grep组合使用">1.命令配合grep组合使用</h3>
+<p>如：<code>ps -ef | grep &quot;zsh&quot;</code> 这样就可以找到名称中含有zsh的进程了。</p>
+<p><img src="/images/geek/linux/psef.png" alt="psef"></p>
+<h2 id="系统初始化">系统初始化</h2>
+<h3 id="1-0号进程和1号进程">1. 0号进程和1号进程</h3>
+<p>0号进程不会通过fork和kernel_thread生成 其实是一个进程管理的工具，通过kernel_thread来创建一号进程。</p>
+<p>分层的权限机制:</p>
+<p><img src="/images/geek/linux/thread0.png" alt="内核图"></p>
+<p>1号进程本质上则是一个文件，运行各种配置信息：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#960050;background-color:#1e0010">····</span>
+  <span style="color:#66d9ef">if</span> (ramdisk_execute_command) {
+    ret <span style="color:#f92672">=</span> run_init_process(ramdisk_execute_command);
+
+  }
+<span style="color:#960050;background-color:#1e0010">····</span>
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>try_to_run_init_process(<span style="color:#e6db74">&#34;/sbin/init&#34;</span>) <span style="color:#f92672">||</span>
+      <span style="color:#f92672">!</span>try_to_run_init_process(<span style="color:#e6db74">&#34;/etc/init&#34;</span>) <span style="color:#f92672">||</span>
+      <span style="color:#f92672">!</span>try_to_run_init_process(<span style="color:#e6db74">&#34;/bin/init&#34;</span>) <span style="color:#f92672">||</span>
+      <span style="color:#f92672">!</span>try_to_run_init_process(<span style="color:#e6db74">&#34;/bin/sh&#34;</span>))
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><h3 id="2ramdisk-的作用">2.ramdisk 的作用</h3>
+<p>init 终于从内核到用户态了。一开始到用户态的是 ramdisk 的 init，后来会启动真正根文件系统上的 init，成为所有用户态进程的祖先。</p>
+<p>init 程序是在文件系统上的，文件系统一定是在一个存储设备上的，例如硬盘。Linux 访问存储设备，要有驱动才能访问。如果存储系统数目很有限，那驱动可以直接放到内核里面。</p>
+<p>ramdisk是为了防止要访问的东西越来越多，对其进行统一管理的<strong>根文件系统</strong>。</p>
+<p>运行 ramdisk 上的 /init。等它运行完了就已经在用户态了。/init 这个程序会先根据存储系统的类型加载驱动，有了驱动就可以设置真正的根文件系统了。有了真正的根文件系统，ramdisk 上的 /init 会启动文件系统上的 init。</p>
+<h3 id="32号进程">3.2号进程</h3>
+<p>用来管理内核态的所有进程。</p>
+<h3 id="4系统的调用方式">4.系统的调用方式</h3>
+<p>讲述如何打开一个文件等操作。</p>
+<p><img src="/images/geek/linux/diaoyong.png" alt="调用"></p>
+<h3 id="5软连接和硬链接">5.软连接和硬链接</h3>
+<p>硬链接是通过索引节点进行的链接。在Linux中，多个文件指向同一个索引节点是允许的，像这样的链接就是硬链接。硬链接只能在同一文件系统中的文件之间进行链接，不能对目录进行创建。</p>
+<p>如果删除硬链接对应的源文件，则硬链接文件仍然存在，而且保存了原有的内容，这样可以起到防止因为误操作而错误删除文件的作用。由于硬链接是有着相同 inode 号仅文件名不同的文件，因此，删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#a6e22e">link</span> <span style="color:#a6e22e">oldfile</span> <span style="color:#a6e22e">newfile</span> 
+<span style="color:#a6e22e">ln</span> <span style="color:#a6e22e">oldfile</span> <span style="color:#a6e22e">newfile</span>
+</code></pre></div><p>软链接（也叫符号链接）与硬链接不同，文件用户数据块中存放的内容是另一文件的路径名的指向。软链接就是一个普通文件，只是数据块内容有点特殊。软链接可对文件或目录创建。</p>
+<p>软链接主要应用于以下两个方面：一是方便管理，例如可以把一个复杂路径下的文件链接到一个简单路径下方便用户访问；另一方面就是解决文件系统磁盘空间不足的情况。</p>
+<p>例如某个文件文件系统空间已经用完了，但是现在必须在该文件系统下创建一个新的目录并存储大量的文件，那么可以把另一个剩余空间较多的文件系统中的目录链接到该文件系统中，这样就可以很好的解决空间不足问题。</p>
+<p>删除软链接并不影响被指向的文件，但若被指向的原文件被删除，则相关软连接就变成了死链接。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coffee" data-lang="coffee"><span style="color:#a6e22e">ln</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">old</span>.<span style="color:#a6e22e">file</span> <span style="color:#a6e22e">soft</span>.<span style="color:#a6e22e">link</span>
+<span style="color:#a6e22e">ln</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">old</span>.<span style="color:#a6e22e">dir</span> <span style="color:#a6e22e">soft</span>.<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">dir</span>
+</code></pre></div><h2 id="进程和线程">进程和线程</h2>
+<h3 id="1进程调度">1.进程调度</h3>
+<p>Linux进程调度是将进程指针存放在红黑树中</p>
+<p><img src="/images/geek/linux/diaodu.png" alt="调度"></p>
+<h4 id="11主动调度">1.1.主动调度</h4>
+<p>这个片段可以看作写入块设备的一个典型场景。写入需要一段时间，这段时间用不上 CPU，还不如主动让给其他进程。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">btrfs_wait_for_no_snapshoting_writes</span>(<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">btrfs_root</span> <span style="color:#f92672">*</span>root)
+{
+......
+  <span style="color:#66d9ef">do</span> {
+    prepare_to_wait(<span style="color:#f92672">&amp;</span>root<span style="color:#f92672">-&gt;</span>subv_writers<span style="color:#f92672">-&gt;</span>wait, <span style="color:#f92672">&amp;</span>wait,
+        TASK_UNINTERRUPTIBLE);
+    writers <span style="color:#f92672">=</span> percpu_counter_sum(<span style="color:#f92672">&amp;</span>root<span style="color:#f92672">-&gt;</span>subv_writers<span style="color:#f92672">-&gt;</span>counter);
+    <span style="color:#66d9ef">if</span> (writers)
+      schedule();
+    finish_wait(<span style="color:#f92672">&amp;</span>root<span style="color:#f92672">-&gt;</span>subv_writers<span style="color:#f92672">-&gt;</span>wait, <span style="color:#f92672">&amp;</span>wait);
+  } <span style="color:#66d9ef">while</span> (writers);
+}
+</code></pre></div><p>网络收发，数据库操作也有点类似主动调度。</p>
+<h4 id="12抢占式调度">1.2.抢占式调度</h4>
+<p>最常见的现象就是一个进程执行时间太长了，是时候切换到另一个进程了。</p>
+<p>那怎么衡量一个进程的运行时间呢？在计算机里面有一个时钟，会过一段时间触发一次时钟中断，通知操作系统，时间又过去一个时钟周期，这是个很好的方式，可以查看是否是需要抢占的时间点。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">scheduler_tick</span>(<span style="color:#66d9ef">void</span>)
+{
+  <span style="color:#66d9ef">int</span> cpu <span style="color:#f92672">=</span> smp_processor_id();
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">rq</span> <span style="color:#f92672">*</span>rq <span style="color:#f92672">=</span> cpu_rq(cpu);
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">task_struct</span> <span style="color:#f92672">*</span>curr <span style="color:#f92672">=</span> rq<span style="color:#f92672">-&gt;</span>curr;
+......
+  curr<span style="color:#f92672">-&gt;</span>sched_class<span style="color:#f92672">-&gt;</span>task_tick(rq, curr, <span style="color:#ae81ff">0</span>);
+  cpu_load_update_active(rq);
+  calc_global_load_tick(rq);
+......
+}
+</code></pre></div><p>这个函数先取出当前 CPU 的运行队列，然后得到这个队列上当前正在运行中的进程的 task_struct，然后调用这个 task_struct 的调度类的 task_tick 函数，顾名思义这个函数就是来处理时钟事件的。</p>
+<ul>
+<li>用户态的抢占时机</li>
+</ul>
+<p>对于用户态的进程来讲，从系统调用中返回的那个时刻，是一个被抢占的时机。</p>
+<ul>
+<li>内核态的抢占时机</li>
+</ul>
+<p>在内核态的执行中，有的操作是不能被中断的，所以在进行这些操作之前，总是先调用 preempt_disable() 关闭抢占，当再次打开的时候，就是一次内核态代码被抢占的机会。</p>
+<h3 id="2进程创建流程">2.进程创建流程</h3>
+<p>第一步，复制进程结构。</p>
+<p><img src="/images/geek/linux/%E5%A4%8D%E5%88%B6%E8%BF%9B%E7%A8%8B.png" alt="复制进程"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+<span style="color:#66d9ef">static</span> __latent_entropy <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">task_struct</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">copy_process</span>(
+          <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> clone_flags,
+          <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> stack_start,
+          <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> stack_size,
+          <span style="color:#66d9ef">int</span> __user <span style="color:#f92672">*</span>child_tidptr,
+          <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">pid</span> <span style="color:#f92672">*</span>pid,
+          <span style="color:#66d9ef">int</span> trace,
+          <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> tls,
+          <span style="color:#66d9ef">int</span> node)
+{
+  <span style="color:#66d9ef">int</span> retval;
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">task_struct</span> <span style="color:#f92672">*</span>p;
+......
+  p <span style="color:#f92672">=</span> dup_task_struct(current, node);
+</code></pre></div><p>dup_task_struct 主要做了下面几件事情：</p>
+<ul>
+<li>
+<p>调用 alloc_task_struct_node 分配一个 task_struct 结构；</p>
+</li>
+<li>
+<p>调用 alloc_thread_stack_node 来创建内核栈，这里面调用 __vmalloc_node_range 分配一个连续的 THREAD_SIZE 的内存空间，赋值给 task_struct 的 void *stack 成员变量；</p>
+</li>
+<li>
+<p>调用 arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)，将 task_struct 进行复制，其实就是调用 memcpy；调用 setup_thread_stack 设置 thread_info。</p>
+</li>
+</ul>
+<p>copy_process：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+retval <span style="color:#f92672">=</span> copy_creds(p, clone_flags);
+</code></pre></div><p>轮到权限相关了，copy_creds 主要做了下面几件事情：</p>
+<ul>
+<li>调用 prepare_creds，准备一个新的 struct cred *new。如何准备呢？其实还是从内存中分配一个新的 struct cred 结构，然后调用 memcpy 复制一份父进程的 cred；</li>
+<li>接着 p-&gt;cred = p-&gt;real_cred = get_cred(new)，将新进程的“我能操作谁”和“谁能操作我”两个权限都指向新的 cred。</li>
+</ul>
+<p>重新设置进程运行统计量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+p<span style="color:#f92672">-&gt;</span>utime <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>stime <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>gtime <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+p<span style="color:#f92672">-&gt;</span>start_time <span style="color:#f92672">=</span> ktime_get_ns();
+p<span style="color:#f92672">-&gt;</span>real_start_time <span style="color:#f92672">=</span> ktime_get_boot_ns();
+</code></pre></div><p>设置调度相关变量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">retval <span style="color:#f92672">=</span> sched_fork(clone_flags, p);
+</code></pre></div><p>sched_fork 主要做了下面几件事情：</p>
+<ul>
+<li>
+<p>调用 __sched_fork，在这里面将 on_rq 设为 0，初始化 sched_entity，将里面的 exec_start、sum_exec_runtime、prev_sum_exec_runtime、vruntime 都设为 0。你还记得吗，这几个变量涉及进程的实际运行时间和虚拟运行时间。是否到时间应该被调度了，就靠它们几个；</p>
+</li>
+<li>
+<p>设置进程的状态 p-&gt;state = TASK_NEW；初始化优先级 prio、normal_prio、static_prio；</p>
+</li>
+<li>
+<p>设置调度类，如果是普通进程，就设置为 p-&gt;sched_class = &amp;fair_sched_class；调用调度类的 task_fork 函数，对于 CFS 来讲，就是调用 task_fork_fair。在这个函数里，先调用 update_curr，对于当前的进程进行统计量更新，然后把子进程和父进程的 vruntime 设成一样，最后调用 place_entity，初始化 sched_entity。这里有一个变量 sysctl_sched_child_runs_first，可以设置父进程和子进程谁先运行。如果设置了子进程先运行，即便两个进程的 vruntime 一样，也要把子进程的 sched_entity 放在前面，然后调用 resched_curr，标记当前运行的进程 TIF_NEED_RESCHED，也就是说，把父进程设置为应该被调度，这样下次调度的时候，父进程会被子进程抢占。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">retval <span style="color:#f92672">=</span> copy_files(clone_flags, p);
+retval <span style="color:#f92672">=</span> copy_fs(clone_flags, p);
+</code></pre></div><p>唤醒新的进程，设置进程的状态，同时从队列中取出。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">wake_up_new_task</span>(<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">task_struct</span> <span style="color:#f92672">*</span>p)
+{
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">rq_flags</span> rf;
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">rq</span> <span style="color:#f92672">*</span>rq;
+......
+  p<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> TASK_RUNNING;
+......
+  activate_task(rq, p, ENQUEUE_NOCLOCK);
+  p<span style="color:#f92672">-&gt;</span>on_rq <span style="color:#f92672">=</span> TASK_ON_RQ_QUEUED;
+  trace_sched_wakeup_new(p);
+  check_preempt_curr(rq, p, WF_FORK);
+......
+}
+</code></pre></div><h3 id="3创建线程">3.创建线程</h3>
+<p><img src="/images/geek/linux/%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B.png" alt="线程"></p>
+<h2 id="内存管理">内存管理</h2>
+<h3 id="1linux的段">1.Linux的段</h3>
+<h4 id="分段机制">分段机制：</h4>
+<p>段选择子和段内偏移量。段选择子就保存在咱们前面讲过的段寄存器里面。段选择子里面最重要的是段号，用作段表的索引。</p>
+<p>段表里面保存的是这个段的基地址、段的界限和特权等级等。虚拟地址中的段内偏移量应该位于 0 和段界限之间。如果段内偏移量是合法的，就将段基地址加上段内偏移量得到物理内存地址。</p>
+<p>简单来说就是将内存分段管理。</p>
+<h4 id="分页机制">分页机制：</h4>
+<p>对于物理内存，操作系统把它分成一块一块大小相同的页，这样更方便管理，例如有的内存页面长时间不用了，可以暂时写到硬盘上，称为换出。一旦需要的时候，再加载进来，叫做换入。</p>
+<p>这样可以扩大可用物理内存的大小，提高物理内存的利用率。</p>
+<p><img src="/images/geek/linux/%E9%A1%B5%E8%A1%A8.png" alt="页表"></p>
+<p>对页表再分页 可以实现节省空间的效果。</p>
+<blockquote>
+<p>我们可以把内存管理系统精细化为下面三件事情：</p>
+</blockquote>
+<blockquote>
+<p>第一，虚拟内存空间的管理，将虚拟内存分成大小相等的页；</p>
+</blockquote>
+<blockquote>
+<p>第二，物理内存的管理，将物理内存分成大小相等的页；</p>
+</blockquote>
+<blockquote>
+<p>第三，内存映射，将虚拟内存页和物理内存页映射起来，并且在内存紧张的时候可以换出到硬盘中。</p>
+</blockquote>
+<p>exec读取ELF文件的时候，一方面是解析其中的二进制数据，一方面是建立虚拟内存映射。</p>
+<h3 id="2内存模型与cpu访问">2.内存模型与CPU访问</h3>
+<h4 id="平坦内存模型">平坦内存模型</h4>
+<p>由于物理地址连续，页也是连续的，对于任何地址只需要除页号就能算出在哪一页。</p>
+<p>x86的工作模式，CPU是通过总线访问内存的。</p>
+<p><img src="/images/geek/linux/%E5%B9%B3%E5%9D%A6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="CPU工作模式"></p>
+<p>在这种模式下，CPU 也会有多个，在总线的一侧。所有的内存条组成一大片内存，在总线的另一侧，所有的 CPU 访问内存都要过总线，而且距离都是一样的，这种模式称为 SMP（Symmetric multiprocessing），即对称多处理器。</p>
+<h4 id="numa">NUMA</h4>
+<p><img src="/images/geek/linux/SMP%E5%92%8CNUMA.png" alt="SMP和NUMA"></p>
+<p>为了提高性能和可扩展性，后来有了一种更高级的模式，NUMA（Non-uniform memory access），非一致内存访问。在这种模式下，内存不是一整块。每个 CPU 都有自己的本地内存，CPU 访问本地内存不用过总线，因而速度要快很多，每个 CPU 和内存在一起，称为一个 NUMA 节点。</p>
+<p>但是，在本地内存不足的情况下，每个 CPU 都可以去另外的 NUMA 节点申请内存，这个时候访问延时就会比较长。</p>
+<p>这里需要指出的是，NUMA 往往是非连续内存模型。而非连续内存模型不一定就是 NUMA，有时候一大片内存的情况下，也会有物理内存地址不连续的情况。</p>
+<h2 id="文件系统">文件系统</h2>
+<h3 id="1文件管理结构">1.文件管理结构</h3>
+<p>树形结构，根目录-&gt;用户目录-&gt;目录-&gt;文件。</p>
+<p>Linux 内核要在自己的内存里面维护一套数据结构，来保存哪些文件被哪些进程打开和使用。</p>
+<h3 id="2硬盘存储">2.硬盘存储</h3>
+<p>通过块的方式，将文件的内容分块存储。</p>
+<h4 id="ex2和ex3的实现">ex2和ex3的实现</h4>
+<p>有点类似MySQL的B+树，分块存储，当文很大的时候，会有二次间接块来存放间接块的位置，间接块再指向数据块的位置，数据块则存放了真正的数据。</p>
+<p>文件大小继续增长，还会有三次间接块。</p>
+<h4 id="ex4的extents">ex4的Extents</h4>
+<p>Extents 可以用于存放连续的块，也就是说，我们可以把 128M 放在一个 Extents 里面。这样的话，对大文件的读写性能提高了，文件碎片也减少了。</p>
+<p>通过树形结构存储。</p>
+<h3 id="3打开文件的过程">3.打开文件的过程</h3>
+<p><img src="/images/geek/linux/%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E7%9A%84%E8%BF%87%E7%A8%8B.png" alt="流程图"></p>
+<p>文件缓存机制略。</p>
+<h2 id="输入输出系统">输入输出系统</h2>
+<h3 id="1设备分类">1.设备分类</h3>
+<p>输入输出设备我们大致可以分为两类：块设备（Block Device）和字符设备（Character Device）。</p>
+<p>块设备将信息存储在固定大小的块中，每个块都有自己的地址。硬盘就是常见的块设备。字符设备发送或接收的是字节流。而不用考虑任何块结构，没有办法寻址。鼠标就是常见的字符设备。</p>
+<p>有的设备需要读取或者写入大量数据。如果所有过程都让 CPU 协调的话，就需要占用 CPU 大量的时间，</p>
+<p>比方说，磁盘就是这样的。这种类型的设备需要支持 DMA 功能，也就是说，允许设备在 CPU 不参与的情况下，能够自行完成对内存的读写。</p>
+<h3 id="2驱动程序">2.驱动程序</h3>
+<p>驱动程序主要是为了屏蔽设备控制器的差异。</p>
+<p><img src="/images/geek/linux/%E9%A9%B1%E5%8A%A8.png" alt="驱动"></p>
+<p>在 Linux 上面，如果一个新的设备从来没有加载过驱动，也需要安装驱动。</p>
+<p>Linux 的驱动程序已经被写成和操作系统有标准接口的代码，可以看成一个标准的内核模块。在 Linux 里面，安装驱动程序，其实就是加载一个内核模块。</p>
+<h2 id="进程间通信">进程间通信</h2>
+<h3 id="1管道">1.管道</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -ef | grep 关键字 | awk <span style="color:#e6db74">&#39;{print $2}&#39;</span> | xargs kill -9
+</code></pre></div><p>其中的竖线就是匿名管道，将前一个命令的输出作为后一个命令的输入。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkfifo hello
+</code></pre></div><p>创建一个命名管道。</p>
+<p>管道有读端和写端，写入数据则需要另一个进程去读取。</p>
+<p>瀑布模型的开发流程效率比较低下，因为团队之间无法频繁地沟通。而且，管道的使用模式，也不适合进程间频繁地交换数据。</p>
+<h3 id="2共享内存与信号量">2.共享内存与信号量</h3>
+<p>操作系统拿出一块虚拟地址空间来，映射到相同的物理内存中。这样这个进程写入的东西，另外一个进程马上就能看到了。</p>
+<p>如果一个进程想要访问这一段共享内存，需要将这个内存加载到自己的虚拟地址空间的某个位置。</p>
+<p>如果两个进程 attach 同一个共享内存，大家都往里面写东西，很有可能就冲突了。例如两个进程都同时写一个地址，那先写的那个进程会发现内容被别人覆盖了。</p>
+<p>所以，这里就需要一种保护机制，使得同一个共享的资源，同时只能被一个进程访问。在 System V IPC 进程间通信机制体系中，早就想好了应对办法，就是信号量（Semaphore）。因此，信号量和共享内存往往要配合使用。</p>
+<p>信号量其实是一个计数器，主要用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。</p>
+<blockquote>
+<p>例如，你有 100 元钱，就可以将信号量设置为 100。其中 A 向你借 80 元，就会调用 P 操作，申请减去 80。</p>
+</blockquote>
+<blockquote>
+<p>如果同时 B 向你借 50 元，但是 B 的 P 操作比 A 晚，那就没有办法，只好等待 A 归还钱的时候，B 的 P 操作才能成功。</p>
+</blockquote>
+<blockquote>
+<p>之后，A 调用 V 操作，申请加上 30 元，也就是还给你 30 元，这个时候信号量有 50 元了，这时候 B 的 P 操作才能成功，才能借走这 50 元。</p>
+</blockquote>
+<h3 id="3信号">3.信号</h3>
+<p>信号可以在任何时候发送给某一进程，进程需要为这个信号配置信号处理函数。</p>
+<p>当某个信号发生的时候，就默认执行这个函数就可以了。这就相当于咱们运维一个系统应急手册，当遇到什么情况，做什么事情，都事先准备好，出了事情照着做就可以了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#a6e22e">Signal</span>     <span style="color:#a6e22e">Value</span>     <span style="color:#a6e22e">Action</span>   <span style="color:#a6e22e">Comment</span>
+<span style="color:#960050;background-color:#1e0010">──────────────────────────────────────────────────────────────────────</span>
+<span style="color:#a6e22e">SIGHUP</span>        <span style="color:#ae81ff">1</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Hangup</span> <span style="color:#a6e22e">detected</span> <span style="color:#a6e22e">on</span> <span style="color:#a6e22e">controlling</span> <span style="color:#a6e22e">terminal</span>
+                              <span style="color:#a6e22e">or</span> <span style="color:#a6e22e">death</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">controlling</span> <span style="color:#a6e22e">process</span>
+<span style="color:#a6e22e">SIGINT</span>        <span style="color:#ae81ff">2</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Interrupt</span> <span style="color:#a6e22e">from</span> <span style="color:#a6e22e">keyboard</span>
+<span style="color:#a6e22e">SIGQUIT</span>       <span style="color:#ae81ff">3</span>       <span style="color:#a6e22e">Core</span>    <span style="color:#a6e22e">Quit</span> <span style="color:#a6e22e">from</span> <span style="color:#a6e22e">keyboard</span>
+<span style="color:#a6e22e">SIGILL</span>        <span style="color:#ae81ff">4</span>       <span style="color:#a6e22e">Core</span>    <span style="color:#a6e22e">Illegal</span> <span style="color:#a6e22e">Instruction</span>
+
+
+<span style="color:#a6e22e">SIGABRT</span>       <span style="color:#ae81ff">6</span>       <span style="color:#a6e22e">Core</span>    <span style="color:#a6e22e">Abort</span> <span style="color:#a6e22e">signal</span> <span style="color:#a6e22e">from</span> <span style="color:#a6e22e">abort</span>(<span style="color:#ae81ff">3</span>)
+<span style="color:#a6e22e">SIGFPE</span>        <span style="color:#ae81ff">8</span>       <span style="color:#a6e22e">Core</span>    <span style="color:#a6e22e">Floating</span> <span style="color:#a6e22e">point</span> <span style="color:#a6e22e">exception</span>
+<span style="color:#a6e22e">SIGKILL</span>       <span style="color:#ae81ff">9</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Kill</span> <span style="color:#a6e22e">signal</span>
+<span style="color:#a6e22e">SIGSEGV</span>      <span style="color:#ae81ff">11</span>       <span style="color:#a6e22e">Core</span>    <span style="color:#a6e22e">Invalid</span> <span style="color:#a6e22e">memory</span> <span style="color:#a6e22e">reference</span>
+<span style="color:#a6e22e">SIGPIPE</span>      <span style="color:#ae81ff">13</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Broken</span> <span style="color:#a6e22e">pipe</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">write</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">pipe</span> <span style="color:#66d9ef">with</span> <span style="color:#a6e22e">no</span>
+                              <span style="color:#a6e22e">readers</span>
+<span style="color:#a6e22e">SIGALRM</span>      <span style="color:#ae81ff">14</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Timer</span> <span style="color:#a6e22e">signal</span> <span style="color:#a6e22e">from</span> <span style="color:#a6e22e">alarm</span>(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">SIGTERM</span>      <span style="color:#ae81ff">15</span>       <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">Termination</span> <span style="color:#a6e22e">signal</span>
+<span style="color:#a6e22e">SIGUSR1</span>   <span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">16</span>    <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">User</span><span style="color:#f92672">-</span><span style="color:#a6e22e">defined</span> <span style="color:#a6e22e">signal</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">SIGUSR2</span>   <span style="color:#ae81ff">31</span>,<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">17</span>    <span style="color:#a6e22e">Term</span>    <span style="color:#a6e22e">User</span><span style="color:#f92672">-</span><span style="color:#a6e22e">defined</span> <span style="color:#a6e22e">signal</span> <span style="color:#ae81ff">2</span>
+<span style="color:#960050;background-color:#1e0010">……</span>
+</code></pre></div><h3 id="4小结">4.小结</h3>
+<p>可以根据不同的通信需要，选择不同的模式。</p>
+<p>管道，记住这是命令行中常用的模式，面试问到的话，不要忘了。</p>
+<p>消息队列其实很少使用，因为有太多的用户级别的消息队列，功能更强大。</p>
+<p>共享内存加信号量是常用的模式。这个需要牢记，常见到一些知名的以 C 语言开发的开源软件都会用到它。</p>
+<p>信号更加常用，机制也比较复杂。</p>
+<h2 id="网络系统">网络系统</h2>
+<h3 id="1socket的概念">1.socket的概念</h3>
+<p>两种网络协议模型，一种是 OSI 的标准七层模型，一种是业界标准的 TCP/IP 模型。</p>
+<p><img src="/images/geek/linux/%E4%B8%A4%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B.png" alt="两种网络模型"></p>
+<p>应用层和内核互通的机制，就是通过 Socket 系统调用。</p>
+<p>所以经常有人会问，Socket 属于哪一层，其实它哪一层都不属于，它属于操作系统的概念，而非网络协议分层的概念。</p>
+<p>只不过操作系统选择对于网络协议的实现模式是，二到四层的处理代码在内核里面，七层的处理代码让应用自己去做，两者需要跨内核态和用户态通信，就需要一个系统调用完成这个衔接，这就是 Socket。</p>
+<h3 id="2tcp和udp的区别">2.tcp和udp的区别</h3>
+<blockquote>
+<p>TCP 是面向连接的，UDP 是面向无连接的。</p>
+</blockquote>
+<blockquote>
+<p>TCP 提供可靠交付，无差错、不丢失、不重复、并且按序到达；UDP 不提供可靠交付，不保证不丢失，不保证按顺序到达。</p>
+</blockquote>
+<blockquote>
+<p>TCP 是面向字节流的，发送时发的是一个流，没头没尾；UDP 是面向数据报的，一个一个地发送。</p>
+</blockquote>
+<blockquote>
+<p>TCP 是可以提供流量控制和拥塞控制的，既防止对端被压垮，也防止网络被压垮。</p>
+</blockquote>
+<h2 id="虚拟化">虚拟化</h2>
+<p>Linux一开始设计的时候没考虑到，后期会出现虚拟化技术。</p>
+<h3 id="1完全虚拟化">1.完全虚拟化</h3>
+<p>这是一种“骗人”的方式。虚拟化软件会模拟假的 CPU、内存、网络、硬盘给到我，让我自我感觉良好，感觉自己终于又像个内核了。</p>
+<h3 id="2硬件辅助虚拟化hardware-assisted-virtualization">2.硬件辅助虚拟化（Hardware-Assisted Virtualization）</h3>
+<p>对于虚拟机内核来讲，只要将标志位设为虚拟机状态，我们就可以直接在 CPU 上执行大部分的指令，不需要虚拟化软件在中间转述，除非遇到特别敏感的指令，才需要将标志位设为物理机内核态运行，这样大大提高了效率。</p>
+<p>所以，安装虚拟机的时候，我们务必要将物理 CPU 的这个标志位打开。想知道是否打开，对于 Intel，你可以查看 grep “vmx” /proc/cpuinfo；对于 AMD，你可以查看 grep “svm” /proc/cpuinfo。</p>
+<h3 id="3半虚拟化paravirtualization">3.半虚拟化（Paravirtualization）</h3>
+<p>另外就是访问网络或者硬盘的时候，为了取得更高的性能，也需要让虚拟机内核加载特殊的驱动，也是让虚拟机内核从代码层面就重新定位自己的身份，不能像访问物理机一样访问网络或者硬盘，而是用一种特殊的方式。</p>
+<p>我知道我不是物理机内核，我知道我是虚拟机，我没那么高的权限，我很可能和很多虚拟机共享物理资源，所以我要学会排队，我写硬盘其实写的是一个物理机上的文件，那我的写文件的缓存方式是不是可以变一下。</p>
+<p>我发送网络包，根本就不是发给真正的网络设备，而是给虚拟的设备，我可不可以直接在内存里面拷贝给它，等等等等。</p>
+<h2 id="容器技术">容器技术</h2>
+<p>和虚拟化技术相比，就是分出一小部分资源，专门跑一个进程。</p>
+<p>容器带来了两个好处，封装和标准。</p>
+<h3 id="优势">优势</h3>
+<ol>
+<li>持续集成</li>
+</ol>
+<p>不存在“你这里跑的起来，他那里跑不起来的情况”</p>
+<ol start="2">
+<li>弹性伸缩</li>
+</ol>
+<p>有了容器就方便多了，只要在每台机器上 docker run 一下就搞定了。</p>
+<ol start="3">
+<li>跨云迁移</li>
+</ol>
+<p>等哪天想用另一个云了，不用怕应用迁移不走，只要在另外一个云上 docker run 一下就解决了。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2flinux%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2flinux%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2flinux%2f&amp;text=%e8%b6%a3%e8%b0%88Linux%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

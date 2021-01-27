@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="常见排序算法总结" />
+<meta property="og:description" content="前置知识 排序算法的种类： 基本知识  时间复杂度  一般情况下，算法中基本操作重复执行的次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作T(n)=Ｏ(f(n)),称Ｏ(f(n)) 为算法的渐进时间复杂度，简称时间复杂度。
+最坏时间复杂度和平均时间复杂度  最坏情况下的时间复杂度称最坏时间复杂度。一般不特别说明，讨论的时间复杂度均是最坏情况下的时间复杂度。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/shuju/sort/" />
+<meta property="article:published_time" content="2020-06-07T20:54:53+08:00" />
+<meta property="article:modified_time" content="2020-06-07T20:54:53+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="常见排序算法总结"/>
+<meta name="twitter:description" content="前置知识 排序算法的种类： 基本知识  时间复杂度  一般情况下，算法中基本操作重复执行的次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作T(n)=Ｏ(f(n)),称Ｏ(f(n)) 为算法的渐进时间复杂度，简称时间复杂度。
+最坏时间复杂度和平均时间复杂度  最坏情况下的时间复杂度称最坏时间复杂度。一般不特别说明，讨论的时间复杂度均是最坏情况下的时间复杂度。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "常见排序算法总结",
+  "url": "https://only0322.github.io/post/shuju/sort/",
+  "wordCount": "633",
+  "datePublished": "2020-06-07T20:54:53+08:00",
+  "dateModified": "2020-06-07T20:54:53+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/shuju/sort/">
+
+    <title>常见排序算法总结 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/sort/">常见排序算法总结</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-06-07T20:54:53+08:00">Sun Jun 7, 2020</time>
+</p>
+  </header>
+  <h2 id="前置知识">前置知识</h2>
+<h3 id="排序算法的种类">排序算法的种类：</h3>
+<p><img src="/images/shuju/list.png" alt="图片"></p>
+<h3 id="基本知识">基本知识</h3>
+<ol>
+<li>时间复杂度</li>
+</ol>
+<p>一般情况下，算法中基本操作重复执行的次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作T(n)=Ｏ(f(n)),称Ｏ(f(n)) 为算法的渐进时间复杂度，简称时间复杂度。</p>
+<ol start="2">
+<li>最坏时间复杂度和平均时间复杂度</li>
+</ol>
+<p>最坏情况下的时间复杂度称最坏时间复杂度。一般不特别说明，讨论的时间复杂度均是最坏情况下的时间复杂度。</p>
+<ol start="3">
+<li>空间复杂度</li>
+</ol>
+<p>一个程序的空间复杂度是指运行完一个程序所需内存的大小。利用程序的空间复杂度，可以对程序的运行所需要的内存多少有个预先估计。</p>
+<ol start="4">
+<li>稳定性</li>
+</ol>
+<p>所谓稳定性是指待排序的序列中有两元素相等,排序之后它们的先后顺序不变.假如为A1,A2.它们的索引分别为1,2.则排序之后A1,A2的索引仍然是1和2.</p>
+<p>稳定也可以理解为一切皆在掌握中,元素的位置处在你在控制中.而不稳定算法有时就有点碰运气,随机的成分.当两元素相等时它们的位置在排序后可能仍然相同.但也可能不同.是未可知的。</p>
+<p>可能大部分时候我们不用考虑算法的稳定性.两个元素相等位置是前是后不重要.但有些时候稳定性确实有用处.它体现了程序的健壮性.比如你网站上针对最热门的文章或啥音乐电影之类的进行排名.由于这里排名不会像我们成绩排名会有并列第几名之说.所以出现了元素相等时也会有先后之分.如果添加进新的元素之后又要重新排名了.之前并列名次的最好是依然保持先后顺序才比较好.</p>
+<h4 id="先来张图以便日后查阅">先来张图以便日后查阅</h4>
+<p><img src="/images/shuju/sort.png" alt="图"></p>
+<h2 id="1冒泡排序">1.冒泡排序</h2>
+<h3 id="原理">原理</h3>
+<p>两次循环，外部的循环控制总的循环次数，内部的循环依次比较前后两个元素的大小，并且直接进行交换。</p>
+<h3 id="代码">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BubbleSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>length<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">++</span>)
+        {
+            count <span style="color:#f92672">++</span>;
+            <span style="color:#66d9ef">if</span>(array[j]<span style="color:#f92672">&gt;</span>array[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+            {
+                swap(array[j],array[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]);
+            }
+        }
+    }
+}
+</code></pre></div><h3 id="时间复杂度">时间复杂度</h3>
+<p>因为冒泡排序需要开两层循环，第一层是N，第二层是N-1，因此时间复杂度就是O(n^2)，并且还是稳定的，最好最坏和平均都是O(n^2)。</p>
+<h3 id="稳定性">稳定性</h3>
+<p>冒泡是比较两个元素的大小，不相等才会进行交换，这个时候是稳定的。 <strong>但可能由于失误，多写了一个等号，这种时候就写成了不稳定的冒泡排序了</strong></p>
+<h3 id="优化">优化</h3>
+<ul>
+<li>1.第一趟排序后将10和9交换已经有序，接下来的8趟排序就是多余的，什么也没做。所以我们可以在交换的地方加一个标记，如果那一趟排序没有交换元素，说明这组数据已经有序，不用再继续下去.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BubbleSort</span>(<span style="color:#66d9ef">int</span> arr[], <span style="color:#66d9ef">int</span> len)
+{
+	<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>)<span style="color:#75715e">//确定排序趟数
+</span><span style="color:#75715e"></span>	{
+		<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">int</span> flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> len <span style="color:#f92672">-</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; j<span style="color:#f92672">++</span>)<span style="color:#75715e">//确定比较次数
+</span><span style="color:#75715e"></span>		{
+			<span style="color:#66d9ef">if</span> (arr[j]<span style="color:#f92672">&gt;</span>arr[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])
+			{
+				<span style="color:#75715e">//交换
+</span><span style="color:#75715e"></span>				tmp <span style="color:#f92672">=</span> arr[j];
+				arr[j] <span style="color:#f92672">=</span> arr[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+				arr[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> tmp;
+				flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#75715e">//加入标记
+</span><span style="color:#75715e"></span>			}
+		}
+		<span style="color:#66d9ef">if</span> (flag <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">//如果没有交换过元素，则已经有序
+</span><span style="color:#75715e"></span>		{
+			<span style="color:#66d9ef">return</span>;
+		}
+	}
+}
+</code></pre></div><ul>
+<li>2.每次不仅仅是从头开始遍历，也会从末尾进行两个元素的比较，而内层循环的遍历只需要取长度的一半，这样会稍微增加效率。</li>
+</ul>
+<p>但两种方法最终的时间复杂度，还是O(n^2)</p>
+<h2 id="2插入排序">2.插入排序</h2>
+<h3 id="原理-1">原理</h3>
+<p>插入排序又叫直接插入排序，每次选择一个元素，插入到他应该存在的位置。</p>
+<h3 id="代码-1">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//插入排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InsertionSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> array[i];
+        <span style="color:#66d9ef">int</span> key <span style="color:#f92672">=</span> i;
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i;j<span style="color:#f92672">&lt;</span>length;j<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">if</span>(array[j]<span style="color:#f92672">&lt;</span>temp)
+            {
+                key <span style="color:#f92672">=</span> j;
+                temp <span style="color:#f92672">=</span> array[j];
+            }
+            
+        }
+        <span style="color:#66d9ef">while</span>(key <span style="color:#f92672">&gt;</span>i)
+        {
+            swap(array[key],array[key<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+            key<span style="color:#f92672">--</span>;
+        }
+
+    }
+}
+</code></pre></div><p>其实，产品经理怎么说，和需求怎么实现是两回事，这里虽然说是插入排序，但仔细分析的话，用swap交换两个元素的位置，反而会方便很多。</p>
+<h3 id="时间复杂度-1">时间复杂度</h3>
+<p>同样是两层循环，我这个写法比冒泡还会稍微慢一点。O(n^2)。</p>
+<h3 id="稳定性-1">稳定性</h3>
+<p>稳定，因为可以判断相等的话，不进行插入操作，而是找到不相等的位置，再进行插入。也和程序员的水平有关，若是简单地进行交换，就会写成不稳定的排序算法。（如上）</p>
+<h2 id="3选择排序">3.选择排序</h2>
+<h3 id="原理-2">原理</h3>
+<p>每次在未排序的数组中选择一个最小或最大的元素，放到当前的位置，通过两次循环来完成排序，这就是选择排序。</p>
+<h3 id="代码-2">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SelectionSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">int</span> min <span style="color:#f92672">=</span> i;
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i;j<span style="color:#f92672">&lt;</span>length;j<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">if</span>(array[min]<span style="color:#f92672">&gt;</span>array[j])
+            {
+                min <span style="color:#f92672">=</span> j;
+            }
+        }
+        swap(array[i],array[min]);
+    }
+}
+</code></pre></div><h3 id="时间复杂度-2">时间复杂度</h3>
+<p>O(n*n)</p>
+<h3 id="稳定性-2">稳定性</h3>
+<p>选择排序在不经过特殊处理的情况下，是不稳定的排序算法。因为有相同元素存在的情况下，先排好第一个元素，第二个若不判断大小直接swap，那也是稳定的鸭？？</p>
+<h2 id="4桶排序">4.桶排序</h2>
+<h3 id="原理-3">原理</h3>
+<p>在C++中，需要待排序的元素都是正数。然后进行以下四个步骤：1.找到这些元素的最大值。2.申请一个数组长度等于最大值+1的数组（为了包括最大值本身）。3.遍历，计算每个下标对应的数出现的次数。4.赋值整个数组的非0的数到待排序数组中。</p>
+<h3 id="代码-3">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//桶排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BucketSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> array[<span style="color:#ae81ff">0</span>];
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        max <span style="color:#f92672">=</span> max <span style="color:#f92672">&gt;</span> array[i] <span style="color:#f92672">?</span> max : array[i];
+    }
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[max<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>max;i<span style="color:#f92672">++</span>)
+    {
+        temp[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    }
+
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        temp[array[i]]<span style="color:#f92672">++</span>;
+    }
+
+    <span style="color:#66d9ef">int</span> count<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>max;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">while</span>(temp[i]<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>)
+        {
+            array[count] <span style="color:#f92672">=</span> i;
+            temp[i]<span style="color:#f92672">--</span>;
+            count<span style="color:#f92672">++</span>;
+        }
+    }
+    <span style="color:#66d9ef">delete</span>[] temp;
+}
+</code></pre></div><h3 id="时间复杂度-3">时间复杂度</h3>
+<p>四次循环，除去可能出现的重复数而进行的循环，都是线性的，O(n)。</p>
+<h3 id="稳定性-3">稳定性</h3>
+<p>对于相同的元素而言，在数组前端的会先进入数组，后端的后进入数组，根据数组遍历，也是先进先出，所以怎么就不稳定了？？</p>
+<h2 id="5快速排序">5.快速排序</h2>
+<h3 id="原理-4">原理</h3>
+<p>快速排序采用分治法，选择数组的第一个元素作为起始点，将比他小的放左边，比他大的放右边。一次循环之后，就生成了左小右大、宏观上有序的数组。</p>
+<p>然后进行遍历，直到每次生成的数组都只剩一个元素，无可排序，以达到微观上的有序。</p>
+<h3 id="代码-4">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">FastSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> left,<span style="color:#66d9ef">int</span> right)
+{
+    
+    <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">&gt;=</span> right)
+    {
+    <span style="color:#66d9ef">return</span>;
+    }
+
+    swap(array[left], array[(left <span style="color:#f92672">+</span> right) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>]);
+    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> left, j <span style="color:#f92672">=</span> right, k <span style="color:#f92672">=</span> array[left];
+    <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> j)
+    {
+        <span style="color:#66d9ef">while</span> (array[j] <span style="color:#f92672">&gt;</span> k <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">&lt;</span> j)
+        {
+            j<span style="color:#f92672">--</span>;
+        }
+        array[i<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> array[j];
+        <span style="color:#66d9ef">while</span> (array[i] <span style="color:#f92672">&lt;</span> k <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">&lt;</span> j)
+        {
+            i<span style="color:#f92672">++</span>;
+        }
+        array[j<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> array[i];
+    }
+    array[(i<span style="color:#f92672">+</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> k;
+    FastSort(array,left, (i<span style="color:#f92672">+</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+    FastSort(array,(i<span style="color:#f92672">+</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, right);
+    
+}
+</code></pre></div><h3 id="时间复杂度-4">时间复杂度</h3>
+<p>因为是用到了分治法、递归，也有一定的折半思想，故时间复杂度O(n*logn)</p>
+<p>快速排序是应用很多的一种排序算法，它虽然不是最快的，但耗时稳定，空间占用也比较平均。</p>
+<h3 id="稳定性-4">稳定性</h3>
+<p>不稳定，正因为选择了数组的第一个元素作为初始的比较子，只能控制这个元素相同的值是稳定的，其他元素放入左右的过程中，出现相同的值可能会被打乱顺序。</p>
+<h2 id="6基数排序">6.基数排序</h2>
+<h3 id="原理-5">原理</h3>
+<p>以下步骤：1.先计算数组中最大的元素的位数。2.从个位开始排序，一直排到最高位，这样一来就能得到一个有序的数组了。</p>
+<h3 id="代码-5">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RadixSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> array[<span style="color:#ae81ff">0</span>];
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> length; i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">if</span> (array[i] <span style="color:#f92672">&gt;</span> max)
+        {
+            max <span style="color:#f92672">=</span> array[i];
+        }
+    }
+    <span style="color:#66d9ef">int</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span>( max <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> ) {
+        max <span style="color:#f92672">/=</span> <span style="color:#ae81ff">10</span>;
+        d <span style="color:#f92672">++</span>;
+    }
+ 
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>tmp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[length];
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>count <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">10</span>]; <span style="color:#75715e">//计数器
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> i, j, k;
+    <span style="color:#66d9ef">int</span> radix <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> d; i<span style="color:#f92672">++</span>) <span style="color:#75715e">//进行d次排序
+</span><span style="color:#75715e"></span>    {
+        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; j<span style="color:#f92672">++</span>)
+            count[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">//每次分配前清空计数器
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> length; j<span style="color:#f92672">++</span>)
+        {
+            k <span style="color:#f92672">=</span> (array[j] <span style="color:#f92672">/</span> radix) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//统计每个桶中的记录数
+</span><span style="color:#75715e"></span>            count[k]<span style="color:#f92672">++</span>;
+        }
+        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; j<span style="color:#f92672">++</span>)
+            count[j] <span style="color:#f92672">=</span> count[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> count[j]; <span style="color:#75715e">//将tmp中的位置依次分配给每个桶
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; j<span style="color:#f92672">--</span>) <span style="color:#75715e">//将所有桶中记录依次收集到tmp中
+</span><span style="color:#75715e"></span>        {
+            k <span style="color:#f92672">=</span> (array[j] <span style="color:#f92672">/</span> radix) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>;
+            tmp[count[k] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> array[j];
+            count[k]<span style="color:#f92672">--</span>;
+        }
+        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> length; j<span style="color:#f92672">++</span>) <span style="color:#75715e">//将临时数组的内容复制到data中
+</span><span style="color:#75715e"></span>            array[j] <span style="color:#f92672">=</span> tmp[j];
+        radix <span style="color:#f92672">=</span> radix <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>;
+    }
+    <span style="color:#66d9ef">delete</span> []tmp;
+    <span style="color:#66d9ef">delete</span> []count;
+}
+</code></pre></div><h3 id="时间复杂度-5">时间复杂度</h3>
+<p>O(n+k)，其中k是整数的范围。</p>
+<h3 id="稳定性-5">稳定性</h3>
+<p>从最低位开始，是稳定的，从高位开始也可以，但需要比较麻烦的实现。</p>
+<h2 id="7希尔排序">7.希尔排序</h2>
+<h3 id="原理-6">原理</h3>
+<p>将数组分为多块，每个块进行一次直接插入排序，最后再进行一次直接插入排序。原因也很简单，直接插入排序对数据量少，或者数组基本有序的情况下，是非常快的。</p>
+<h3 id="代码-6">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ShellSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> gap<span style="color:#f92672">=</span>length<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;gap<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>;gap<span style="color:#f92672">/=</span><span style="color:#ae81ff">2</span>)
+    {
+                <span style="color:#75715e">// 直接插入排序
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>gap;i<span style="color:#f92672">&lt;</span>length;<span style="color:#f92672">++</span>i)
+        {
+            <span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i;
+            <span style="color:#66d9ef">while</span>(j<span style="color:#f92672">-</span>gap<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> array[j<span style="color:#f92672">-</span>gap]<span style="color:#f92672">&gt;</span>array[j])
+            {
+                array[j<span style="color:#f92672">-</span>gap] <span style="color:#f92672">=</span> array[j<span style="color:#f92672">-</span>gap]<span style="color:#f92672">+</span>array[j];
+                array[j]     <span style="color:#f92672">=</span> array[j<span style="color:#f92672">-</span>gap]<span style="color:#f92672">-</span>array[j];
+                array[j<span style="color:#f92672">-</span>gap] <span style="color:#f92672">=</span> array[j<span style="color:#f92672">-</span>gap]<span style="color:#f92672">-</span>array[j];
+                j<span style="color:#f92672">=</span>j<span style="color:#f92672">-</span>gap;
+            }
+        }
+    }
+}
+</code></pre></div><h3 id="时间复杂度-6">时间复杂度</h3>
+<p>小于O(n^2),大于O(n)</p>
+<h2 id="8计数排序">8.计数排序</h2>
+<h3 id="原理-7">原理</h3>
+<p>计数排序有多种说法，在此处我的实现：统计每个数比它出现次数少的数个数，然后就能将这个数放到它应该出现的位置上了。虽然这种方法很慢，很无聊。</p>
+<h3 id="代码-7">代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CountingSort</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> array,<span style="color:#66d9ef">int</span> length)
+{
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[length];
+    <span style="color:#66d9ef">int</span> now;
+    <span style="color:#66d9ef">int</span> count;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        now <span style="color:#f92672">=</span> array[i];
+        count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>length;j<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">if</span>(now<span style="color:#f92672">&gt;</span>array[j])
+            {
+                count<span style="color:#f92672">++</span>;
+            }
+        }
+        temp[count] <span style="color:#f92672">=</span> now;
+    }
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>length;i<span style="color:#f92672">++</span>)
+    {
+        array[i] <span style="color:#f92672">=</span> temp[i];
+    }
+    <span style="color:#66d9ef">delete</span>[] temp;
+}
+</code></pre></div><h3 id="时间复杂度-7">时间复杂度</h3>
+<p>由于本算法的具体含义，和桶排序，基数排序的区别都有些争议，也不好多说什么。在本例中，是O(n^2);</p>
+<h3 id="稳定性-6">稳定性</h3>
+<p>本例中，不稳定，因为只是统计了最小值的个数，若存在元素相等时，也是输出多次，已经不是原本的那些数了。</p>
+<h2 id="总结">总结</h2>
+<p>还有堆排序，归并排序，以及一些更加复杂的排序算法，等以后再补充吧！</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fsort%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fsort%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fsort%2f&amp;text=%e5%b8%b8%e8%a7%81%e6%8e%92%e5%ba%8f%e7%ae%97%e6%b3%95%e6%80%bb%e7%bb%93" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

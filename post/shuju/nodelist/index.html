@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="单链表原理与C&#43;&#43;实现" />
+<meta property="og:description" content="单链表的特点与运用场景 单链表是线性表的一种，对比顺序存储来说，链表的链式存储，也存在一定的优缺点。
+优点：适用于不确定元素的个数，以及需要频繁地进行增删元素，查找元素的情况。
+缺点：实现难度较顺序表更高，存储密度更低（同样的内存空间，需要存放节点指针的地址和存储的内容）
+单链表的数据结构 data域&ndash;存放结点值的数据域 next域&ndash;存放结点的直接后继的地址（位置）的指针域（链域）
+也正因为如此，才方便了我们插入和删除数据。
+源码
+单链表各模块详解 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/shuju/nodelist/" />
+<meta property="article:published_time" content="2020-03-22T15:42:43+08:00" />
+<meta property="article:modified_time" content="2020-03-22T15:42:43+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="单链表原理与C&#43;&#43;实现"/>
+<meta name="twitter:description" content="单链表的特点与运用场景 单链表是线性表的一种，对比顺序存储来说，链表的链式存储，也存在一定的优缺点。
+优点：适用于不确定元素的个数，以及需要频繁地进行增删元素，查找元素的情况。
+缺点：实现难度较顺序表更高，存储密度更低（同样的内存空间，需要存放节点指针的地址和存储的内容）
+单链表的数据结构 data域&ndash;存放结点值的数据域 next域&ndash;存放结点的直接后继的地址（位置）的指针域（链域）
+也正因为如此，才方便了我们插入和删除数据。
+源码
+单链表各模块详解 1."/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "单链表原理与C++实现",
+  "url": "https://only0322.github.io/post/shuju/nodelist/",
+  "wordCount": "570",
+  "datePublished": "2020-03-22T15:42:43+08:00",
+  "dateModified": "2020-03-22T15:42:43+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/shuju/nodelist/">
+
+    <title>单链表原理与C&#43;&#43;实现 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/nodelist/">单链表原理与C++实现</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-03-22T15:42:43+08:00">Sun Mar 22, 2020</time>
+</p>
+  </header>
+  <h3 id="单链表的特点与运用场景">单链表的特点与运用场景</h3>
+<p>单链表是线性表的一种，对比顺序存储来说，链表的链式存储，也存在一定的优缺点。</p>
+<p><strong>优点</strong>：适用于不确定元素的个数，以及需要频繁地进行增删元素，查找元素的情况。</p>
+<p><strong>缺点</strong>：实现难度较顺序表更高，存储密度更低（同样的内存空间，需要存放节点指针的地址和存储的内容）</p>
+<h3 id="单链表的数据结构">单链表的数据结构</h3>
+<p>data域&ndash;存放结点值的数据域
+next域&ndash;存放结点的直接后继的地址（位置）的指针域（链域）</p>
+<p><img src="/images/NodeList/Node.png" alt="单链表"></p>
+<p>也正因为如此，才方便了我们插入和删除数据。</p>
+<p><a href="https://gitee.com/onlyyyy/cpp_single_linked_list">源码</a></p>
+<h3 id="单链表各模块详解">单链表各模块详解</h3>
+<h4 id="1类的结构定义">1.类的结构定义</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> data;
+    Node <span style="color:#f92672">*</span> next;
+
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LinkList</span>
+{
+    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    Node <span style="color:#f92672">*</span> head;
+};
+</code></pre></div><p>通过一个单链表类来访问节点类的数据，其中节点的next指针类型一定要是这个额节点类，这是为了实现next指针的链式存储。</p>
+<h4 id="2链表初始化">2.链表初始化</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">LinkList<span style="color:#f92672">::</span>LinkList()
+{
+    head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+    head<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    head<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">=</span><span style="color:#66d9ef">nullptr</span>;
+}
+</code></pre></div><p>简单来说，就是创建一个新的节点指针，该节点的数据段设为0，下一节点(next)指针为空指针。</p>
+<h4 id="3链表销毁">3.链表销毁</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">LinkList<span style="color:#f92672">::~</span>LinkList()
+{
+    <span style="color:#66d9ef">delete</span> head;
+}
+</code></pre></div><p>删除头结点，链表自然也不复存在了。</p>
+<h4 id="4获取链表的长度">4.获取链表的长度</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> LinkList<span style="color:#f92672">::</span>GetLen()
+{
+    <span style="color:#66d9ef">int</span> size<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head<span style="color:#f92672">-&gt;</span>next;
+    <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)
+    {
+        size<span style="color:#f92672">++</span>;
+        p<span style="color:#f92672">=</span>p<span style="color:#f92672">-&gt;</span>next;
+    }
+    <span style="color:#66d9ef">return</span> size;
+}
+</code></pre></div><p>为什么判断的是头结点的next指针呢？其实是因为头节点在链表中的特殊性。头节点往往不存放元素，而只是为了方便管理，遍历链表用。</p>
+<p>而头节点的next指针为空，其实就代表了该链表不存在任何元素了。</p>
+<h4 id="5创建链表">5.创建链表</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> LinkList<span style="color:#f92672">::</span>CreateLinkList(<span style="color:#66d9ef">int</span> size)
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    Node <span style="color:#f92672">*</span> pnew,<span style="color:#f92672">*</span> ptemp;
+    ptemp <span style="color:#f92672">=</span> head;
+    <span style="color:#66d9ef">if</span> (size<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>)
+    {
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;输入的节点有误&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+    }
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>size;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#75715e">//不断new新的指针，将当前指针的下一节点指向新的指针
+</span><span style="color:#75715e"></span>        pnew <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;请输入第&#34;</span><span style="color:#f92672">&lt;&lt;</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;个元素的值&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        cin<span style="color:#f92672">&gt;&gt;</span>pnew<span style="color:#f92672">-&gt;</span>data;
+        pnew<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">=</span><span style="color:#66d9ef">nullptr</span>; <span style="color:#75715e">//下一节点设为空指针
+</span><span style="color:#75715e"></span>        ptemp<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pnew; <span style="color:#75715e">//当前节点的下一节点设为新的节点
+</span><span style="color:#75715e"></span>        ptemp <span style="color:#f92672">=</span> pnew;   <span style="color:#75715e">//当前节点节点设为新节点
+</span><span style="color:#75715e"></span>    }
+
+}
+</code></pre></div><p>创建链表相对复杂一点，先是new一个temp指针，通过循环的方式：为当前节点赋值，并且将当前节点的next指针置为空指针。最后将当前节点设为新节点。</p>
+<p>但要记得先为指针分配内存。</p>
+<h4 id="6遍历链表">6.遍历链表</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>showLinkList()
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    <span style="color:#66d9ef">if</span>(head<span style="color:#f92672">==</span><span style="color:#66d9ef">nullptr</span><span style="color:#f92672">&amp;&amp;</span>head<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">==</span><span style="color:#66d9ef">nullptr</span>)
+    {
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;链表为空表&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+    }
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span>head;
+    <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)
+    {
+        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+        cout<span style="color:#f92672">&lt;&lt;</span>p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;&lt;</span>endl;
+    }
+}
+
+</code></pre></div><p>如果头结点为空或者next指针为空，那链表就是空表了。
+反之，就通过<code>p=p-&gt;next</code>的方式让指针不断向后移动，同时访问其中的data。</p>
+<h4 id="7查找元素">7.查找元素</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//查找元素
+</span><span style="color:#75715e"></span>Node <span style="color:#f92672">*</span> LinkList<span style="color:#f92672">::</span>Find(<span style="color:#66d9ef">int</span> data )
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;
+    <span style="color:#66d9ef">if</span> (p<span style="color:#f92672">==</span><span style="color:#66d9ef">nullptr</span>)
+    {
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;链表为空表&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        <span style="color:#66d9ef">while</span>(p<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
+        {
+            <span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> data)
+            {
+                <span style="color:#66d9ef">return</span> p;
+
+            }
+            p<span style="color:#f92672">=</span>p<span style="color:#f92672">-&gt;</span>next;
+        }
+    }
+    <span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> data)
+    {
+        <span style="color:#66d9ef">return</span> p;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
+    }
+
+}
+</code></pre></div><p>也是借用了遍历链表的思想，返回要查找的节点值，或者是空指针。</p>
+<h4 id="8头插法">8.头插法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//在头部插入指定元素
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>InsertElemAtHead(<span style="color:#66d9ef">int</span> data)
+{
+    Node <span style="color:#f92672">*</span> newNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;    <span style="color:#75715e">//定义一个Node结点指针newNode
+</span><span style="color:#75715e"></span>    newNode<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> data;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;              <span style="color:#75715e">//定义指针p指向头结点
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (head <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {           <span style="color:#75715e">//当头结点为空时，设置newNode为头结点
+</span><span style="color:#75715e"></span>        head <span style="color:#f92672">=</span> newNode;
+    }
+    newNode<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;          <span style="color:#75715e">//将新节点插入到指定位置
+</span><span style="color:#75715e"></span>    p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> newNode;
+}
+</code></pre></div><p>分两种情况，如果是空表，那么next指针就是要插入的节点，其余不需要做处理。
+如果不是空表，那next指针还是要插入的节点，新节点的next指针指向之前的头结点。</p>
+<h4 id="9尾插法">9.尾插法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//在尾部插入指定的元素
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>InsertElemAtEnd(<span style="color:#66d9ef">int</span> data)
+{
+    Node <span style="color:#f92672">*</span> newNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;    <span style="color:#75715e">//定义一个Node结点指针newNode
+</span><span style="color:#75715e"></span>    newNode<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;         <span style="color:#75715e">//定义newNode的数据域和指针域
+</span><span style="color:#75715e"></span>    newNode<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> data;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;              <span style="color:#75715e">//定义指针p指向头结点
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (head <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {           <span style="color:#75715e">//当头结点为空时，设置newNode为头结点
+</span><span style="color:#75715e"></span>        head <span style="color:#f92672">=</span> newNode;
+    }
+    <span style="color:#66d9ef">else</span>                          <span style="color:#75715e">//循环知道最后一个节点，将newNode放置在最后
+</span><span style="color:#75715e"></span>    {
+        <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
+        {
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+        }
+        p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> newNode;
+    }
+}
+</code></pre></div><p>尾插法在处理空表的时候，逻辑是与头插法一致的。</p>
+<p>最后，也只需要将原本为空指针的next，指向新插入的元素即可。</p>
+<h4 id="10任意位置插入">10.任意位置插入</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//在指定位置插入指定元素
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>InsertElemAtIndex(<span style="color:#66d9ef">int</span> data,<span style="color:#66d9ef">int</span> n)
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    <span style="color:#66d9ef">if</span> (n<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> n<span style="color:#f92672">&gt;</span>GetLen())                   <span style="color:#75715e">//输入有误报异常
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;输入的值错误&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">else</span>
+    {
+        Node <span style="color:#f92672">*</span> ptemp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;        <span style="color:#75715e">//创建一个新的节点
+</span><span style="color:#75715e"></span>        ptemp<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> data;                     <span style="color:#75715e">//定义数据域
+</span><span style="color:#75715e"></span>        Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;                    <span style="color:#75715e">//创建一个指针指向头结点
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (n <span style="color:#f92672">&gt;</span> i)                           <span style="color:#75715e">//遍历到指定的位置
+</span><span style="color:#75715e"></span>        {
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+            i<span style="color:#f92672">++</span>;
+        }
+        ptemp<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;                 <span style="color:#75715e">//将新节点插入到指定位置
+</span><span style="color:#75715e"></span>        p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> ptemp;
+    }
+}
+
+</code></pre></div><p>指定位置插入，也就是”切断“之前的两个节点之间的联系，并且插入一个新的元素。</p>
+<h4 id="11头删法">11.头删法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//在头部删除节点
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>DeleteElemAtHead()
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;
+    <span style="color:#66d9ef">if</span> (p <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">||</span> p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+    {   <span style="color:#75715e">//判断是否为空表，报异常
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;该链表为空表&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        Node <span style="color:#f92672">*</span> ptemp <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;      <span style="color:#75715e">//创建一个占位节点
+</span><span style="color:#75715e"></span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+        ptemp <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;              <span style="color:#75715e">//将头结点的下下个节点指向占位节点
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">delete</span> p;                     <span style="color:#75715e">//删除头结点的下一个节点
+</span><span style="color:#75715e"></span>        p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        head<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> ptemp;           <span style="color:#75715e">//头结点的指针更换
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><p>通过暂存节点的方式进行处理。</p>
+<h4 id="12尾删法">12.尾删法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//在尾部删除元素
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>DeleteElemAtEnd()
+{
+    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;          <span style="color:#75715e">//创建一个指针指向头结点
+</span><span style="color:#75715e"></span>    Node <span style="color:#f92672">*</span> ptemp <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;      <span style="color:#75715e">//创建一个占位节点
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {        <span style="color:#75715e">//判断链表是否为空
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;单链表空&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)   <span style="color:#75715e">//循环到尾部的前一个
+</span><span style="color:#75715e"></span>        {
+            ptemp <span style="color:#f92672">=</span> p;            <span style="color:#75715e">//将ptemp指向尾部的前一个节点
+</span><span style="color:#75715e"></span>            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;          <span style="color:#75715e">//p指向最后一个节点
+</span><span style="color:#75715e"></span>        }
+        <span style="color:#66d9ef">delete</span> p;                <span style="color:#75715e">//删除尾部节点
+</span><span style="color:#75715e"></span>        p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        ptemp<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+    }
+}
+</code></pre></div><p>找到前一个节点，删除next指针即可。</p>
+<h4 id="13删除指定元素">13.删除指定元素</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//删除指定的数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>DeleteElemAtPoint(<span style="color:#66d9ef">int</span> data)
+{
+    Node <span style="color:#f92672">*</span> ptemp <span style="color:#f92672">=</span> Find(data);    <span style="color:#75715e">//查找到指定数据的节点位置
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (ptemp <span style="color:#f92672">==</span> head<span style="color:#f92672">-&gt;</span>next) {        <span style="color:#75715e">//判断是不是头结点的下一个节点，如果是就从头部删了它
+</span><span style="color:#75715e"></span>        LinkList Link;
+        Link.DeleteElemAtHead();
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head;          <span style="color:#75715e">//p指向头结点
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">!=</span> ptemp)      <span style="color:#75715e">//p循环到指定位置的前一个节点
+</span><span style="color:#75715e"></span>        {
+            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+        }
+        p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> ptemp<span style="color:#f92672">-&gt;</span>next;         <span style="color:#75715e">//删除指定位置的节点
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">delete</span> ptemp;
+        ptemp <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+    }
+
+}
+
+</code></pre></div><p>与查找指定元素的方法近似。</p>
+<h4 id="14删除所有节点">14.删除所有节点</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//删除所有数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> LinkList<span style="color:#f92672">::</span>DeleteAll()
+{
+    Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> head<span style="color:#f92672">-&gt;</span>next;
+    Node <span style="color:#f92672">*</span> ptemp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+    <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)                    <span style="color:#75715e">//在头结点的下一个节点逐个删除节点
+</span><span style="color:#75715e"></span>    {
+        ptemp <span style="color:#f92672">=</span> p;
+        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+        head<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> p;
+        ptemp<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        <span style="color:#66d9ef">delete</span> ptemp;
+    }
+    head<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;                 <span style="color:#75715e">//头结点的下一个节点指向NULL
+</span><span style="color:#75715e"></span>}
+
+</code></pre></div><p>逐个遍历链表，删除节点指针。</p>
+<h3 id="总结">总结</h3>
+<p>单链表看起来不难，但细节也真的不算少。如果出现了错漏，也会继续修改。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fnodelist%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fnodelist%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fnodelist%2f&amp;text=%e5%8d%95%e9%93%be%e8%a1%a8%e5%8e%9f%e7%90%86%e4%b8%8eC%2b%2b%e5%ae%9e%e7%8e%b0" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="常见正则表达式汇总" />
+<meta property="og:description" content="数字校验 数字： ^[0-9]*$ n位的数字： ^\d{n}$ 至少n位的数字： ^\d{n,}$ m-n位的数字： ^\d{m,n}$ 零和非零开头的数字： ^(0|[1-9][0-9]*)$ 非零开头的最多带两位小数的数字： ^([1-9][0-9]*)&#43;(\." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/other/regexp/" />
+<meta property="article:published_time" content="2020-06-09T13:56:23+08:00" />
+<meta property="article:modified_time" content="2020-06-09T13:56:23+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="常见正则表达式汇总"/>
+<meta name="twitter:description" content="数字校验 数字： ^[0-9]*$ n位的数字： ^\d{n}$ 至少n位的数字： ^\d{n,}$ m-n位的数字： ^\d{m,n}$ 零和非零开头的数字： ^(0|[1-9][0-9]*)$ 非零开头的最多带两位小数的数字： ^([1-9][0-9]*)&#43;(\."/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "常见正则表达式汇总",
+  "url": "https://only0322.github.io/post/other/regexp/",
+  "wordCount": "171",
+  "datePublished": "2020-06-09T13:56:23+08:00",
+  "dateModified": "2020-06-09T13:56:23+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/other/regexp/">
+
+    <title>常见正则表达式汇总 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/other/regexp/">常见正则表达式汇总</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-06-09T13:56:23+08:00">Tue Jun 9, 2020</time>
+</p>
+  </header>
+  <h3 id="数字校验">数字校验</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">数字：
+^[0-9]*$
+
+n位的数字：
+^\d{n}$
+
+至少n位的数字：
+^\d{n,}$
+
+m-n位的数字：
+^\d{m,n}$
+
+零和非零开头的数字：
+^(0|[1-9][0-9]*)$
+
+非零开头的最多带两位小数的数字：
+^([1-9][0-9]*)+(\.[0-9]{1,2})?$
+
+带1-2位小数的正数或负数：
+^(\-)?\d+(\.\d{1,2})$
+
+正数、负数、和小数：
+^(\-|\+)?\d+(\.\d+)?$
+
+有两位小数的正实数：
+^[0-9]+(\.[0-9]{2})?$
+
+有1~3位小数的正实数：
+^[0-9]+(\.[0-9]{1,3})?$
+
+非零的正整数：
+^[1-9]\d*$ 
+^([1-9][0-9]*){1,3}$
+^\+?[1-9][0-9]*$
+
+非零的负整数：
+^\-[1-9][]0-9&#34;*$
+^-[1-9]\d*$
+
+非负整数：
+^\d+$
+^[1-9]\d*|0$
+
+非正整数：
+^-[1-9]\d*|0$
+^((-\d+)|(0+))$
+
+非负浮点数：
+^\d+(\.\d+)?$
+^[1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0$
+
+非正浮点数：
+^((-\d+(\.\d+)?)|(0+(\.0+)?))$
+^(-([1-9]\d*\.\d*|0\.\d*[1-9]\d*))|0?\.0+|0$
+
+正浮点数：
+^[+]?[1-9]\d*\.\d*|0\.\d*[1-9]\d*$
+^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$
+^[+]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$ #支持科学计数法
+
+负浮点数：
+^-([1-9]\d*\.\d*|0\.\d*[1-9]\d*)$
+^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$
+^-([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$ #支持科学计数法
+
+浮点数：
+^([-+]?\d+)(\.\d+)?$
+^[-+]?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$
+^[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$ #支持科学计数法
+</code></pre></div><h3 id="字符校验">字符校验</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">汉字：
+^[\u4e00-\u9fa5]{0,}$
+
+英文和数字：
+^[A-Za-z0-9]+$
+^[A-Za-z0-9]{4,40}$
+
+长度为3-20的所有字符：
+^.{3,20}$
+
+由26个英文字母组成的字符串：
+^[A-Za-z]+$
+
+由26个大写英文字母组成的字符串：
+^[A-Z]+$
+
+由26个小写英文字母组成的字符串：
+^[a-z]+$
+
+由数字和26个英文字母组成的字符串：
+^[A-Za-z0-9]+$
+
+由数字、26个英文字母或者下划线组成的字符串：
+^\w+$
+^\w{3,20}$
+
+中文、英文、数字包括下划线：
+^[\u4E00-\u9FA5A-Za-z0-9_]+$
+
+中文、英文、数字但不包括下划线等符号：
+^[\u4E00-\u9FA5A-Za-z0-9]+$
+^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
+
+可以输入含有^%&amp;&#39;,;=?$\&#34;等字符：
+[^%&amp;&#39;,;=?$\x22]+
+
+禁止输入含有~的字符：
+[^~\x22]+
+</code></pre></div><h3 id="其他校验">其他校验</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">Email地址：
+^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
+
+域名：
+[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?
+
+url：
+[a-zA-z]+://[^\s]* 或 ^http://([\w-]+\.)+[\w-]+(/[\w-./?%<span style="color:#960050;background-color:#1e0010">&amp;</span>=]*)?$
+
+手机号码：
+^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
+
+电话号码(&#34;XXX-XXXXXXX&#34;、&#34;XXXX-XXXXXXXX&#34;、&#34;XXX-XXXXXXX&#34;、&#34;XXX-XXXXXXXX&#34;、&#34;XXXXXXX&#34;和&#34;XXXXXXXX)：
+^(\(\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+
+国内电话号码(0511-4405222、021-87888822)：
+\d{3}-\d{8}|\d{4}-\d{7}
+
+电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号）: 
+((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)
+
+身份证号(15位、18位数字)，最后一位是校验位，可能为数字或字符X：
+(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)
+
+帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：
+^[a-zA-Z][a-zA-Z0-9_]{4,15}$
+
+密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：
+^[a-zA-Z]\w{5,17}$
+
+强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间)：
+^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+
+日期格式：
+^\d{4}-\d{1,2}-\d{1,2}
+
+一年的12个月(01～09和1～12)：
+^(0?[1-9]|1[0-2])$
+
+一个月的31天(01～09和1～31)：
+^((0?[1-9])|((1|2)[0-9])|30|31)$
+
+钱的输入格式：
+    有四种钱的表示形式我们可以接受:&#34;10000.00&#34; 和 &#34;10,000.00&#34;, 和没有 &#34;分&#34; 的 &#34;10000&#34; 和 &#34;10,000&#34;：
+    ^[1-9][0-9]*$
+
+    这表示任意一个不以0开头的数字,但是,这也意味着一个字符&#34;0&#34;不通过,所以我们采用下面的形式：
+    ^(0|[1-9][0-9]*)$
+
+    一个0或者一个不以0开头的数字.我们还可以允许开头有一个负号：
+    ^(0|-?[1-9][0-9]*)$
+
+    这表示一个0或者一个可能为负的开头不为0的数字.让用户以0开头好了.把负号的也去掉,因为钱总不能是负的吧。下面我们要加的是说明可能的小数部分：
+    ^[0-9]+(.[0-9]+)?$
+
+    必须说明的是,小数点后面至少应该有1位数,所以&#34;10.&#34;是不通过的,但是 &#34;10&#34; 和 &#34;10.2&#34; 是通过的：
+    ^[0-9]+(.[0-9]{2})?$
+
+    这样我们规定小数点后面必须有两位,如果你认为太苛刻了,可以这样：
+    ^[0-9]+(.[0-9]{1,2})?$
+
+    这样就允许用户只写一位小数.下面我们该考虑数字中的逗号了,我们可以这样：
+    ^[0-9]{1,3}(,[0-9]{3})*(.[0-9]{1,2})?$
+
+    1到3个数字,后面跟着任意个 逗号+3个数字,逗号成为可选,而不是必须：
+    ^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$
+
+    #这就是最终结果了,别忘了&#34;+&#34;可以用&#34;*&#34;替代如果你觉得空字符串也可以接受的话(奇怪,为什么?)最后,别忘了在用函数时去掉去掉那个反斜杠,一般的错误都在这里
+
+xml文件：
+^([a-zA-Z]+-?)+[a-zA-Z0-9]+\\.[x|X][m|M][l|L]$
+
+中文字符的正则表达式：
+[\u4e00-\u9fa5]
+
+双字节字符：
+[^\x00-\xff] #(包括汉字在内，可以用来计算字符串的长度(一个双字节字符长度计2，ASCII字符计1))
+
+空白行的正则表达式：
+\n\s*\r #(可以用来删除空白行)
+
+HTML标记的正则表达式：
+<span style="color:#960050;background-color:#1e0010">&lt;</span>(\S*?)[^&gt;]*&gt;.*?|&lt;<span style="color:#f92672">.</span><span style="color:#960050;background-color:#1e0010">*?</span> /&gt;
+
+首尾空白字符的正则表达式：
+^\s*|\s*$或(^\s*)|(\s*$) #(可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)
+
+腾讯QQ号：
+[1-9][0-9]{4,} #(腾讯QQ号从10000开始)
+
+中国邮政编码：
+[1-9]\d{5}(?!\d) #(中国邮政编码为6位数字)
+
+IP地址：
+((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))
+</code></pre></div><h2 id="总结">总结</h2>
+<p>转载自https://vanxkr.com/2019/7/re-summary/</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fother%2fregexp%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fother%2fregexp%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fother%2fregexp%2f&amp;text=%e5%b8%b8%e8%a7%81%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e6%b1%87%e6%80%bb" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

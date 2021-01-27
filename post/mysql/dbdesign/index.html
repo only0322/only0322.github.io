@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="MySQL数据库设计思想" />
+<meta property="og:description" content="一.数据库设计的目的 主要是为了减少数据冗余，避免数据维护异常，节省空间，高效访问。
+二.数据库设计的思想 1.理论 a.范式的概念 第一范式： 数据表中所有字段都是单一属性，不可再分
+第二范式： 在第一范式的基础上，数据表中不存在非关键字段对任意候选关键字段的部分函数依赖
+注：部分函数依赖是指，存在组合关键字中的某一关键字决定非关键字的情况，所有的单关键字都符合第二范式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/mysql/dbdesign/" />
+<meta property="article:published_time" content="2020-06-07T18:27:55+08:00" />
+<meta property="article:modified_time" content="2020-06-07T18:27:55+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL数据库设计思想"/>
+<meta name="twitter:description" content="一.数据库设计的目的 主要是为了减少数据冗余，避免数据维护异常，节省空间，高效访问。
+二.数据库设计的思想 1.理论 a.范式的概念 第一范式： 数据表中所有字段都是单一属性，不可再分
+第二范式： 在第一范式的基础上，数据表中不存在非关键字段对任意候选关键字段的部分函数依赖
+注：部分函数依赖是指，存在组合关键字中的某一关键字决定非关键字的情况，所有的单关键字都符合第二范式"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL数据库设计思想",
+  "url": "https://only0322.github.io/post/mysql/dbdesign/",
+  "wordCount": "150",
+  "datePublished": "2020-06-07T18:27:55+08:00",
+  "dateModified": "2020-06-07T18:27:55+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/mysql/dbdesign/">
+
+    <title>MySQL数据库设计思想 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/dbdesign/">MySQL数据库设计思想</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-06-07T18:27:55+08:00">Sun Jun 7, 2020</time>
+</p>
+  </header>
+  <h3 id="一数据库设计的目的">一.数据库设计的目的</h3>
+<p>主要是为了减少数据冗余，避免数据维护异常，节省空间，高效访问。</p>
+<h3 id="二数据库设计的思想">二.数据库设计的思想</h3>
+<h4 id="1理论">1.理论</h4>
+<h4 id="a范式的概念">a.范式的概念</h4>
+<p>第一范式： 数据表中所有字段都是单一属性，不可再分</p>
+<p>第二范式： 在第一范式的基础上，数据表中不存在非关键字段对任意候选关键字段的部分函数依赖</p>
+<p>注：部分函数依赖是指，存在组合关键字中的某一关键字决定非关键字的情况，所有的单关键字都符合第二范式</p>
+<p>第三范式： 在第二范式的基础上，数据表中不存在非关键字段，对任意候选关键字段的传递依赖</p>
+<p>BC范式：在第三范式的基础上，数据表中不存在任何字段对任一候选关键字段的传递依赖</p>
+<p>注：也就是说如果是复合关键字，则复合关键字之间不能存在函数依赖关系</p>
+<h4 id="b异常和冗余">b.异常和冗余</h4>
+<p>1.插入异常
+如果某个实体随着另一个实体的存在而存在，即缺少某个实体时无法表示这个实体，那么这个表就存在插入异常</p>
+<p>2.更新异常
+如果更改表所对应的某个实体实例的单独属性时，需要将多行更新，那么就说这个表存在更新异常</p>
+<p>3.删除异常
+如果删除表的某一行来反映某实体实例，失效时导致另一个不同 实体实例信息丢失，那么这个表就存在删除异常</p>
+<p>4.数据冗余
+是指相同的数据在多个地方存在，或者说表中的某个列可以由其他列计算得到，这样就说表中存在数据冗余</p>
+<h4 id="2物理设计">2.物理设计</h4>
+<ol>
+<li>考虑常见的存储引擎</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">存储引擎</th>
+<th style="text-align:center">事物</th>
+<th style="text-align:center">锁粒度</th>
+<th style="text-align:center">主要应用</th>
+<th style="text-align:center">忌用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">MyISIM</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持并发插入的表级锁</td>
+<td style="text-align:center">select insert</td>
+<td style="text-align:center">读写操作频繁</td>
+</tr>
+<tr>
+<td style="text-align:center">MRG_MyISIM</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持并发插入的表级锁</td>
+<td style="text-align:center">分段归档，数据仓库</td>
+<td style="text-align:center">全局查找过多的场景</td>
+</tr>
+<tr>
+<td style="text-align:center">Innodb</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持MVCC的行级锁</td>
+<td style="text-align:center">事物处理</td>
+<td style="text-align:center">无</td>
+</tr>
+<tr>
+<td style="text-align:center">Archive</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">行级锁</td>
+<td style="text-align:center">日志记录只支持insert select</td>
+<td style="text-align:center">需要随机读取更新删除</td>
+</tr>
+<tr>
+<td style="text-align:center">Ndb cluster</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">行级锁</td>
+<td style="text-align:center">高可用性</td>
+<td style="text-align:center">大部分应用</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>表和字段的命名规则</li>
+</ol>
+<p>可读性原则： 使用大写和小写来格式化的库对象名字，获得良好的可读性。</p>
+<p>表意性原则： 对象的名字应该能够描述它所标识的对象</p>
+<p>长名性原则： 尽可能少使用或者不适用缩写</p>
+<ol start="3">
+<li>字段类型的选择原则</li>
+</ol>
+<p>3.1 列的数据类型一方面影响数据存储空间的开销，另一方面也会影响数据查询的性能。</p>
+<p>当一个列可以选择多种数据类型的时候，应该优先考虑数字类型，其次是日期或二进制类型，最后是字符类型。</p>
+<p>对于相同级别的数据类型，应该优先选择占用空间小的数据类型。</p>
+<p>以上选择 主要从下面两个角度考虑</p>
+<p>a. 在对数据进行比较（查询条件、join 条件及排序）操作时 ：同样的数据，字符处理往往比数字处理慢</p>
+<p>b.  在数据库中，数据处理以页为单位，列的长度越小，利于提升性能。</p>
+<p>3.2 char 和 varchar 如何选择</p>
+<p>a: 如果列中要存储的数据长度差不多是一致的，则应该考虑用char ;否则应该考虑用varchar 。</p>
+<p>b: 如果列中最大数据长度小于50字节，则一般也考虑用char</p>
+<p>c: 一般不宜定义大于50个字节的char类型列</p>
+<p>3.3 decimal 与 float 如何选择</p>
+<p>a: decimal用于存储精确数据 而float用于存储非精确数据。故精确数据类型只能选择用 decimal 类型</p>
+<p>b: 由于float的存储空间开销比decimal小（精确到7位小数只需要4个字节 而精确到15位小数只需要8个字节）故非精确数据优先选择float类型</p>
+<ol start="4">
+<li>其他问题</li>
+</ol>
+<p>4.1 如何选择主键
+a: 区分业务主键和数据库主键
+业务主键用于标识业务数据 ，进行表与表之间的关联 ,数据库主键为了优化数据库存储 （innodb会生成6个字节的 隐含主键）
+b: 根据数据库类型，考虑主键是否要顺序增长
+有些数据库是按主键的顺序逻辑存储的
+c: 主键字段所占空间尽可能的小
+对于使用聚族索引方式存储的表 每个索引后都附加主键的信息</p>
+<p>4.2 避免使用外键约束</p>
+<p>降低数据导入的效率
+增加维护的成本
+虽然不建议使用外键约束，但是相关联的列上面一定要建立索引
+4.3 避免使用触发器</p>
+<p>降低数据导入的效率
+可能会出现 意想不到的异常
+使业务逻辑变得复杂</p>
+<p>4.4 关于预留字段</p>
+<p>无法准确的知道预留字段的类型
+无法准确的指导预留字段的内容
+后期维护预留字段的成本同增加一个字段的成本是相同的
+严禁使用预留字段</p>
+<h1 id="5-反范式化设计-重点">5. 反范式化设计 重点</h1>
+<p>什么是反范式化？</p>
+<p>反范式化是针对 范式化而言，所谓反范式化就是为了性能和读取效率考虑而适当对第三范式的要求进行违反，而允许存在少量的数据冗余，
+换句话说反范式化就是用空间换取时间。</p>
+<p>反范式化设计的优点：减少表的关联数量、增加数据的读取效率。</p>
+<p>反范式化一定要适度。</p>
+<h3 id="结语">结语</h3>
+<p>数据库设计的优化，我决定另开一篇讲述。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fmysql%2fdbdesign%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fmysql%2fdbdesign%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fmysql%2fdbdesign%2f&amp;text=MySQL%e6%95%b0%e6%8d%ae%e5%ba%93%e8%ae%be%e8%ae%a1%e6%80%9d%e6%83%b3" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Vue&#43;Vue-cli&#43;ElementUI实战" />
+<meta property="og:description" content="用Vue和Element-ui做的点菜系统，一些基本的代码记录
+图标库使用 &lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view/&gt; &lt;i class = &#34;icon iconfont iconchild&#34;&gt;&lt;/i&gt; &lt;br&gt; &lt;i class = &#34;icon iconfont iconbrightness&#34;&gt;&lt;/i&gt; &lt;/div&gt; &lt;/template&gt; 侧边栏及样式 &lt;template&gt; &lt;div class=&#34;left-nav&#34;&gt; &lt;ul&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconaddto&#34; &gt;&lt;/i&gt; &lt;div&gt;收银&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont icondelete&#34; &gt;&lt;/i&gt; &lt;div&gt;店铺&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbrightness&#34; &gt;&lt;/i&gt; &lt;div&gt;商品&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluray&#34; &gt;&lt;/i&gt; &lt;div&gt;会员&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;统计&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;设置&lt;/div&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { } &lt;/script&gt; &lt;style &gt; ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/front/pos/" />
+<meta property="article:published_time" content="2020-05-14T21:25:25+08:00" />
+<meta property="article:modified_time" content="2020-05-14T21:25:25+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue&#43;Vue-cli&#43;ElementUI实战"/>
+<meta name="twitter:description" content="用Vue和Element-ui做的点菜系统，一些基本的代码记录
+图标库使用 &lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view/&gt; &lt;i class = &#34;icon iconfont iconchild&#34;&gt;&lt;/i&gt; &lt;br&gt; &lt;i class = &#34;icon iconfont iconbrightness&#34;&gt;&lt;/i&gt; &lt;/div&gt; &lt;/template&gt; 侧边栏及样式 &lt;template&gt; &lt;div class=&#34;left-nav&#34;&gt; &lt;ul&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconaddto&#34; &gt;&lt;/i&gt; &lt;div&gt;收银&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont icondelete&#34; &gt;&lt;/i&gt; &lt;div&gt;店铺&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbrightness&#34; &gt;&lt;/i&gt; &lt;div&gt;商品&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluray&#34; &gt;&lt;/i&gt; &lt;div&gt;会员&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;统计&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;设置&lt;/div&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { } &lt;/script&gt; &lt;style &gt; ."/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Vue+Vue-cli+ElementUI实战",
+  "url": "https://only0322.github.io/post/front/pos/",
+  "wordCount": "452",
+  "datePublished": "2020-05-14T21:25:25+08:00",
+  "dateModified": "2020-05-14T21:25:25+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/front/pos/">
+
+    <title>Vue&#43;Vue-cli&#43;ElementUI实战 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/pos/">Vue+Vue-cli+ElementUI实战</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-05-14T21:25:25+08:00">Thu May 14, 2020</time>
+</p>
+  </header>
+  <p>用Vue和Element-ui做的点菜系统，一些基本的代码记录</p>
+<h5 id="图标库使用">图标库使用</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">router-view</span>/&gt;
+    &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;icon iconfont iconchild&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;
+    &lt;<span style="color:#f92672">br</span>&gt;
+    &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;icon iconfont iconbrightness&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+</code></pre></div><h5 id="侧边栏及样式">侧边栏及样式</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vue" data-lang="vue">
+&lt;<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left-nav&#34;</span>&gt;
+    &lt;<span style="color:#f92672">ul</span>&gt;
+        &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont iconaddto&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">收银</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont icondelete&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">店铺</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont iconbrightness&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">商品</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont iconbluray&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">会员</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont iconbluetooth_link&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">统计</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+         &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon iconfont iconbluetooth_link&#34;</span> &gt;&lt;/<span style="color:#f92672">i</span>&gt;
+            &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">设置</span>&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">li</span>&gt;
+
+    &lt;/<span style="color:#f92672">ul</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">style</span> &gt;
+ .<span style="color:#a6e22e">left</span><span style="color:#f92672">-</span><span style="color:#a6e22e">nav</span>{
+     <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">fff</span>;
+     <span style="color:#a6e22e">font</span><span style="color:#f92672">-</span><span style="color:#a6e22e">size</span> <span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+     <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
+     <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">1</span><span style="color:#a6e22e">D8CE0</span>;
+     <span style="color:#66d9ef">float</span><span style="color:#f92672">:</span><span style="color:#a6e22e">left</span>;
+     <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span><span style="color:#f92672">%</span>;
+}
+.<span style="color:#a6e22e">iconfont</span>{
+     <span style="color:#a6e22e">font</span><span style="color:#f92672">-</span><span style="color:#a6e22e">size</span><span style="color:#f92672">:</span><span style="color:#ae81ff">24</span><span style="color:#a6e22e">px</span>;
+}
+.<span style="color:#a6e22e">left</span><span style="color:#f92672">-</span><span style="color:#a6e22e">nav</span> <span style="color:#a6e22e">ul</span>{
+    <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span><span style="color:#a6e22e">px</span>;
+    <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span><span style="color:#a6e22e">px</span>;
+}
+.<span style="color:#a6e22e">left</span><span style="color:#f92672">-</span><span style="color:#a6e22e">nav</span> <span style="color:#a6e22e">li</span>{
+    <span style="color:#a6e22e">list</span><span style="color:#f92672">-</span><span style="color:#a6e22e">style</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">none</span>;
+    <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
+    <span style="color:#a6e22e">border</span><span style="color:#f92672">-</span><span style="color:#a6e22e">bottom</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">px</span> <span style="color:#a6e22e">solid</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">20</span><span style="color:#a6e22e">a0ff</span>;
+    <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+</code></pre></div><p>引入的代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">leftNav</span>&gt;&lt;/<span style="color:#f92672">leftNav</span>&gt;
+    &lt;<span style="color:#f92672">router-view</span>&gt;&lt;/<span style="color:#f92672">router-view</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">leftNav</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/common/leftNav&#39;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">leftNav</span>
+  }
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h5 id="菜单栏-按钮样式">菜单栏 按钮样式</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span>&gt;
+    &lt;<span style="color:#f92672">el-row</span>&gt;
+      &lt;<span style="color:#f92672">el-col</span> <span style="color:#a6e22e">:span</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;7&#39;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pos-order&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;order-list&#39;</span>&gt;
+        &lt;<span style="color:#f92672">el-tabs</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;点餐&#34;</span>&gt;
+            &lt;<span style="color:#f92672">el-table</span> <span style="color:#a6e22e">:data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tableData&#34;</span> <span style="color:#a6e22e">border</span> <span style="color:#a6e22e">stype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width:100%&#34;</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;goodsName&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;商品名称&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;count&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;数量&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;50&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;金额&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;70&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;操作&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100&#34;</span> <span style="color:#a6e22e">fixed</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">template</span> &gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;small&#34;</span>&gt;删除&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;small&#34;</span>&gt;增加&lt;/<span style="color:#f92672">el-button</span>&gt;
+            &lt;/<span style="color:#f92672">template</span>&gt;
+            &lt;/<span style="color:#f92672">el-table</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;div-btn&#34;</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;warning&#34;</span>&gt;挂单&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;danger&#34;</span>&gt;删除&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;success&#34;</span>&gt;结账&lt;/<span style="color:#f92672">el-button</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;挂单&#34;</span>&gt;
+
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;外卖&#34;</span>&gt;
+            
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+        &lt;/<span style="color:#f92672">el-tabs</span>&gt;
+
+          
+
+      &lt;/<span style="color:#f92672">el-col</span>&gt;
+      &lt;<span style="color:#f92672">el-col</span>&gt;
+        产品栏
+      &lt;/<span style="color:#f92672">el-col</span>&gt;
+    &lt;/<span style="color:#f92672">el-row</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;pos&#39;</span>,
+  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">tableData</span><span style="color:#f92672">:</span>[
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;香辣鸡腿堡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+        },
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;吮指原味鸡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
+        },
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;香辣脆皮鸡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>
+        }
+      ]
+    }
+  },
+  
+  <span style="color:#a6e22e">mounted</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span> () {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">orderHeight</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">clientHeight</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">orderHeight</span>)
+    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;order-list&#39;</span>).<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#a6e22e">orderHeight</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;px&#39;</span>
+  }
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#75715e">&lt;!-- Add &#34;scoped&#34; attribute to limit CSS to this component only --&gt;</span>
+&lt;<span style="color:#f92672">style</span> <span style="color:#a6e22e">scoped</span>&gt;
+.<span style="color:#a6e22e">pos-order</span>{
+  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#F9FAFC</span>;
+  <span style="color:#66d9ef">border-right</span> :<span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#C0CCDA</span>;
+}
+.<span style="color:#a6e22e">div-btn</span>{
+  <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+
+</code></pre></div><h5 id="加上菜单信息">加上菜单，信息</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span>&gt;
+    &lt;<span style="color:#f92672">el-row</span>&gt;
+      &lt;<span style="color:#f92672">el-col</span> <span style="color:#a6e22e">:span</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;7&#39;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pos-order&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;order-list&#39;</span>&gt;
+        &lt;<span style="color:#f92672">el-tabs</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;点餐&#34;</span>&gt;
+            &lt;<span style="color:#f92672">el-table</span> <span style="color:#a6e22e">:data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tableData&#34;</span> <span style="color:#a6e22e">border</span> <span style="color:#a6e22e">stype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width:100%&#34;</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;goodsName&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;商品名称&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;count&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;数量&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;50&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;金额&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;70&#34;</span>&gt;&lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            &lt;<span style="color:#f92672">el-table-column</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;操作&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100&#34;</span> <span style="color:#a6e22e">fixed</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;
+              &lt;<span style="color:#f92672">template</span> <span style="color:#a6e22e">slot-scope</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scope&#34;</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;small&#34;</span>&gt;删除&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;small&#34;</span>&gt;增加&lt;/<span style="color:#f92672">el-button</span>&gt;
+            &lt;/<span style="color:#f92672">template</span>&gt;
+            &lt;/<span style="color:#f92672">el-table-column</span>&gt;
+            
+            &lt;/<span style="color:#f92672">el-table</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;div-btn&#34;</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;warning&#34;</span>&gt;挂单&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;danger&#34;</span>&gt;删除&lt;/<span style="color:#f92672">el-button</span>&gt;
+              &lt;<span style="color:#f92672">el-button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;success&#34;</span>&gt;结账&lt;/<span style="color:#f92672">el-button</span>&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;挂单&#34;</span>&gt;
+
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+          &lt;<span style="color:#f92672">el-tab-pane</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;外卖&#34;</span>&gt;
+            
+          &lt;/<span style="color:#f92672">el-tab-pane</span>&gt;
+        &lt;/<span style="color:#f92672">el-tabs</span>&gt;
+
+          
+
+      &lt;/<span style="color:#f92672">el-col</span>&gt;
+      &lt;<span style="color:#f92672">el-col</span> <span style="color:#a6e22e">:span</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;17&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;often-goods&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>&gt;常用商品&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;often-goods-list&#34;</span>&gt;
+        &lt;<span style="color:#f92672">ul</span>&gt;
+          &lt;<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">span</span>&gt;香辣鸡腿堡&lt;/<span style="color:#f92672">span</span>&gt;
+            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;o-price&#34;</span>&gt;￥15元&lt;/<span style="color:#f92672">span</span>&gt;
+          &lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;/<span style="color:#f92672">ul</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;/<span style="color:#f92672">el-col</span>&gt;
+    &lt;/<span style="color:#f92672">el-row</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;pos&#39;</span>,
+  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">tableData</span><span style="color:#f92672">:</span>[
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;香辣鸡腿堡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+        },
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;吮指原味鸡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
+        },
+        {
+          <span style="color:#a6e22e">goodsName</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;香辣脆皮鸡&#34;</span>,
+          <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>,
+          <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>
+        }
+      ]
+    }
+  },
+  
+  <span style="color:#a6e22e">mounted</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span> () {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">orderHeight</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">clientHeight</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">orderHeight</span>)
+    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;order-list&#39;</span>).<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#a6e22e">orderHeight</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;px&#39;</span>
+  }
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+<span style="color:#75715e">&lt;!-- Add &#34;scoped&#34; attribute to limit CSS to this component only --&gt;</span>
+&lt;<span style="color:#f92672">style</span> <span style="color:#a6e22e">scoped</span>&gt;
+.<span style="color:#a6e22e">pos-order</span>{
+  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#F9FAFC</span>;
+  <span style="color:#66d9ef">border-right</span> :<span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#C0CCDA</span>;
+}
+.<span style="color:#a6e22e">div-btn</span>{
+  <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+}
+.<span style="color:#a6e22e">title</span>{
+  <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+  <span style="color:#66d9ef">border-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#D3dcd6</span>;
+  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#F9FAFC</span>;
+  <span style="color:#66d9ef">padding</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+  <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">left</span>;
+}
+.<span style="color:#a6e22e">often-goods-list</span> <span style="color:#f92672">ul</span> <span style="color:#f92672">li</span>{
+  <span style="color:#66d9ef">list-style</span>:<span style="color:#66d9ef">none</span>;
+  <span style="color:#66d9ef">float</span>:<span style="color:#66d9ef">left</span>;
+  <span style="color:#66d9ef">border</span>:<span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#E5E9F2</span>;
+  <span style="color:#66d9ef">padding</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+  <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#FFF</span>;
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+
+</code></pre></div><p>截图：
+<img src="/images/Front/pos.png" alt="截图"></p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2ffront%2fpos%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2ffront%2fpos%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2ffront%2fpos%2f&amp;text=Vue%2bVue-cli%2bElementUI%e5%ae%9e%e6%88%98" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

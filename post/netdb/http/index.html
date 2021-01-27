@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Http协议详解" />
+<meta property="og:description" content="一、概述 HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。
+HTTP协议的主要特点可概括如下：
+ 1.支持客户/服务器模式。 2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。 3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。 4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/netdb/http/" />
+<meta property="article:published_time" content="2020-10-02T10:51:07+08:00" />
+<meta property="article:modified_time" content="2020-10-02T10:51:07+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Http协议详解"/>
+<meta name="twitter:description" content="一、概述 HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。
+HTTP协议的主要特点可概括如下：
+ 1.支持客户/服务器模式。 2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。 3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。 4."/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Http协议详解",
+  "url": "https://only0322.github.io/post/netdb/http/",
+  "wordCount": "138",
+  "datePublished": "2020-10-02T10:51:07+08:00",
+  "dateModified": "2020-10-02T10:51:07+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/netdb/http/">
+
+    <title>Http协议详解 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/http/">Http协议详解</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-10-02T10:51:07+08:00">Fri Oct 2, 2020</time>
+</p>
+  </header>
+  <h2 id="一概述">一、概述</h2>
+<p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。</p>
+<p>HTTP协议的主要特点可概括如下：</p>
+<ul>
+<li>1.支持客户/服务器模式。</li>
+<li>2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
+<li>3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</li>
+<li>4.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
+<li>5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
+</ul>
+<h2 id="二url">二、URL</h2>
+<p>http表示要通过HTTP协议来定位网络资源；host表示合法的Internet主机域名或者IP地址；port指定一个端口号，为空则使用缺省端口80；abs_path指定请求资源的URI；如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出，通常这个工作浏览器自动帮我们完成。</p>
+<p>也就是说百度这类的网站，其实都是访问的默认端口80。</p>
+<h2 id="三请求">三、请求</h2>
+<p>http请求由三部分组成，分别是：请求行、消息报头、请求正文。</p>
+<p>请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本，格式如下：Method Request-URI HTTP-Version CRLF<br>
+其中 Method表示请求方法；Request-URI是一个统一资源标识符；HTTP-Version表示请求的HTTP协议版本；CRLF表示回车和换行（除了作为结尾的CRLF外，不允许出现单独的CR或LF字符）。</p>
+<p><strong>请求方法（所有方法全为大写）有多种，各个方法的解释如下：</strong></p>
+<ul>
+<li>GET     请求获取Request-URI所标识的资源</li>
+<li>POST    在Request-URI所标识的资源后附加新的数据</li>
+<li>HEAD    请求获取由Request-URI所标识的资源的响应消息报头</li>
+<li>PUT     请求服务器存储一个资源，并用Request-URI作为其标识</li>
+<li>DELETE  请求服务器删除Request-URI所标识的资源</li>
+<li>TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断</li>
+<li>CONNECT 保留将来使用</li>
+<li>OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
+</ul>
+<p><strong>举个例子：</strong></p>
+<p>GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)</p>
+<p>POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。
+eg：POST /reg.jsp HTTP/ (CRLF)</p>
+<p>Accept:image/gif,image/x-xbit,&hellip; (CRLF)</p>
+<p>HOST:www.guet.edu.cn (CRLF)</p>
+<p>Content-Length:22 (CRLF)</p>
+<p>Connection:Keep-Alive (CRLF)</p>
+<p>Cache-Control:no-cache (CRLF)</p>
+<p>(CRLF)         //该CRLF表示消息报头已经结束，在此之前为消息报头</p>
+<p>user=jeffrey&amp;pwd=1234  //此行以下为提交的数据</p>
+<h2 id="四响应">四、响应</h2>
+<p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</p>
+<p>1、状态行格式如下：</p>
+<p>HTTP-Version Status-Code Reason-Phrase CRLF</p>
+<p>其中，HTTP-Version表示服务器HTTP协议的版本；Status-Code表示服务器发回的响应状态代码；Reason-Phrase表示状态代码的文本描述。
+状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
+<p>1xx：指示信息&ndash;表示请求已接收，继续处理</p>
+<p>2xx：成功&ndash;表示请求已被成功接收、理解、接受</p>
+<p>3xx：重定向&ndash;要完成请求必须进行更进一步的操作</p>
+<p>4xx：客户端错误&ndash;请求有语法错误或请求无法实现</p>
+<p>5xx：服务器端错误&ndash;服务器未能实现合法的请求</p>
+<p>常见状态代码、状态描述、说明：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ae81ff">200</span><span style="color:#960050;background-color:#1e0010">：正确的请求返回正确的结果，如果不想细分正确的请求结果都可以直接返回</span><span style="color:#ae81ff">200</span><span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#ae81ff">201</span><span style="color:#960050;background-color:#1e0010">：表示资源被正确的创建。比如说，我们</span> POST <span style="color:#960050;background-color:#1e0010">用户名、密码正确创建了一个用户就可以返回</span> <span style="color:#ae81ff">201</span><span style="color:#960050;background-color:#1e0010">。</span>
+<span style="color:#ae81ff">202</span><span style="color:#960050;background-color:#1e0010">：请求是正确的，但是结果正在处理中，这时候客户端可以通过轮询等机制继续请求。</span>
+<span style="color:#ae81ff">203</span><span style="color:#960050;background-color:#1e0010">：请求的代理服务器修改了源服务器返回的</span> <span style="color:#ae81ff">200</span> <span style="color:#960050;background-color:#1e0010">中的内容，我们通过代理服务器向服务器</span> A <span style="color:#960050;background-color:#1e0010">请求用户信息，服务器</span> A <span style="color:#960050;background-color:#1e0010">正常响应，但代理服务器命中了缓存并返回了自己的缓存内容，这时候它返回</span> <span style="color:#ae81ff">203</span> <span style="color:#960050;background-color:#1e0010">告诉我们这部分信息不一定是最新的，我们可以自行判断并处理。</span>
+<span style="color:#ae81ff">300</span><span style="color:#960050;background-color:#1e0010">：请求成功，但结果有多种选择。</span>
+<span style="color:#ae81ff">301</span><span style="color:#960050;background-color:#1e0010">：请求成功，但是资源被永久转移。比如说，我们下载的东西不在这个地址需要去到新的地址。</span>
+<span style="color:#ae81ff">303</span><span style="color:#960050;background-color:#1e0010">：使用</span> GET <span style="color:#960050;background-color:#1e0010">来访问新的地址来获取资源。</span>
+<span style="color:#ae81ff">304</span><span style="color:#960050;background-color:#1e0010">：请求的资源并没有被修改过。</span>
+<span style="color:#ae81ff">308</span><span style="color:#960050;background-color:#1e0010">：使用原有的地址请求方式来通过新地址获取资源。</span>
+<span style="color:#ae81ff">400</span><span style="color:#960050;background-color:#1e0010">：请求出现错误，比如请求头不对等。</span>
+<span style="color:#ae81ff">401</span><span style="color:#960050;background-color:#1e0010">：没有提供认证信息。请求的时候没有带上</span> Token <span style="color:#960050;background-color:#1e0010">等。</span>
+<span style="color:#ae81ff">402</span><span style="color:#960050;background-color:#1e0010">：为以后需要所保留的状态码。</span>
+<span style="color:#ae81ff">403</span><span style="color:#960050;background-color:#1e0010">：请求的资源不允许访问。就是说没有权限。</span>
+<span style="color:#ae81ff">404</span><span style="color:#960050;background-color:#1e0010">：请求的内容不存在。</span>
+<span style="color:#ae81ff">406</span><span style="color:#960050;background-color:#1e0010">：请求的资源并不符合要求。</span>
+<span style="color:#ae81ff">408</span><span style="color:#960050;background-color:#1e0010">：客户端请求超时。</span>
+<span style="color:#ae81ff">413</span><span style="color:#960050;background-color:#1e0010">：请求体过大。</span>
+<span style="color:#ae81ff">415</span><span style="color:#960050;background-color:#1e0010">：类型不正确。</span>
+<span style="color:#ae81ff">416</span><span style="color:#960050;background-color:#1e0010">：请求的区间无效。</span>
+<span style="color:#ae81ff">500</span><span style="color:#960050;background-color:#1e0010">：服务器错误。</span>
+<span style="color:#ae81ff">501</span><span style="color:#960050;background-color:#1e0010">：请求还没有被实现。</span>
+<span style="color:#ae81ff">502</span><span style="color:#960050;background-color:#1e0010">：网关错误。</span>
+<span style="color:#ae81ff">503</span><span style="color:#960050;background-color:#1e0010">：服务暂时不可用。服务器正好在更新代码重启。</span>
+<span style="color:#ae81ff">505</span><span style="color:#960050;background-color:#1e0010">：请求的</span> HTTP <span style="color:#960050;background-color:#1e0010">版本不支持。</span>
+
+</code></pre></div><h2 id="五消息报头">五、消息报头</h2>
+<p>TTP消息由客户端到服务器的请求和服务器到客户端的响应组成。请求消息和响应消息都是由开始行（对于请求消息，开始行就是请求行，对于响应消息，开始行就是状态行），消息报头（可选），空行（只有CRLF的行），消息正文（可选）组成。</p>
+<p>HTTP消息报头包括普通报头、请求报头、响应报头、实体报头。
+每一个报头域都是由名字+“：”+空格+值 组成，消息报头域的名字是大小写无关的。</p>
+<ul>
+<li>
+<p>1、普通报头
+在普通报头中，有少数报头域用于所有的请求和响应消息，但并不用于被传输的实体，只用于传输的消息。</p>
+</li>
+<li>
+<p>2、请求报头
+请求报头允许客户端向服务器端传递请求的附加信息以及客户端自身的信息。</p>
+</li>
+<li>
+<p>3、响应报头
+响应报头允许服务器传递不能放在状态行中的附加响应信息，以及关于服务器的信息和对Request-URI所标识的资源进行下一步访问的信息。</p>
+</li>
+<li>
+<p>4、实体报头
+请求和响应消息都可以传送一个实体。一个实体由实体报头域和实体正文组成，但并不是说实体报头域和实体正文要在一起发送，可以只发送实体报头域。实体报头定义了关于实体正文（eg：有无实体正文）和请求所标识的资源的元信息。</p>
+</li>
+</ul>
+<p><strong>HTTP与HTTPS区别</strong></p>
+<ul>
+<li>
+<p>1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。</p>
+</li>
+<li>
+<p>2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。</p>
+</li>
+<li>
+<p>3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p>
+</li>
+<li>
+<p>4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p>
+</li>
+</ul>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fhttp%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fhttp%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fhttp%2f&amp;text=Http%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

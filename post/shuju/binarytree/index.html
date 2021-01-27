@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="用C&#43;&#43;实现一个二叉树" />
+<meta property="og:description" content="什么是二叉树 在计算机科学中，二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。
+二叉树的主要特点 查找较为方便，如果是左子树比节点小，右子树比节点大的这种方式，在查找的过程中其实就实现了一个”部分“的二分查找。这种二叉树只要不是偏二叉树的话，查找的效率会比线性表快很多。
+二叉树不是线性表，因为它并不是线性结构，而是树形的。二叉树不能一次就遍历完整棵树，而是要通过递归的方式。
+优点：搜索和排序效率极高 缺点：插入和删除略微麻烦，且实现起来比链表更难。
+源码" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/shuju/binarytree/" />
+<meta property="article:published_time" content="2020-04-25T06:20:47+08:00" />
+<meta property="article:modified_time" content="2020-04-25T06:20:47+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="用C&#43;&#43;实现一个二叉树"/>
+<meta name="twitter:description" content="什么是二叉树 在计算机科学中，二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。
+二叉树的主要特点 查找较为方便，如果是左子树比节点小，右子树比节点大的这种方式，在查找的过程中其实就实现了一个”部分“的二分查找。这种二叉树只要不是偏二叉树的话，查找的效率会比线性表快很多。
+二叉树不是线性表，因为它并不是线性结构，而是树形的。二叉树不能一次就遍历完整棵树，而是要通过递归的方式。
+优点：搜索和排序效率极高 缺点：插入和删除略微麻烦，且实现起来比链表更难。
+源码"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "用C++实现一个二叉树",
+  "url": "https://only0322.github.io/post/shuju/binarytree/",
+  "wordCount": "752",
+  "datePublished": "2020-04-25T06:20:47+08:00",
+  "dateModified": "2020-04-25T06:20:47+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/shuju/binarytree/">
+
+    <title>用C&#43;&#43;实现一个二叉树 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/binarytree/">用C++实现一个二叉树</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-04-25T06:20:47+08:00">Sat Apr 25, 2020</time>
+</p>
+  </header>
+  <h3 id="什么是二叉树">什么是二叉树</h3>
+<p>在计算机科学中，二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。</p>
+<h3 id="二叉树的主要特点">二叉树的主要特点</h3>
+<p>查找较为方便，如果是左子树比节点小，右子树比节点大的这种方式，在查找的过程中其实就实现了一个”部分“的二分查找。这种二叉树只要不是偏二叉树的话，查找的效率会比线性表快很多。</p>
+<p>二叉树不是线性表，因为它并不是线性结构，而是树形的。二叉树不能一次就遍历完整棵树，而是要通过递归的方式。</p>
+<p>优点：搜索和排序效率极高
+缺点：插入和删除略微麻烦，且实现起来比链表更难。</p>
+<p><a href="http://localhost:1313/post/binarytree/">源码</a></p>
+<h3 id="二叉树的具体实现">二叉树的具体实现</h3>
+<h4 id="1类定义">1.类定义</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> data;
+	Node <span style="color:#f92672">*</span> left; <span style="color:#75715e">//左右子树
+</span><span style="color:#75715e"></span>	Node <span style="color:#f92672">*</span> right;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Node();
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BTree</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Node <span style="color:#f92672">*</span> root;
+};
+</code></pre></div><p>二叉树的类定义和其他数据结构其实没有太大的区别，节点类包括元素值，左右子树的指针，而二叉树本身就只有一个根节点了。</p>
+<h4 id="2构造函数">2.构造函数</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">BTree<span style="color:#f92672">::</span>BTree()
+{
+	root <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+}
+</code></pre></div><p>构造函数我个人喜欢简单的实现，这里只有最基本的初始化根节点的操作。</p>
+<h4 id="3析构函数">3.析构函数</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">BTree<span style="color:#f92672">::~</span>BTree()
+{
+	Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> root;
+	destory(p);
+}
+</code></pre></div><p>析构函数其实是调用了一个销毁二叉树的方法，这个函数之后再说。</p>
+<h4 id="4创建二叉树">4.创建二叉树</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//创建二叉树 递归
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>create(Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>p,Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>temp)
+{
+    <span style="color:#75715e">//保证二叉树满足 左子树小于根节点，右子树大于根节点
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//p是新的节点，temp是从root开始遍历的节点
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>(temp <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		temp <span style="color:#f92672">=</span> p;
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+		<span style="color:#75715e">//根节点有值了，判断大小
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>(temp<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> p<span style="color:#f92672">-&gt;</span>data )
+		{
+			cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;the same value is not allowed&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		}
+        <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&lt;</span> temp<span style="color:#f92672">-&gt;</span>data) <span style="color:#75715e">//新节点比根节点小，就去左边递归
+</span><span style="color:#75715e"></span>        {
+            create(p,temp<span style="color:#f92672">-&gt;</span>left);
+		}
+        <span style="color:#66d9ef">else</span> <span style="color:#75715e">//p-&gt;data &gt; root-&gt;data //反之去右边递归
+</span><span style="color:#75715e"></span>		{
+            create(p,temp<span style="color:#f92672">-&gt;</span>right);
+		}
+
+	}
+
+}
+</code></pre></div><p>创建二叉树的过程稍微简单一点，我选择先输入根节点的值，创建二叉树，之后再调用这个函数去通过递归的方式创建各个子树。</p>
+<p>外部代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter the root&#39;s value&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+    tree.root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+    cin<span style="color:#f92672">&gt;&gt;</span>tree.root<span style="color:#f92672">-&gt;</span>data;
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
+    {
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter the value or -999 to exit&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        cin<span style="color:#f92672">&gt;&gt;</span>value;
+        <span style="color:#66d9ef">if</span>(value <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">999</span>)
+        {
+            <span style="color:#66d9ef">break</span>;
+        }
+
+        Node <span style="color:#f92672">*</span> p <span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> Node;
+        <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+        p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> value;
+        p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        tree.create(p,tree.root);
+
+    }
+    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;the binary tree has been created&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+</code></pre></div><p>这样一来，就不需要判断二叉树是否为空，当前是否为根节点等等问题了，函数内部只需要关心创建的细节。</p>
+<p>在创建的时候，我选择让二叉树的左子树全部小于根节点，右子树全部大于根节点，这就实现了一个<strong>二叉搜索树</strong>。同时不支持重复的节点，想看看能否通过代码去判断出这一问题。</p>
+<h4 id="5遍历">5.遍历</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//中序遍历
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>showroot(Node <span style="color:#f92672">*</span> p)
+{
+	<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)
+	{
+		showroot(p<span style="color:#f92672">-&gt;</span>left);
+		cout<span style="color:#f92672">&lt;&lt;</span>p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;&lt;</span>endl;
+		showroot(p<span style="color:#f92672">-&gt;</span>right);
+	}
+}
+
+
+<span style="color:#75715e">//先序遍历
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>showhead(Node <span style="color:#f92672">*</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)
+	{
+		cout<span style="color:#f92672">&lt;&lt;</span>p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;&lt;</span>endl;
+		showhead(p<span style="color:#f92672">-&gt;</span>left);
+		showhead(p<span style="color:#f92672">-&gt;</span>right);
+
+	}
+}
+
+
+<span style="color:#75715e">//后序遍历
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>showtail(Node <span style="color:#f92672">*</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)
+	{
+
+		showhead(p<span style="color:#f92672">-&gt;</span>left);
+		showhead(p<span style="color:#f92672">-&gt;</span>right);
+		cout<span style="color:#f92672">&lt;&lt;</span>p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;&lt;</span>endl;
+	}
+}
+</code></pre></div><p>二叉树的遍历是我见过最简单的数据结构代码，没有之一。通过递归调用，考虑清楚是先递归还是先输出根节点，就可以实现了。</p>
+<h4 id="6插入">6.插入</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>insert(<span style="color:#66d9ef">int</span> value,Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>p,Node <span style="color:#f92672">*</span> last)
+{
+	<span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span><span style="color:#f92672">&amp;&amp;</span>p<span style="color:#f92672">==</span>root) <span style="color:#75715e">//如果根节点为空，表示这是一个空链表，需要new根节点了
+</span><span style="color:#75715e"></span>	{
+		root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+		root<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> value;
+		<span style="color:#66d9ef">return</span>;
+	}
+	<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">!=</span><span style="color:#66d9ef">nullptr</span>)  <span style="color:#75715e">//当前位置无法提供插入
+</span><span style="color:#75715e"></span>	{
+        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;当前的值为&#34;</span><span style="color:#f92672">&lt;&lt;</span>p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;&lt;</span>endl;
+        <span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&gt;</span> value) <span style="color:#75715e">//当前节点比要插入的值大 往左边寻找空节点
+</span><span style="color:#75715e"></span>		{
+            insert(value,p<span style="color:#f92672">-&gt;</span>left,p);
+		}
+        <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&lt;</span> value) <span style="color:#75715e">//反之去右边寻找
+</span><span style="color:#75715e"></span>		{
+            insert(value,p<span style="color:#f92672">-&gt;</span>right,p);
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#75715e">//重复的元素暂不支持
+</span><span style="color:#75715e"></span>		{
+			cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;the same value is not be allowed&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+			<span style="color:#66d9ef">return</span> ;
+		}
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">==</span><span style="color:#66d9ef">nullptr</span>)
+	{
+		p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node;
+		p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> value;
+		<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&gt;</span>last<span style="color:#f92672">-&gt;</span>data)
+		{
+			last<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> p;<span style="color:#75715e">//左边比右边小
+</span><span style="color:#75715e"></span>		}
+		<span style="color:#66d9ef">else</span>
+		{
+			last <span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> p;
+		}
+		<span style="color:#66d9ef">return</span> ;
+
+	}
+}
+</code></pre></div><p>插入也是用递归查找的方式，当目前的节点有值的时候，判断比这个值大还是小，就往左右子树进行遍历。</p>
+<h4 id="7查询">7.查询</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Node <span style="color:#f92672">*</span> BTree<span style="color:#f92672">::</span>search(<span style="color:#66d9ef">int</span> value, Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;value not found&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> value)
+	{
+		cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;value has been found &#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		cout<span style="color:#f92672">&lt;&lt;</span> p<span style="color:#f92672">&lt;&lt;</span>endl;
+		<span style="color:#66d9ef">return</span> p;
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&lt;</span>value)
+	{
+        <span style="color:#66d9ef">return</span> search(value,p<span style="color:#f92672">-&gt;</span>right);
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">search</span>(value,p<span style="color:#f92672">-&gt;</span>left);
+	}
+}
+</code></pre></div><p>典型的二分查找，思路和插入是一样的。</p>
+<h4 id="8插入根节点">8.插入根节点</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>insertRoot(Node <span style="color:#f92672">*&amp;</span>p, Node <span style="color:#f92672">*&amp;</span>temp)
+{
+
+	<span style="color:#75715e">//p是新的节点，temp是之前的head
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>(temp <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		root <span style="color:#f92672">=</span> p; <span style="color:#75715e">//空树
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#66d9ef">else</span>
+	{
+        <span style="color:#66d9ef">if</span>(search(p<span style="color:#f92672">-&gt;</span>data,temp))
+        {
+            cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;the same value is not allowed&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+            <span style="color:#66d9ef">return</span>;
+        }
+		<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> temp<span style="color:#f92672">-&gt;</span>data)
+		{
+			cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;the same value is not allowed&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>data<span style="color:#f92672">&gt;</span>temp<span style="color:#f92672">-&gt;</span>data)<span style="color:#75715e">//新的根节点比之前的大
+</span><span style="color:#75715e"></span>		{
+			p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> temp;
+			root <span style="color:#f92672">=</span> p;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#75715e">//新的根节点比之前的小，那么右子树就是原先的根节点了
+</span><span style="color:#75715e"></span>		{
+			p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> temp;
+			root <span style="color:#f92672">=</span> p;
+		}
+	}
+
+}
+</code></pre></div><p>一个没有太大用的功能。</p>
+<h4 id="9求长度节点的个数">9.求长度（节点的个数）</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> BTree<span style="color:#f92672">::</span>getlength(Node <span style="color:#f92672">*</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">getlength</span>(p<span style="color:#f92672">-&gt;</span>left)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>getlength(p<span style="color:#f92672">-&gt;</span>right);
+	}
+}
+</code></pre></div><p>通过递归的方式，每当这个节点有值，二叉树的节点个数就+1，并且递归到下一个节点</p>
+<h4 id="10求深度">10.求深度</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> BTree<span style="color:#f92672">::</span>getdepth(Node <span style="color:#f92672">*</span>p,<span style="color:#66d9ef">int</span> depth)
+{
+	<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">==</span><span style="color:#66d9ef">nullptr</span>)
+	{
+		<span style="color:#66d9ef">return</span> depth;
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">max</span>(getdepth(p<span style="color:#f92672">-&gt;</span>left,depth<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>),getdepth(p<span style="color:#f92672">-&gt;</span>right,depth<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>));
+}
+</code></pre></div><p>代码和求长度比较类似，但核心在于求出左右子树深度的最大值，而不是累加在一起。</p>
+<h4 id="11删除某个节点">11.删除某个节点</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Node <span style="color:#f92672">*</span> BTree<span style="color:#f92672">::</span>deleteNode(<span style="color:#66d9ef">int</span> value, Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;data not found&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		<span style="color:#66d9ef">return</span> p;<span style="color:#75715e">//空节点不能删除
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (value <span style="color:#f92672">&lt;</span> p<span style="color:#f92672">-&gt;</span>data)
+	{
+        p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> deleteNode(value,p<span style="color:#f92672">-&gt;</span>left); <span style="color:#75715e">//删除后的值改对应链接
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(value <span style="color:#f92672">&gt;</span> p<span style="color:#f92672">-&gt;</span>data)
+	{
+        p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> deleteNode(value,p<span style="color:#f92672">-&gt;</span>right);
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#75715e">//查找到元素 value == p-&gt;data
+</span><span style="color:#75715e"></span>	{
+		cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;found&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+		<span style="color:#66d9ef">if</span>(p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&amp;&amp;</span> p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) <span style="color:#75715e">//删除的节点是叶子
+</span><span style="color:#75715e"></span>		{
+			<span style="color:#66d9ef">delete</span> p;
+			p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (root<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">==</span> value) <span style="color:#75715e">//当为根节点时候
+</span><span style="color:#75715e"></span>		{
+            <span style="color:#75715e">//也可以不让删除
+</span><span style="color:#75715e"></span>			Node <span style="color:#f92672">*</span> tempR <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>right; <span style="color:#75715e">//为了遍历出右子树的最大值
+</span><span style="color:#75715e"></span>			Node <span style="color:#f92672">*</span> tempL <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>left;
+			Node <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>right;  <span style="color:#75715e">//记录当前的右节点的指针
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span>(tempR <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&amp;&amp;</span> tempL <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span> )
+			{
+				root  <span style="color:#f92672">=</span> tempL;
+			}
+			<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (tempR <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&amp;&amp;</span> tempL <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+			{
+				root  <span style="color:#f92672">=</span> temp;
+			}
+			<span style="color:#66d9ef">else</span>   <span style="color:#75715e">//都有数据
+</span><span style="color:#75715e"></span>			{
+				<span style="color:#66d9ef">while</span>(tempR<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)  <span style="color:#75715e">//找到右子树最大的值
+</span><span style="color:#75715e"></span>				{
+					tempR <span style="color:#f92672">=</span> tempR<span style="color:#f92672">-&gt;</span>left;
+				}
+				tempR<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> tempL; <span style="color:#75715e">//让右子树最大值的的左节点拼接最初的左节点
+</span><span style="color:#75715e"></span>				root <span style="color:#f92672">=</span> temp;
+			}
+			<span style="color:#66d9ef">return</span> root;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&amp;&amp;</span> p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>) <span style="color:#75715e">//当节点左空 右有 时
+</span><span style="color:#75715e"></span>		{
+			  Node <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>right; <span style="color:#75715e">//把右边节点记录下来
+</span><span style="color:#75715e"></span>			  <span style="color:#66d9ef">delete</span> p;
+			  <span style="color:#66d9ef">return</span>  temp; <span style="color:#75715e">//返回上个节点的指向
+</span><span style="color:#75715e">//            Node * temp = p;
+</span><span style="color:#75715e">//            p = p-&gt;right;
+</span><span style="color:#75715e">//            delete temp;
+</span><span style="color:#75715e">//            temp = nullptr;
+</span><span style="color:#75715e">//            return  temp;
+</span><span style="color:#75715e"></span>		}
+		<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(p<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&amp;&amp;</span> p<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>) <span style="color:#75715e">//当节点右空 左有 时
+</span><span style="color:#75715e"></span>		{
+			 Node <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>left;
+			 <span style="color:#66d9ef">delete</span> p;
+			 <span style="color:#66d9ef">return</span>  temp; <span style="color:#75715e">//返回上个节点的指向
+</span><span style="color:#75715e">//            Node * temp = p;
+</span><span style="color:#75715e">//            p = p-&gt;left;
+</span><span style="color:#75715e">//            delete temp;
+</span><span style="color:#75715e">//            temp = nullptr;
+</span><span style="color:#75715e">//            return  temp;
+</span><span style="color:#75715e"></span>		}
+		<span style="color:#66d9ef">else</span>    <span style="color:#75715e">//当两边都有节点时
+</span><span style="color:#75715e"></span>		{
+
+			Node <span style="color:#f92672">*</span> tempR <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>right; <span style="color:#75715e">//为了遍历出右子树的最大值
+</span><span style="color:#75715e"></span>			Node <span style="color:#f92672">*</span> tempL <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>left;
+			Node <span style="color:#f92672">*</span> temp <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>right;  <span style="color:#75715e">//记录当前的右节点的指针
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">delete</span> p;
+			<span style="color:#66d9ef">while</span>(tempR<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)  <span style="color:#75715e">//找到右子树最大的值
+</span><span style="color:#75715e"></span>			{
+				tempR <span style="color:#f92672">=</span> tempR<span style="color:#f92672">-&gt;</span>left;
+			}
+			tempR<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> tempL; <span style="color:#75715e">//让右子树最大值的的右节点拼接最初的左节点
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">return</span> temp;
+
+<span style="color:#75715e">//            while(p-&gt;left != nullptr) //找到最小的节点
+</span><span style="color:#75715e">//            {
+</span><span style="color:#75715e">//                p = p-&gt;left;
+</span><span style="color:#75715e">//            }
+</span><span style="color:#75715e">//            Node * temp = p;
+</span><span style="color:#75715e">//            p-&gt;data = temp-&gt;data;
+</span><span style="color:#75715e">//            p-&gt;right = deleteNode(temp-&gt;data,p-&gt;right);
+</span><span style="color:#75715e"></span>
+		}
+
+	}
+	<span style="color:#66d9ef">return</span> p;
+}
+</code></pre></div><p>分四种情况：</p>
+<p>1.该节点是叶子，直接置为空指针，释放内存空间即可。</p>
+<p>2.该节点有左子树或右子树，删除该节点，下一个节点连接上去。</p>
+<p>3.该节点有左右子树，最麻烦的一种情况，需要求出子树中的最大值，使他成为目前的节点。</p>
+<p>4.找不到该元素。</p>
+<p>由此可看出，删除二叉树节点的第一步，其实是遍历查找这个节点。</p>
+<h4 id="12销毁该二叉树">12.销毁该二叉树</h4>
+<p>其实就是博客前面提到的析构函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> BTree<span style="color:#f92672">::</span>destory(Node <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>p)
+{
+	<span style="color:#66d9ef">if</span>(p <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>)
+	{
+		destory(p<span style="color:#f92672">-&gt;</span>left);
+		destory(p<span style="color:#f92672">-&gt;</span>right);
+		<span style="color:#66d9ef">delete</span> p;
+		p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+	}
+}
+</code></pre></div><p>相比之前的代码，算是比较简单的了。</p>
+<h3 id="总结">总结</h3>
+<p>二叉树的实现相比链表，还是要复杂很多。文中实现的是一个二叉搜索树，比普通的二叉树稍微多了一点细节，但实用程度却大了很多。</p>
+<p>通过学习二叉树，对递归的理解想必也可以得到加深了。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fbinarytree%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fbinarytree%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fshuju%2fbinarytree%2f&amp;text=%e7%94%a8C%2b%2b%e5%ae%9e%e7%8e%b0%e4%b8%80%e4%b8%aa%e4%ba%8c%e5%8f%89%e6%a0%91" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

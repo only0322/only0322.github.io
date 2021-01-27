@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="网络和网络协议部分" />
+<meta property="og:description" content="一、OSI七层模型 开放式系统互联通信参考模型。
+1.物理层（Physical Layer） 激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。
+2.数据链路层（Data Link Layer） 数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能。
+主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/netdb/net/" />
+<meta property="article:published_time" content="2020-10-03T16:50:48+08:00" />
+<meta property="article:modified_time" content="2020-10-03T16:50:48+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="网络和网络协议部分"/>
+<meta name="twitter:description" content="一、OSI七层模型 开放式系统互联通信参考模型。
+1.物理层（Physical Layer） 激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。
+2.数据链路层（Data Link Layer） 数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能。
+主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络和网络协议部分",
+  "url": "https://only0322.github.io/post/netdb/net/",
+  "wordCount": "132",
+  "datePublished": "2020-10-03T16:50:48+08:00",
+  "dateModified": "2020-10-03T16:50:48+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/netdb/net/">
+
+    <title>网络和网络协议部分 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/net/">网络和网络协议部分</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-10-03T16:50:48+08:00">Sat Oct 3, 2020</time>
+</p>
+  </header>
+  <h2 id="一osi七层模型">一、OSI七层模型</h2>
+<p>开放式系统互联通信参考模型。</p>
+<h3 id="1物理层physical-layer">1.物理层（Physical Layer）</h3>
+<p>激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。</p>
+<h3 id="2数据链路层data-link-layer">2.数据链路层（Data Link Layer）</h3>
+<p>数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能。</p>
+<p>主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。</p>
+<h3 id="3网络层network-layer">3.网络层（Network Layer）</h3>
+<p>网络层的目的是实现两个主机系统之间的数据透明传送，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果您想用尽量少的词来记住网络层，那就是“路径选择、路由及逻辑寻址”。</p>
+<p>网络层中涉及众多的协议，其中包括最重要的协议，也是TCP/IP的核心协议——IP协议。IP协议非常简单，仅仅提供不可靠、无连接的传送服务。IP协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与IP协议配套使用实现其功能的还有地址解析协议ARP、逆地址解析协议RARP、因特网报文协议ICMP、因特网组管理协议IGMP。</p>
+<p>具体的协议我们会在接下来的部分进行总结，有关网络层的重点为：</p>
+<pre><code>
+1&gt; 网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能；
+
+2&gt; 基本数据单位为IP数据报；
+
+3&gt; 包含的主要协议：
+
+IP协议（Internet Protocol，因特网互联协议）;
+
+ICMP协议（Internet Control Message Protocol，因特网控制报文协议）;
+
+ARP协议（Address Resolution Protocol，地址解析协议）可看成是跨网络层和链路层的协议;
+
+RARP协议（Reverse Address Resolution Protocol，逆地址解析协议）。
+
+4&gt; 重要的设备：路由器。
+
+
+</code></pre><h3 id="4传输层transport-layer">4.传输层（Transport Layer）</h3>
+<p>第一个端到端，即主机到主机的层次。传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。</p>
+<p>传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为段或报文。作用：为应用进程之间提供端到端的逻辑通信。</p>
+<p>网络层只是根据网络地址将源结点发出的数据包传送到目的结点，而传输层则负责将数据可靠地传送到相应的端口。</p>
+<p>有关传输层的重点：</p>
+<pre><code>1&gt; 传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题；
+2&gt; 包含的主要协议：TCP协议（Transmission Control Protocol，传输控制协议）、UDP协议（User Datagram Protocol，用户数据报协议）；
+3&gt; 重要设备：网关。
+
+</code></pre><h3 id="5会话层">5.会话层</h3>
+<p>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<h3 id="6表示层">6.表示层</h3>
+<p>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<h3 id="7应用层">7.应用层</h3>
+<p>是最靠近用户的OSI层，为用户的应用程序提供网络服务的接口。将用户的操作通过应用程序转换成为服务，并匹配一个相应的服务协议发送给传输层。</p>
+<p>注：我们在传输数据时，可以只使用（传输层）TCP/IP协议，但是那样的话，如果没有应用层，便无法识别数据内容，如果想要使传输的数据有意义，则必须使用到应用层协议。</p>
+<p>会话层、表示层和应用层重点：</p>
+<pre><code>1&gt; 数据传输基本单位为报文；
+
+2&gt; 包含的主要协议：FTP（文件传送协议）、Telnet（远程登录协议）、DNS（域名解析协议）、SMTP（邮件传送协议），POP3协议（邮局协议），HTTP协议（Hyper Text Transfer Protocol）。
+
+</code></pre><pre><code>每一层的协议如下：
+
+物理层：RJ45、CLOCK、IEEE802.3    （中继器，集线器，网关）
+数据链路：PPP、FR、HDLC、VLAN、MAC  （网桥，交换机）
+网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP、 （路由器）
+传输层：TCP、UDP、SPX
+会话层：NFS、SQL、NETBIOS、RPC
+表示层：JPEG、MPEG、ASCII
+应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS
+
+</code></pre><h2 id="二tcp和udp的区别">二、TCP和UDP的区别</h2>
+<p>TCP和UDP是OSI模型中的运输层中的协议。TCP提供可靠的通信传输，而UDP则常被用于让广播和细节控制交给应用的通信传输。
+两者的区别大致如下：</p>
+<ul>
+<li>TCP面向连接，UDP面向非连接即发送数据前不需要建立链接</li>
+<li>TCP提供可靠的服务（数据传输），UDP无法保证</li>
+<li>TCP面向字节流，UDP面向报文</li>
+<li>TCP数据传输慢，UDP数据传输快</li>
+<li>TCP提供一种面向连接的、可靠的字节流服务</li>
+<li>在一个TCP连接中，仅有两方进行彼此通信，因此广播和多播不能用于TCP</li>
+<li>TCP使用校验和，确认和重传机制来保证可靠传输</li>
+<li>TCP使用累积确认</li>
+<li>TCP使用滑动窗口机制来实现流量控制，通过动态改变窗口的大小进行拥塞控制</li>
+</ul>
+<h2 id="三tcp和udp的应用场景">三、TCP和UDP的应用场景</h2>
+<p>TCP：当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。</p>
+<p>在日常生活中，常见使用TCP协议的应用如：浏览器，用的HTTP；FlashFXP，用的FTP；Outlook，用的POP、SMTP；Putty，用的Telnet、SSH；QQ文件传输。</p>
+<p>UDP：当强调传输性能而不是传输的完整性时， 要求网络通讯速度能尽量的快。如：QQ语音 QQ视频等。</p>
+<h2 id="四tcp对应的协议和udp对应的协议">四、TCP对应的协议和UDP对应的协议</h2>
+<p>TCP对应的协议：</p>
+<p>FTP：定义了文件传输协议，使用21端口。</p>
+<p>Telnet：一种用于远程登陆的端口，使用23端口，用户可以以自己的身份远程连接到计算机上，可提供基于DOS模式下的通信服务。</p>
+<p>SMTP：邮件传送协议，用于发送邮件。服务器开放的是25号端口。</p>
+<p>POP3：它是和SMTP对应，POP3用于接收邮件。POP3协议所用的是110端口。</p>
+<p>HTTP：是从Web服务器传输超文本到本地浏览器的传送协议，端口默认80。</p>
+<p>UDP对应的协议：</p>
+<p>DNS：用于域名解析服务，将域名地址转换为IP地址。DNS用的是53号端口。</p>
+<p>SNMP：简单网络管理协议，使用161号端口，是用来管理网络设备的。由于网络设备很多，无连接的服务就体现出其优势。</p>
+<p>TFTP(Trival File TransferProtocal)，简单文件传输协议，该协议在熟知端口69上使用UDP服务。</p>
+<h2 id="五http协议工作流程">五、HTTP协议工作流程</h2>
+<p>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。</p>
+<p>HTTP是一个基于TCP/IP通信协议来传递数据，默认端口号为80。</p>
+<p>HTTP工作原理</p>
+<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。</p>
+<pre><code>
+HTTP 请求/响应的步骤
+
+1、客户端连接到Web服务器
+
+一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，http://www.oakcms.cn。
+
+2、发送HTTP请求
+
+通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。
+
+3、服务器接受请求并返回HTTP响应
+
+Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。
+
+4、释放连接TCP连接
+
+若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;
+
+5、客户端浏览器解析HTML内容
+
+客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。
+
+</code></pre><p><strong>HTTP消息结构</strong></p>
+<p>HTTP是基于客户端/服务端（C/S）的架构模型</p>
+<p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fnet%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fnet%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fnet%2f&amp;text=%e7%bd%91%e7%bb%9c%e5%92%8c%e7%bd%91%e7%bb%9c%e5%8d%8f%e8%ae%ae%e9%83%a8%e5%88%86" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

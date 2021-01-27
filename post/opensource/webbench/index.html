@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="著名压测工具webbench源码解析" />
+<meta property="og:description" content="项目概述 Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。
+用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。 github地址：wenbbench
+项目整体流程 1.解析程序运行时的参数。
+2.根据选择的http协议组装报文。
+3.开始压力测试。
+4.获取压力测试的结果。
+1.解析程序运行时的参数 其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/opensource/webbench/" />
+<meta property="article:published_time" content="2020-02-27T16:33:28+08:00" />
+<meta property="article:modified_time" content="2020-02-27T16:33:28+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="著名压测工具webbench源码解析"/>
+<meta name="twitter:description" content="项目概述 Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。
+用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。 github地址：wenbbench
+项目整体流程 1.解析程序运行时的参数。
+2.根据选择的http协议组装报文。
+3.开始压力测试。
+4.获取压力测试的结果。
+1.解析程序运行时的参数 其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "著名压测工具webbench源码解析",
+  "url": "https://only0322.github.io/post/opensource/webbench/",
+  "wordCount": "78",
+  "datePublished": "2020-02-27T16:33:28+08:00",
+  "dateModified": "2020-02-27T16:33:28+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/opensource/webbench/">
+
+    <title>著名压测工具webbench源码解析 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/webbench/">著名压测工具webbench源码解析</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-02-27T16:33:28+08:00">Thu Feb 27, 2020</time>
+</p>
+  </header>
+  <h1 id="项目概述">项目概述</h1>
+<p>Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。</p>
+<p>用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。
+github地址：<a href="https://github.com/EZLippi/WebBench">wenbbench</a></p>
+<h1 id="项目整体流程">项目整体流程</h1>
+<p>1.解析程序运行时的参数。</p>
+<p>2.根据选择的http协议组装报文。</p>
+<p>3.开始压力测试。</p>
+<p>4.获取压力测试的结果。</p>
+<h2 id="1解析程序运行时的参数">1.解析程序运行时的参数</h2>
+<p>其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。</p>
+<p><img src="/images/webbench/webbench_getopt.png" alt="大概的代码"></p>
+<p>当然，也会有对于输入的ip地址，端口号的解析和错误处理。
+正常的webbench命令示例：webbench <a href="http://www.baidu.com/">http://www.baidu.com/</a> 真的是少了一个斜杠都不行啊。</p>
+<h2 id="2组包">2.组包</h2>
+<p>程序提供了http0.9/1.0/1.1的协议选择，那么这三种协议到底有什么区别呢？</p>
+<p>http0.9：只支持get方法。
+http1.0：支持get，head，post方法。
+http1.1：支持长连接，更完善的缓冲处理等等。</p>
+<p>详细的解读：https://www.cnblogs.com/wupeixuan/p/8642100.html</p>
+<p>http请求的含义：</p>
+<pre><code>GET： 请求指定的页面信息，并返回实体主体。
+
+HEAD： 只请求页面的首部。
+
+POST： 请求服务器接受所指定的文档作为对所标识的URI的新的从属实体。
+
+PUT： 从客户端向服务器传送的数据取代指定的文档的内容。
+
+DELETE： 请求服务器删除指定的页面。
+
+OPTIONS： 允许客户端查看服务器的性能。
+
+TRACE： 请求服务器在响应中的实体主体部分返回所得到的内容。
+
+PATCH： 实体中包含一个表，表中说明与该URI所表示的原内容的区别。
+
+MOVE： 请求服务器将指定的页面移至另一个网络地址。
+
+COPY： 请求服务器将指定的页面拷贝至另一个网络地址。
+
+LINK： 请求服务器建立链接关系。
+
+UNLINK： 断开链接关系。
+
+WRAPPED： 允许客户端发送经过封装的请求。
+
+Extension-mothed：在不改动协议的前提下，可增加另外的方法。
+</code></pre><p>出处：https://www.cnblogs.com/zyrhmh/p/8942995.html</p>
+<p>调用这些请求的时候，只需要将相应的字符拼进去即可。
+<code>strcpy(request,&quot;GET&quot;);</code></p>
+<p>选择协议，也很简单，继续拼接。</p>
+<p><code>strcat(request,&quot; HTTP/1.1&quot;);</code></p>
+<p>还有大篇幅的对于不同http协议版本，运行参数的处理。</p>
+<h2 id="3压力测试">3.压力测试</h2>
+<p>先检查服务器是否可以联通，随后创建供父进程和子进程通信的管道。</p>
+<p>子进程根据配置发送报文，并且通过管道向父进程回报结果。</p>
+<p><img src="/images/webbench/pipe.png" alt="子进程操作"></p>
+<p>在子进程中，也会设置缓冲模式为无缓冲。因为并不需要等到服务器回应我们的消息，而这样设置还可以减少资源的消耗。</p>
+<p>setvbuf函数用法如下：</p>
+<p><img src="/images/webbench/setvbuf.png" alt="setvbuf"></p>
+<p>_IOFBF(满缓冲）：当缓冲区为空时，从流读入数据。或者当缓冲区满时，向流写入数 据。</p>
+<p>_IOLBF(行缓冲）：每次从流中读入一行数据或向流中写入一行数据。</p>
+<p>_IONBF(无缓冲）：直接从流中读入数据或直接向流中写入数据，而没有缓冲区。</p>
+<h2 id="4统计结果">4.统计结果</h2>
+<p>这部分的代码比较简单，子进程通过管道来向父进程返回结果，用变量去统计结果即可。</p>
+<pre><code>fprintf(f,&quot;%d %d %d\n&quot;,speed,failed,bytes);
+fclose(f);
+return 0;
+</code></pre><h1 id="结语">结语</h1>
+<p>通过学习webbench的源码，我们也能从中了解到，原来压力测试也就是在短时间内建立大量的连接，计算与服务器通信的情况。
+webbench用到的多进程，进程间通信，以及http协议，都是值得初学者去学习的。</p>
+<p>本文仅仅是以我目前浅薄的见识，来写下自己对webbench的理解，也许日后会进行进一步的更新。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fopensource%2fwebbench%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fopensource%2fwebbench%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fopensource%2fwebbench%2f&amp;text=%e8%91%97%e5%90%8d%e5%8e%8b%e6%b5%8b%e5%b7%a5%e5%85%b7webbench%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

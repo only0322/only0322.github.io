@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Pages" />
+<meta property="og:description" content="爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://only0322.github.io/page/" />
+<meta property="og:updated_time" content="2020-10-01T09:26:51+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pages"/>
+<meta name="twitter:description" content="爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Blog",
+  "headline": "吉法师的博客",
+  "url" : "https://only0322.github.io/page/",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  },
+  "dateModified": "2020-10-01T09:26:51+08:00",
+  "keywords": "",
+  "description":"爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。"
+}
+</script>
+
+
+    <link rel="canonical" href="https://only0322.github.io/page/">
+
+    <title>吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    <link rel="alternate" type="application/rss+xml" href="https://only0322.github.io/page/index.xml" title="吉法师的博客" />
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/hextobin/">nodejs16进制转2进制遇到的坑</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-03-03T21:26:15+08:00">Tue Mar 3, 2020</time> by 吉法师</p>
+  </header>
+  背景 我在初学nodejs这门语言的时候，遇到了16进制无法正常转成2进制的问题。
+解决思路 先是对一个字符串使用toString(2)。然而发现字符串再使用这种方法，已经没有意义了。
+16进制转2进制的过程：16进制字符串-&gt;数字-&gt;2进制数
+weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&quot;16&quot;).toString(2); weekdatebin=PrefixInteger(weekdatebin,32); 但也有问题，24个十六进制数，是无法转成24*4的2进制数的，太长了，会报错。
+一种解决方案，就是将这24位的数拆分成3个8位进行处理，还有一种方式则是通过C语言的按位与思想，但是没有深入尝试了。
+  <a href='https://only0322.github.io/post/node/hextobin/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/webbench/">著名压测工具webbench源码解析</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-02-27T16:33:28+08:00">Thu Feb 27, 2020</time> by 吉法师</p>
+  </header>
+  项目概述 Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。
+用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。 github地址：wenbbench
+项目整体流程 1.解析程序运行时的参数。
+2.根据选择的http协议组装报文。
+3.开始压力测试。
+4.获取压力测试的结果。
+1.解析程序运行时的参数 其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。
+  <a href='https://only0322.github.io/post/opensource/webbench/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/socketlearn/">C++ socket初探</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-02-25T09:54:15+08:00">Tue Feb 25, 2020</time> by 吉法师</p>
+  </header>
+  本文讲述socket客户端和服务端的简单实现。
+客户端  用到的头文件及用法  #include &lt;iostream&gt;/*获取设置socket，bind*/ #include&lt;sys/socket.h&gt;/*基本数据类型，如time_t*/ #include&lt;sys/types.h&gt;/*用于socketaddr_in结构体，htons系统调用*/ #include&lt;netinet/in.h&gt;/*对read write提供支持*/ #include&lt;unistd.
+  <a href='https://only0322.github.io/post/cpp/socketlearn/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/linux/gitfast/">解决github下载速度慢的难题</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-02-23T19:32:42+08:00">Sun Feb 23, 2020</time> by 吉法师</p>
+  </header>
+  修改host文件  找到hosts文件  在macOS环境下，host文件位于 /etc/hosts
+通过sudu vim /etc/hosts来修改文件
+ 查找github使用的动态IP
+  <a href='https://only0322.github.io/post/linux/gitfast/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/linux/gitsearch/">如何在github高效地搜索开源项目</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-02-23T15:55:50+08:00">Sun Feb 23, 2020</time> by 吉法师</p>
+  </header>
+  概述 本文讲述如何在github的搜索栏找到自己想要的项目。
+重点无非如下：
+  项目名
+  项目概述
+  star数
+  <a href='https://only0322.github.io/post/linux/gitsearch/'>Read more →</a>
+</article> 
+
+
+
+
+
+<nav class="blog-pagination">
+  
+  <a class="btn btn-outline-primary" href="/page/page/13/" rel="prev" role="button">Previous page</a>
+  <a class="btn btn-outline-primary" href="/page/page/15/" rel="next" role="button">Next page</a>
+  
+  
+  
+</nav>
+
+
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

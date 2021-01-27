@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="用C&#43;&#43;实现数组的自动扩容" />
+<meta property="og:description" content="用到的技巧 其实就是指针的简单使用，能够通过练习，加深对指针的理解。而在C&#43;&#43;容器中，vector也是用数组实现的自动扩容。
+当然，我们需要保证数组名不会随之改变，不然就不算什么自动扩容了。
+代码部分  动态数组的创建。  假设数组的长度是未知的，完全可以用new在堆区分配内存。
+int *p =new int[len];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/cpp/arrayautoadd/" />
+<meta property="article:published_time" content="2020-03-07T20:32:27+08:00" />
+<meta property="article:modified_time" content="2020-03-07T20:32:27+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="用C&#43;&#43;实现数组的自动扩容"/>
+<meta name="twitter:description" content="用到的技巧 其实就是指针的简单使用，能够通过练习，加深对指针的理解。而在C&#43;&#43;容器中，vector也是用数组实现的自动扩容。
+当然，我们需要保证数组名不会随之改变，不然就不算什么自动扩容了。
+代码部分  动态数组的创建。  假设数组的长度是未知的，完全可以用new在堆区分配内存。
+int *p =new int[len];"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "用C++实现数组的自动扩容",
+  "url": "https://only0322.github.io/post/cpp/arrayautoadd/",
+  "wordCount": "121",
+  "datePublished": "2020-03-07T20:32:27+08:00",
+  "dateModified": "2020-03-07T20:32:27+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/cpp/arrayautoadd/">
+
+    <title>用C&#43;&#43;实现数组的自动扩容 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/arrayautoadd/">用C++实现数组的自动扩容</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-03-07T20:32:27+08:00">Sat Mar 7, 2020</time>
+</p>
+  </header>
+  <h1 id="用到的技巧">用到的技巧</h1>
+<p>其实就是指针的简单使用，能够通过练习，加深对指针的理解。而在C++容器中，vector也是用数组实现的自动扩容。</p>
+<p>当然，我们需要保证数组名不会随之改变，不然就不算什么自动扩容了。</p>
+<h1 id="代码部分">代码部分</h1>
+<ol>
+<li>动态数组的创建。</li>
+</ol>
+<p>假设数组的长度是未知的，完全可以用<code>new</code>在堆区分配内存。</p>
+<p><code>int *p =new int[len];</code></p>
+<p>len的长度初始化为一个较小的数字即可。</p>
+<ol start="2">
+<li>判断数组的下标使用情况，满了之后创建新的数组。</li>
+</ol>
+<p>vector中，是自动扩容两倍。</p>
+<ol start="3">
+<li>释放之前用到的内存空间，并且将旧的数组指针指向新的数组指针。</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>len;j<span style="color:#f92672">++</span>)
+{
+    p[j]<span style="color:#f92672">=</span>array[j];
+}
+<span style="color:#66d9ef">delete</span>[] array;
+array<span style="color:#f92672">=</span>p;
+array[i]<span style="color:#f92672">=</span>a;
+</code></pre></div><p>重点来了，<code>delete[] array</code>之后，究竟发生了什么呢？</p>
+<p><strong>其实是array这个指针的内存空间被释放</strong> ，指针成为了<strong>空指针</strong>，能够被访问，但不会指向任何内存地址。</p>
+<p>而我们让array重新指向p之后，就完成了数组的扩容，并且不改变之前的名称！</p>
+<p>至于下次进行delete操作，也不会有什么影响，因为delete只关心释放的内存地址究竟是什么，而指针变量虽然还是原先的array，但是指向的内存却是新申请的，可以释放的p。</p>
+<p>以下是示例程序。</p>
+<h1 id="demo">demo</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter len first&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+    <span style="color:#66d9ef">int</span> len;
+    cin<span style="color:#f92672">&gt;&gt;</span>len;
+    <span style="color:#66d9ef">if</span>(len<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>)
+    {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>array<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[len];
+    <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter a num or -1 to exit&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+    <span style="color:#66d9ef">while</span>(cin<span style="color:#f92672">&gt;&gt;</span>a)
+    {
+        <span style="color:#66d9ef">if</span>(a<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>)
+        {
+            <span style="color:#66d9ef">break</span>;
+        }
+        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&lt;</span>len)
+        {
+            array[i]<span style="color:#f92672">=</span>a;
+            i<span style="color:#f92672">++</span>;
+            cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter a num or -1 to exit&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        }
+        <span style="color:#66d9ef">else</span><span style="color:#75715e">//i&gt;=len
+</span><span style="color:#75715e"></span>        {
+            cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;len is full at &#34;</span><span style="color:#f92672">&lt;&lt;</span>i<span style="color:#f92672">&lt;&lt;</span>endl;
+            <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[len<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>];
+            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>len;j<span style="color:#f92672">++</span>)
+            {
+                p[j]<span style="color:#f92672">=</span>array[j];
+            }
+            <span style="color:#66d9ef">delete</span>[] array;
+            array<span style="color:#f92672">=</span>p;
+            array[i]<span style="color:#f92672">=</span>a;
+            i<span style="color:#f92672">++</span>;
+            len<span style="color:#f92672">=</span>len<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>;
+            cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;enter a num or -1 to exit&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+        }
+    }
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span>len;k<span style="color:#f92672">++</span>)
+    {
+       cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;array =:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+       cout<span style="color:#f92672">&lt;&lt;</span>array[k]<span style="color:#f92672">&lt;&lt;</span>endl;
+    }
+
+
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div>
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2farrayautoadd%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2farrayautoadd%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fcpp%2farrayautoadd%2f&amp;text=%e7%94%a8C%2b%2b%e5%ae%9e%e7%8e%b0%e6%95%b0%e7%bb%84%e7%9a%84%e8%87%aa%e5%8a%a8%e6%89%a9%e5%ae%b9" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
+
+<li><a href="/post/netdb/http/">Http协议详解</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
