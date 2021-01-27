@@ -128,6 +128,22 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/mysql/">MySQL实战45讲</a></h2>
+    <p class="blog-post-meta"><time datetime="2021-01-27T10:36:34+08:00">Wed Jan 27, 2021</time> by 吉法师</p>
+  </header>
+  基础架构 先看MySQL的架构图
+大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。
+Server 层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。而存储引擎层负责数据的存储和提取。
+  <a href='https://only0322.github.io/post/geek/mysql/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/n-readlines/">n-readlines具体使用</a></h2>
     <p class="blog-post-meta"><time datetime="2020-11-25T15:44:45+08:00">Wed Nov 25, 2020</time> by 吉法师</p>
   </header>
@@ -183,26 +199,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/netprotocol/">趣谈网络协议学习笔记</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-10-16T21:09:41+08:00">Fri Oct 16, 2020</time> by 吉法师</p>
-  </header>
-  一、通讯协议综述 1.有了IP地址为什么还需要Mac地址？ IP地址相当于是传送数据到某个位置，但不知道具体给哪台计算机，MAC地址就是为了解决这个问题。
-至于修改MAC地址，实际上是修改了系统读取出来的这个MAC地址。也曾出现过两块劣质的网卡都是同一个MAC地址的情况，这样甚至会导致网络的堵塞。
-mac是身份证，ip是地址。
-用总经理和员工来比喻网络协议
-不准确，因为开会的时候员工未必会给会议提出建议，而一次tcp的三次握手，每次握手ip和mac层都加入了自己的包头。
-2.学习的方法 理解网络协议的工作模式，有两个小窍门：始终想象自己是一个处理网络包的程序：如何拿到网络包，如何根据规则进行处理，如何发出去；始终牢记一个原则：只要是在网络上跑的包，都是完整的。可以有下层没上层，绝对不可能有上层没下层。
-3.网段 私有IP地址是可以重复的，共有的则必须唯一。网段的划分是为了弥补刚开始对于计算机数量估计严重不足的问题。
-  <a href='https://only0322.github.io/post/geek/netprotocol/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   
@@ -232,6 +228,8 @@ mac是身份证，ip是地址。
     <ol class="list-unstyled">
 
 
+<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
+
 <li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
 
 <li><a href="/post/java/base/">Java知识合集</a></li>
@@ -249,8 +247,6 @@ mac是身份证，ip是地址。
 <li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
 
 <li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
-
-<li><a href="/post/netdb/http/">Http协议详解</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

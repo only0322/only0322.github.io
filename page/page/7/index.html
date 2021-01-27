@@ -128,6 +128,22 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/postman/">用Qt制作一个Postman</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-19T19:45:12+08:00">Fri Jun 19, 2020</time> by 吉法师</p>
+  </header>
+  项目源码地址:码云
+一、什么是postman？ 著名开源项目之一，主要作用是后端利用postman来调试自己开发的接口。通过post给服务器发送请求，模拟浏览器的行为。
+二、MyPostman用到的技术  C++、Qt。 Qt的http框架，QJson，EasyQJson。 Sqlite3数据库  三、请求的收发  发请求  void MyPostman::RequestGET(QString BaseUrl) { QNetworkRequest request; int count = ui-&gt;tableView_Params-&gt;model()-&gt;rowCount(); for(int i=0;i&lt;count;i++) { QModelIndex name = ParamModel-&gt;index(i,0,QModelIndex()); QModelIndex value = ParamModel-&gt;index(i,1,QModelIndex()); QString strName = name.
+  <a href='https://only0322.github.io/post/opensource/postman/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/webserver/">Rust编写的Web服务</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-13T16:24:37+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
   </header>
@@ -188,24 +204,6 @@ let mut a = 1,此时a就是一个可变变量了。
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/ruststart/">Rust的安装与启动</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-13T07:02:38+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
-  </header>
-  安装 Rust的安装也分系统
-Windows下为:
-https://www.rust-lang.org/tools/install
-MacOS:
-curl --proto '=https' --tlsv1.2 -sSf https://sh.
-  <a href='https://only0322.github.io/post/rust/ruststart/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/6/" rel="prev" role="button">Previous page</a>
@@ -235,6 +233,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
+
 <li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
 
 <li><a href="/post/java/base/">Java知识合集</a></li>
@@ -252,8 +252,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.
 <li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
 
 <li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
-
-<li><a href="/post/netdb/http/">Http协议详解</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
