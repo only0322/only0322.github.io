@@ -32,7 +32,7 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
   "@type": "BlogPosting",
   "headline": "MySQL实战45讲",
   "url": "https://only0322.github.io/post/geek/mysql/",
-  "wordCount": "616",
+  "wordCount": "857",
   "datePublished": "2021-01-27T10:36:34+08:00",
   "dateModified": "2021-01-27T10:36:34+08:00",
   "author": {
@@ -188,6 +188,7 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
 <blockquote>
 <p>定义：redo log 等待 binlog 写入完成后，由 prepare 变为 commit 提交状态</p>
 </blockquote>
+<p><img src="/images/geek/mysql/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4.png" alt="两阶段提交"></p>
 <p>先看数据的恢复过程：</p>
 <p>当需要恢复到指定的某一秒时，比如某天下午两点发现中午十二点有一次误删表，需要找回数据，那你可以这么做：</p>
 <p>首先，找到最近的一次全量备份，如果你运气好，可能就是昨天晚上的一个备份，从这个备份恢复到临时库；</p>
@@ -206,7 +207,11 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
 当且仅当所有的参与者同意提交事务协调者才通知所有的参与者提交事务，否则协调者将通知所有的参与者取消事务。
 参与者在接收到协调者发来的消息后将执行响应的操作。
 
-</code></pre><h3 id="3事务和隔离级别">3.事务和隔离级别</h3>
+</code></pre><h4 id="崩溃恢复时的判断规则">崩溃恢复时的判断规则</h4>
+<p>如果 redo log 里面的事务是完整的，也就是已经有了 commit 标识，则直接提交；</p>
+<p>如果 redo log 里面的事务只有完整的 prepare，则判断对应的事务 binlog 是否存在并完整：</p>
+<p>a. 如果是，则提交事务；b. 否则，回滚事务。</p>
+<h3 id="3事务和隔离级别">3.事务和隔离级别</h3>
 <p>四种隔离级别：读未提交、读已提交、重复读、串行。</p>
 <p><img src="/images/geek/mysql/%E4%BA%8B%E5%8A%A1.png" alt="事务"></p>
 <p><strong>我们来看看在不同的隔离级别下，事务 A 会有哪些不同的返回结果，也就是图里面 V1、V2、V3 的返回值分别是什么。</strong></p>
@@ -236,6 +241,7 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
 </code></pre></div><h3 id="4索引">4.索引</h3>
 <p>对于数据库的表而言，索引就相当于目录。</p>
 <p>常见的索引数据结构：哈希表，有序数组，搜索树。</p>
+<p>InnoDB 是索引组织表，主键索引树的叶子节点是数据，而普通索引树的叶子节点是主键值。</p>
 <h4 id="哈希表">哈希表</h4>
 <p>哈希表是一种以键 - 值（key-value）存储数据的结构，我们只要输入待查找的键即 key，就可以找到其对应的值即 Value。</p>
 <p>哈希的思路很简单，把值放在数组里，用一个哈希函数把 key 换算成一个确定的位置，然后把 value 放在数组的这个位置。</p>
@@ -419,7 +425,103 @@ engine<span style="color:#f92672">=</span>InnoDB;
 <p>字符串支持前缀索引，用全字符串索引还是前缀索引，各有优劣。</p>
 <p>前缀索引节省空间，但可能会增加额外的记录扫描次数，全字符颙会占空间。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> id,name,email <span style="color:#66d9ef">from</span> SUser <span style="color:#66d9ef">where</span> email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;zhangssxyz@xxx.com&#39;</span>;
-</code></pre></div><p>全字符索引肯定只要查一次，前缀索引也许也好好几次，但是有一定区分度的话，也可以减少查询次数，还能节省空间。</p>
+</code></pre></div><p>全字符索引肯定只要查一次，前缀索引也许也要好几次，但是有一定区分度的话，也可以减少查询次数，还能节省空间。</p>
+<h3 id="4mysql抖动">4.MySQL抖动</h3>
+<p>抖动是指性能出现波动，或者某些时间内数据库无法处理新的请求。</p>
+<p>当内存数据页跟磁盘数据页内容不一致的时候，我们称这个内存页为“脏页”。内存数据写入到磁盘后，内存和磁盘上的数据页的内容就一致了，称为“干净页”。</p>
+<p>而当要读入的数据页没有在内存的时候，就必须到缓冲池中申请一个数据页。</p>
+<p>这时候只能把最久不使用的数据页从内存中淘汰掉：</p>
+<p>如果要淘汰的是一个干净页，就直接释放出来复用；但如果是脏页呢，就必须将脏页先刷到磁盘，变成干净页后才能复用。</p>
+<p>所以，刷脏页虽然是常态，但是出现以下这两种情况，都是会明显影响性能的：</p>
+<p>一个查询要淘汰的脏页个数太多，会导致查询的响应时间明显变长；</p>
+<p>日志写满，更新全部堵住，写性能跌为 0，这种情况对敏感业务来说，是不能接受的。</p>
+<blockquote>
+<p>InnoDB 会在后台刷脏页，而刷脏页的过程是要将内存页写入磁盘。</p>
+</blockquote>
+<blockquote>
+<p>所以，无论是你的查询语句在需要内存的时候可能要求淘汰一个脏页，还是由于刷脏页的逻辑会占用 IO 资源并可能影响到了你的更新语句，都可能是造成你从业务端感知到 MySQL“抖”了一下的原因。</p>
+</blockquote>
+<blockquote>
+<p>要尽量避免这种情况，你就要合理地设置 innodb_io_capacity 的值，并且平时要多关注脏页比例，不要让它经常接近 75%。</p>
+</blockquote>
+<h3 id="5表数据删除-表文件大小不变">5.表数据删除 表文件大小不变</h3>
+<p>表数据既可以存在共享表空间里，也可以是单独的文件。</p>
+<p>这个行为是由参数 innodb_file_per_table 控制的：</p>
+<p>这个参数设置为 OFF 表示的是，表的数据放在系统共享表空间，也就是跟数据字典放在一起；</p>
+<p>这个参数设置为 ON 表示的是，每个 InnoDB 表数据存储在一个以 .ibd 为后缀的文件中。</p>
+<p>从 MySQL 5.6.6 版本开始，它的默认值就是 ON 了。</p>
+<p>将这个值设置为ON，这样单独存储一个文件，删除表的时候也能够将空间清理，放在共享表空间就无法轻松地清理了。</p>
+<h4 id="数据删除流程">数据删除流程</h4>
+<p>假设，我们要删掉 R4 这个记录，InnoDB 引擎只会把 R4 这个记录标记为删除。</p>
+<p>如果之后要再插入一个 ID 在 300 和 600 之间的记录时，可能会复用这个位置。但是，磁盘文件的大小并不会缩小。</p>
+<p>如果删除了一个数据页的数据，那么整个数据页都可以复用了。</p>
+<p><strong>插入也会</strong></p>
+<p>如果数据是按照索引递增顺序插入的，那么索引是紧凑的。但如果数据是随机插入的，就可能造成索引的数据页分裂。</p>
+<p>由于 page A 满了，再插入一个 ID 是 550 的数据时，就不得不再申请一个新的页面 page B 来保存数据了。页分裂完成后，page A 的末尾就留下了空洞（注意：实际上，可能不止 1 个记录的位置是空洞）。</p>
+<p>可以通过重建表来达到去除空洞的目的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> A engine<span style="color:#f92672">=</span>InnoDB
+</code></pre></div><h3 id="6count的效率问题">6.count(*)的效率问题</h3>
+<p>MyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*) 的时候会直接返回这个数，效率很高；</p>
+<p>而 InnoDB 引擎就麻烦了，它执行 count(*) 的时候，需要把数据一行一行地从引擎里面读出来，然后累积计数。</p>
+<h4 id="为什么innodb不维护一个行数的属性呢">为什么InnoDB不维护一个行数的属性呢？</h4>
+<p>即使是在同一个时刻的多个查询，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的。</p>
+<h4 id="各种count的区别">各种count的区别</h4>
+<ol>
+<li>count(主键id)</li>
+</ol>
+<p>对于 count(主键 id) 来说，InnoDB 引擎会遍历整张表，把每一行的 id 值都取出来，返回给 server 层。</p>
+<p>server 层拿到 id 后，判断是不可能为空的，就按行累加。</p>
+<ol start="2">
+<li>count(1)</li>
+</ol>
+<p>InnoDB 引擎遍历整张表，但不取值。server 层对于返回的每一行，放一个数字“1”进去，判断是不可能为空的，按行累加。</p>
+<ol start="3">
+<li>count(字段)</li>
+</ol>
+<p>如果这个“字段”是定义为 not null 的话，一行行地从记录里面读出这个字段，判断不能为 null，按行累加；</p>
+<p>如果这个“字段”定义允许为 null，那么执行的时候，判断到有可能是 null，还要把值取出来再判断一下，不是 null 才累加。</p>
+<ol start="4">
+<li>count(*)</li>
+</ol>
+<p>count(<em>) 是例外，并不会把全部字段取出来，而是专门做了优化，不取值。count(</em>) 肯定不是 null，按行累加。</p>
+<pre><code>按照效率排序的话，count(字段)&lt;count(主键 id)&lt;count(1)≈count(*)，所以我建议你，尽量使用 count(*)。
+</code></pre><h3 id="7order-by-是怎么工作的">7.order by 是怎么工作的？</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> city,name,age <span style="color:#66d9ef">from</span> t <span style="color:#66d9ef">where</span> city<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;杭州&#39;</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> name <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1000</span>  ;
+</code></pre></div><p>Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 会给每个线程分配一块内存用于排序，称为 sort_buffer。</p>
+<p>通常情况下，这个语句执行流程如下所示 ：</p>
+<ol>
+<li>
+<p>初始化 sort_buffer，确定放入 name、city、age 这三个字段；</p>
+</li>
+<li>
+<p>从索引 city 找到第一个满足 city=&lsquo;杭州’条件的主键 id，也就是图中的 ID_X；</p>
+</li>
+<li>
+<p>到主键 id 索引取出整行，取 name、city、age 三个字段的值，存入 sort_buffer 中；</p>
+</li>
+<li>
+<p>从索引 city 取下一个记录的主键 id；</p>
+</li>
+<li>
+<p>重复步骤 3、4 直到 city 的值不满足查询条件为止，对应的主键 id 也就是图中的 ID_Y；</p>
+</li>
+<li>
+<p>对 sort_buffer 中的数据按照字段 name 做快速排序；</p>
+</li>
+<li>
+<p>按照排序结果取前 1000 行返回给客户端。</p>
+</li>
+</ol>
+<p>如果 sort_buffer_size 超过了需要排序的数据量的大小，number_of_tmp_files 就是 0，表示排序可以直接在内存中完成。否则就需要放在临时文件中排序。</p>
+<p>sort_buffer_size 越小，需要分成的份数越多，number_of_tmp_files 的值就越大。</p>
+<h4 id="rowid排序">rowid排序</h4>
+<p>max_length_for_sort_data，是 MySQL 中专门控制用于排序的行数据的长度的一个参数。</p>
+<p>它的意思是，如果单行的长度超过这个值，MySQL 就认为单行太大，要换一个算法。</p>
+<p>如果 MySQL 实在是担心排序内存太小，会影响排序效率，才会采用 rowid 排序算法，这样排序过程中一次可以排序更多行，但是需要再回到原表去取数据。</p>
+<p>如果 MySQL 认为内存足够大，会优先选择全字段排序，把需要的字段都放到 sort_buffer 中，这样排序后就会直接从内存里面返回查询结果了，不用再回到原表去取数据。</p>
+<p>这也就体现了 MySQL 的一个设计思想：如果内存够，就要多利用内存，尽量减少磁盘访问。</p>
+<p>对于 InnoDB 表来说，rowid 排序会要求回表多造成磁盘读，因此不会被优先选择。</p>
+<p><strong>如果对排序的字段设置索引，就可以不需要再重新排序了</strong></p>
 
 
   
