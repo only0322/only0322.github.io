@@ -32,7 +32,7 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
   "@type": "BlogPosting",
   "headline": "MySQL实战45讲",
   "url": "https://only0322.github.io/post/geek/mysql/",
-  "wordCount": "1593",
+  "wordCount": "1592",
   "datePublished": "2021-01-27T10:36:34+08:00",
   "dateModified": "2021-01-27T10:36:34+08:00",
   "author": {
@@ -571,7 +571,7 @@ flush tables <span style="color:#66d9ef">with</span> <span style="color:#66d9ef"
 <p>带 lock in share mode 的 SQL 语句，是当前读，因此会直接读到 1000001 这个结果，所以速度很快；</p>
 <p>而 select * from t where id=1 这个语句，是一致性读，因此需要从 1000001 开始，依次执行 undo log，执行了 100 万次以后，才将 1 这个结果返回。</p>
 <h3 id="12幻读">12.幻读</h3>
-<p>![幻读])(/images/geek/mysql/幻读.png)</p>
+<p><img src="/images/geek/mysql/%E5%B9%BB%E8%AF%BB.png" alt="幻读"></p>
 <ol>
 <li>
 <p>Q1 只返回 id=5 这一行；</p>
