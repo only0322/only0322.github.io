@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Wed, 27 Jan 2021 10:36:34 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Feb 2021 18:41:40 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Https协议与加密算法的运用</title>
+      <link>https://only0322.github.io/post/netdb/https/</link>
+      <pubDate>Sat, 27 Feb 2021 18:41:40 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/netdb/https/</guid>
+      <description>一、什么是Https HTTPS （全称：Hyper Text Transfer Protocol over SecureSocket Layer），是以安全为目标的 HTTP 通道，在HTTP的基础上通过传输加密和身份认证保证了传输过程的安全性。</description>
+    </item>
+    
     <item>
       <title>MySQL实战45讲</title>
       <link>https://only0322.github.io/post/geek/mysql/</link>

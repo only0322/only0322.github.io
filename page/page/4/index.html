@@ -128,6 +128,26 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/bibao/">Nodejs闭包</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-09-23T22:46:17+08:00">Wed Sep 23, 2020</time> by 吉法师</p>
+  </header>
+  简述 闭包是js的一个难点也是它的一个特色，是我们必须掌握的js高级特性，那么什么是闭包呢？它又有什么用呢？
+我们都知道，js的作用域分两种，全局和局部，基于我们所熟悉的作用域链相关知识，我们知道在js作用域环境中访问变量的权利是由内向外的，内部作用域可以获得当前作用域下的变量并且可以获得当前包含当前作用域的外层作用域下的变量，反之则不能，也就是说在外层作用域下无法获取内层作用域下的变量，同样在不同的函数作用域中也是不能相互访问彼此变量的，那么我们想在一个函数内部也有限权访问另一个函数内部的变量该怎么办呢？闭包就是用来解决这一需求的，闭包的本质就是在一个函数内部创建另一个函数。
+我们首先知道闭包有3个特性：
+①函数嵌套函数
+②函数内部可以引用函数外部的参数和变量
+③参数和变量不会被垃圾回收机制回收
+function a() { var i = 0; function b() { alert(++i); } return b; } var c = a(); c(); 这段代码有两个特点：
+  <a href='https://only0322.github.io/post/node/bibao/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/leetcode/binary/">位运算总结</a></h2>
     <p class="blog-post-meta"><time datetime="2020-09-11T17:05:36+08:00">Fri Sep 11, 2020</time> by 吉法师</p>
   </header>
@@ -183,20 +203,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/thread/">C++多线程初探</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-09T22:47:04+08:00">Wed Sep 9, 2020</time> by 吉法师</p>
-  </header>
-  一、基本程序 #include &lt;iostream&gt;#include &lt;thread&gt;using namespace std; static const int threads = 10; void * co(void* args) { cout&lt;&lt;&#34;test&#34;&lt;&lt;endl; } int main() { pthread_t th[threads]; for(int i=0;i&lt;threads;i++) { int res = pthread_create(&amp;th[i],nullptr,co,nullptr); if(res !
-  <a href='https://only0322.github.io/post/cpp/thread/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/3/" rel="prev" role="button">Previous page</a>
@@ -226,6 +232,8 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
+
 <li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
 
 <li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
@@ -243,8 +251,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 <li><a href="/post/other/docker/">Docker技术详解</a></li>
 
 <li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
-
-<li><a href="/post/netdb/net/">网络和网络协议部分</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
