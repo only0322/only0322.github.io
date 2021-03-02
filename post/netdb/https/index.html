@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Https协议与加密算法的运用",
   "url": "https://only0322.github.io/post/netdb/https/",
-  "wordCount": "63",
+  "wordCount": "156",
   "datePublished": "2021-02-27T18:41:40+08:00",
   "dateModified": "2021-02-27T18:41:40+08:00",
   "author": {
@@ -153,15 +153,15 @@
 <h3 id="rsa">RSA：</h3>
 <ol>
 <li>
-<p>随机选择两个不相等的质数p和61和53。（实际应用中，这两个质数越大，就越难破解。）</p>
+<p>随机选择两个不相等的质数p和11和13。（实际应用中，这两个质数越大，就越难破解。）</p>
 </li>
 <li>
-<p>计算p和q的乘积n。n = 61×53 = 3233</p>
-<p>n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。</p>
+<p>计算p和q的乘积n。n = 11×13 = 143</p>
+<p>n的长度就是密钥长度。143写成二进制是10001111，一共有8位，所以这个密钥就是8位。</p>
 <p>实际应用中，RSA密钥一般是1024位，重要场合则为2048位。</p>
 </li>
 <li>
-<p>计算n的欧拉函数φ(n)。称作L，根据公式φ(n) = (p-1)(q-1) 算出φ(3233)等于60×52，即3120。</p>
+<p>计算n的欧拉函数φ(n)。称作L，根据公式φ(n) = (p-1)(q-1) 算出φ(143)等于10*12，即120.</p>
 </li>
 <li>
 <p>随机选择一个整数e，也就是公钥当中用来加密的那个数字条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质。</p>
@@ -169,15 +169,36 @@
 </li>
 <li>
 <p>计算e对于φ(n)的模反元素d。也就是密钥当中用来解密的那个数字</p>
-<p>所谓&quot;模反元素&quot;就是指有一个整数d，可以使得ed被φ(n)除的余数为1。ed ≡ 1 (mod φ(n))</p>
-<p>找到了2753，即17*2753 mode 3120 = 1</p>
+<p>e<em>d ≡ 1 (mod φ(n))，这个公式简单的说就是 e</em>d除以φ(N)得到的余数为1，</p>
+<p>即e<em>d - 1 = kφ(n)，已知 e = 7 φ(n) = 120，7d + 120</em>k = 1。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"> <span style="color:#960050;background-color:#1e0010">辗转相除法计算</span>d<span style="color:#960050;background-color:#1e0010">：</span>
+
+ <span style="color:#ae81ff">120</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">17</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
+ <span style="color:#ae81ff">17</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">17</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
+ <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">120</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>)<span style="color:#960050;background-color:#1e0010">；</span>
+ <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">120</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>)<span style="color:#960050;background-color:#1e0010">；</span>
+<span style="color:#960050;background-color:#1e0010">最终得出，</span>d <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">17</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
+</code></pre></div><p>虽然我们得到了 d=-17但 在rsa中 d必须是一个正整数,所以得到 e对φ(n)的模逆元 为 120 + （-17）也就是103。</p>
+<p>上面的例子 公钥 (143,7) 私钥(143, 103)。</p>
 </li>
 <li>
 <p>将n和e封装成公钥，n和d封装成私钥。</p>
 <p>在例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。</p>
 </li>
+<li>
+<p>同余方程</p>
+</li>
 </ol>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#960050;background-color:#1e0010">求关于</span>x的同余方程ax<span style="color:#960050;background-color:#1e0010">≡</span><span style="color:#ae81ff">1</span>(mod b) <span style="color:#960050;background-color:#1e0010">的最小正整数解</span>
+ax mod b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">，它的实质是</span> ax <span style="color:#f92672">+</span> by <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">。</span>
+anxn <span style="color:#f92672">+</span> bnyn <span style="color:#f92672">=</span> gcd(an,bn)<span style="color:#960050;background-color:#1e0010">。</span>
+gcd:<span style="color:#960050;background-color:#1e0010">最大公因数，辗转相除法。</span>
+<span style="color:#66d9ef">int</span> gcd(<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b) 
+{ 
+<span style="color:#66d9ef">if</span>(b<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> a; 
+<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gcd</span>(b,a<span style="color:#f92672">%</span>b); 
+}
+</code></pre></div>
 
   
 
