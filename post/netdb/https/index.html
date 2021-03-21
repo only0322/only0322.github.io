@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Https协议与加密算法的运用",
   "url": "https://only0322.github.io/post/netdb/https/",
-  "wordCount": "199",
+  "wordCount": "297",
   "datePublished": "2021-02-27T18:41:40+08:00",
   "dateModified": "2021-02-27T18:41:40+08:00",
   "author": {
@@ -210,7 +210,8 @@ gcd:<span style="color:#960050;background-color:#1e0010">最大公因数，辗�
 <span style="color:#66d9ef">if</span>(b<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> a; 
 <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gcd</span>(b,a<span style="color:#f92672">%</span>b); 
 }
-</code></pre></div><h3 id="aes">AES</h3>
+</code></pre></div><p>假设对m加密得密文c，则c  = me  (mod n)， m = cd(mod n)。</p>
+<h3 id="aes">AES</h3>
 <p>字节代换、行移位、列混合、轮密钥加。</p>
 <p>AES的字节代换其实就是一个简单的查表操作。AES定义了一个S盒和一个逆S盒，类似于凯撒密码的加解密。</p>
 <p>行移位是一个简单的左循环移位操作。当密钥长度为128比特时，状态矩阵的第0行左移0字节，第1行左移1字节，第2行左移2字节，第3行左移3字节。</p>
@@ -246,7 +247,43 @@ gcd:<span style="color:#960050;background-color:#1e0010">最大公因数，辗�
 <p>操作系统、浏览器本身会预装一些它们信任的根证书，如果其中有该CA机构的根证书，那就可以拿到它对应的可信公钥了。</p>
 <p>实际上证书之间的认证也可以不止一层，可以A信任B，B信任C，以此类推，我们把它叫做信任链或数字证书链，也就是一连串的数字证书，由根证书为起点，透过层层信任，使终端实体证书的持有者可以获得转授的信任，以证明身份。</p>
 <p>微软的操作系统会预装一些可信的根证书，为这一举措背书的实际上是国家和政府。</p>
+<h2 id="哈希算法实现">哈希算法实现</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+<span style="color:#75715e">// DJB Hash 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">DJBHash</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str)
+{
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> hash <span style="color:#f92672">=</span> <span style="color:#ae81ff">5381</span>;
+ 
+    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">*</span>str)
+    {
+        hash <span style="color:#f92672">+=</span> (hash <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">+</span> (<span style="color:#f92672">*</span>str<span style="color:#f92672">++</span>);
+    }
+ 
+    <span style="color:#66d9ef">return</span> (hash <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x7FFFFFFF</span>);
+}
+ 
+<span style="color:#75715e">// AP Hash 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">APHash</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str)
+{
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> hash <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> i;
+ 
+    <span style="color:#66d9ef">for</span> (i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#f92672">*</span>str; i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">if</span> ((i <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+        {
+            hash <span style="color:#f92672">^=</span> ((hash <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">7</span>) <span style="color:#f92672">^</span> (<span style="color:#f92672">*</span>str<span style="color:#f92672">++</span>) <span style="color:#f92672">^</span> (hash <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">3</span>));
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            hash <span style="color:#f92672">^=</span> (<span style="color:#f92672">~</span>((hash <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">11</span>) <span style="color:#f92672">^</span> (<span style="color:#f92672">*</span>str<span style="color:#f92672">++</span>) <span style="color:#f92672">^</span> (hash <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">5</span>)));
+        }
+    }
+ 
+    <span style="color:#66d9ef">return</span> (hash <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x7FFFFFFF</span>);
+}
 
+</code></pre></div>
 
   
 
