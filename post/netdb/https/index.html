@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Https协议与加密算法的运用",
   "url": "https://only0322.github.io/post/netdb/https/",
-  "wordCount": "297",
+  "wordCount": "306",
   "datePublished": "2021-02-27T18:41:40+08:00",
   "dateModified": "2021-02-27T18:41:40+08:00",
   "author": {
@@ -211,6 +211,9 @@ gcd:<span style="color:#960050;background-color:#1e0010">最大公因数，辗�
 <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gcd</span>(b,a<span style="color:#f92672">%</span>b); 
 }
 </code></pre></div><p>假设对m加密得密文c，则c  = me  (mod n)， m = cd(mod n)。</p>
+<h3 id="关于如何生成大素数">关于如何生成大素数</h3>
+<p>目前的公开密钥 算法大部分基于大整数分解、有限域上的离散对数问题和椭 圆曲线上的离散对数问题，这些数学难题的构建大部分都需 要生成一种超大的素数，尤其在经典的RSA算法中，生成的素数的质量对系统的安全性有很大的影响。</p>
+<p>费马小定理：假如p是质数，且gcd(a,p)=1，那么 a^(p-1)≡1（mod p）。即：假如a是整数，p是质数，且a,p互质(即两者只有一个公约数1)，那么a的(p-1)次方除以p的余数恒等于1。基于此可以快速判断一个大整数是否为素数。</p>
 <h3 id="aes">AES</h3>
 <p>字节代换、行移位、列混合、轮密钥加。</p>
 <p>AES的字节代换其实就是一个简单的查表操作。AES定义了一个S盒和一个逆S盒，类似于凯撒密码的加解密。</p>
