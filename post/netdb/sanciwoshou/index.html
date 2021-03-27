@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="三次握手和四次挥手详解" />
+<meta property="og:description" content="一、三次握手 三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。
+实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。
+刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。
+进行三次握手：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/netdb/sanciwoshou/" />
+<meta property="article:published_time" content="2020-10-01T09:32:09+08:00" />
+<meta property="article:modified_time" content="2020-10-01T09:32:09+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="三次握手和四次挥手详解"/>
+<meta name="twitter:description" content="一、三次握手 三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。
+实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。
+刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。
+进行三次握手："/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "三次握手和四次挥手详解",
+  "url": "https://only0322.github.io/post/netdb/sanciwoshou/",
+  "wordCount": "175",
+  "datePublished": "2020-10-01T09:32:09+08:00",
+  "dateModified": "2020-10-01T09:32:09+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/netdb/sanciwoshou/">
+
+    <title>三次握手和四次挥手详解 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/sanciwoshou/">三次握手和四次挥手详解</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2020-10-01T09:32:09+08:00">Thu Oct 1, 2020</time>
+</p>
+  </header>
+  <h3 id="一三次握手">一、三次握手</h3>
+<p>三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。</p>
+<p>实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。</p>
+<p>刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。</p>
+<p><strong>进行三次握手：</strong></p>
+<blockquote>
+<p>第一次握手：客户端给服务端发一个 SYN 报文，并指明客户端的初始化序列号 ISN。此时客户端处于 SYN_SENT 状态。</p>
+</blockquote>
+<blockquote>
+<p>首部的同步位SYN=1，初始序号seq=x，SYN=1的报文段不能携带数据，但要消耗掉一个序号。</p>
+</blockquote>
+<blockquote>
+<p>第二次握手：服务器收到客户端的 SYN 报文之后，会以自己的 SYN 报文作为应答，并且也是指定了自己的初始化序列号 ISN(s)。同时会把客户端的 ISN + 1 作为ACK 的值，表示自己已经收到了客户端的 SYN，此时服务器处于 SYN_RCVD 的状态。</p>
+</blockquote>
+<blockquote>
+<p>在确认报文段中SYN=1，ACK=1，确认号ack=x+1，初始序号seq=y。</p>
+</blockquote>
+<blockquote>
+<p>第三次握手：客户端收到 SYN 报文之后，会发送一个 ACK 报文，当然，也是一样把服务器的 ISN + 1 作为 ACK 的值，表示已经收到了服务端的 SYN 报文，此时客户端处于 ESTABLISHED 状态。服务器收到 ACK 报文之后，也处于 ESTABLISHED 状态，此时，双方已建立起了连接。</p>
+</blockquote>
+<blockquote>
+<p>确认报文段ACK=1，确认号ack=y+1，序号seq=x+1（初始为seq=x，第二个报文段所以要+1），ACK报文段可以携带数据，不携带数据则不消耗序号。</p>
+</blockquote>
+<p>发送第一个SYN的一端将执行主动打开（active open），接收这个SYN并发回下一个SYN的另一端执行被动打开（passive open）。</p>
+<p>在socket编程中，客户端执行connect()时，将触发三次握手。</p>
+<h3 id="二为什么需要三次握手而不是两次">二、为什么需要三次握手而不是两次</h3>
+<p>弄清这个问题，我们需要先弄明白三次握手的目的是什么，能不能只用两次握手来达到同样的目的。</p>
+<ul>
+<li>第一次握手：客户端发送网络包，服务端收到了。
+这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。</li>
+<li>第二次握手：服务端发包，客户端收到了。
+这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。不过此时服务器并不能确认客户端的接收能力是否正常。</li>
+<li>第三次握手：客户端发包，服务端收到了。
+这样服务端就能得出结论：客户端的接收、发送能力正常，服务器自己的发送、接收能力也正常。</li>
+</ul>
+<p>因此，需要三次握手才能确认双方的接收与发送能力是否正常。</p>
+<p>试想如果是用两次握手，则会出现下面这种情况：</p>
+<blockquote>
+<p>如客户端发出连接请求，但因连接请求报文丢失而未收到确认，于是客户端再重传一次连接请求。</p>
+</blockquote>
+<blockquote>
+<p>后来收到了确认，建立了连接。数据传输完毕后，就释放了连接，客户端共发出了两个连接请求报文段，其中第一个丢失，第二个到达了服务端，但是第一个丢失的报文段只是在某些网络结点长时间滞留了，延误到连接释放以后的某个时间才到达服务端.</p>
+</blockquote>
+<blockquote>
+<p>此时服务端误认为客户端又发出一次新的连接请求，于是就向客户端发出确认报文段，同意建立连接，不采用三次握手，只要服务端发出确认，就建立新的连接了，此时客户端忽略服务端发来的确认，也不发送数据，则服务端一致等待客户端发送数据，浪费资源。</p>
+</blockquote>
+<h3 id="三什么是半连接队列">三、什么是半连接队列</h3>
+<p>服务器第一次收到客户端的 SYN 之后，就会处于 SYN_RCVD 状态，此时双方还没有完全建立其连接，服务器会把此种状态下请求连接放在一个队列里，我们把这种队列称之为半连接队列。</p>
+<p>当然还有一个全连接队列，就是已经完成三次握手，建立起连接的就会放在全连接队列中。如果队列满了就有可能会出现丢包现象。</p>
+<p>这里在补充一点关于SYN-ACK 重传次数的问题：
+服务器发送完SYN-ACK包，如果未收到客户确认包，服务器进行首次重传，等待一段时间仍未收到客户确认包，进行第二次重传。如果重传次数超过系统规定的最大重传次数，系统将该连接信息从半连接队列中删除。</p>
+<p>注意，每次重传等待的时间不一定相同，一般会是指数增长，例如间隔时间为 1s，2s，4s，8s…</p>
+<h3 id="四三次握手是否可以携带数据">四、三次握手是否可以携带数据</h3>
+<p>其实第三次握手的时候，是可以携带数据的。但是，第一次、第二次握手不可以携带数据</p>
+<p>为什么这样呢?大家可以想一个问题，假如第一次握手可以携带数据的话，如果有人要恶意攻击服务器，那他每次都在第一次握手中的 SYN 报文中放入大量的数据。因为攻击者根本就不理服务器的接收、发送能力是否正常，然后疯狂着重复发 SYN 报文的话，这会让服务器花费很多时间、内存空间来接收这些报文。</p>
+<p>也就是说，第一次握手不可以放数据，其中一个简单的原因就是会让服务器更加容易受到攻击了。而对于第三次的话，此时客户端已经处于 ESTABLISHED 状态。对于客户端来说，他已经建立起连接了，并且也已经知道服务器的接收、发送能力是正常的了，所以能携带数据也没啥毛病。</p>
+<h3 id="五四次挥手">五、四次挥手</h3>
+<p>建立一个连接需要三次握手，而终止一个连接要经过四次挥手（也有将四次挥手叫做四次握手的）。这由TCP的半关闭（half-close）造成的。所谓的半关闭，其实就是TCP提供了连接的一端在结束它的发送后还能接收来自另一端数据的能力。</p>
+<p>TCP 连接的拆除需要发送四个包，因此称为四次挥手(Four-way handshake)，客户端或服务端均可主动发起挥手动作。</p>
+<p>刚开始双方都处于ESTABLISHED 状态，假如是客户端先发起关闭请求。四次挥手的过程如下：</p>
+<blockquote>
+<p>第一次挥手：客户端发送一个 FIN 报文，报文中会指定一个序列号。此时客户端处于 FIN_WAIT1 状态。</p>
+</blockquote>
+<blockquote>
+<p>即发出连接释放报文段（FIN=1，序号seq=u），并停止再发送数据，主动关闭TCP连接，进入FIN_WAIT1（终止等待1）状态，等待服务端的确认。</p>
+</blockquote>
+<blockquote>
+<p>第二次挥手：服务端收到 FIN 之后，会发送 ACK 报文，且把客户端的序列号值 +1 作为 ACK 报文的序列号值，表明已经收到客户端的报文了，此时服务端处于 CLOSE_WAIT 状态。</p>
+</blockquote>
+<blockquote>
+<p>即服务端收到连接释放报文段后即发出确认报文段（ACK=1，确认号ack=u+1，序号seq=v），服务端进入CLOSE_WAIT（关闭等待）状态，此时的TCP处于半关闭状态，客户端到服务端的连接释放。客户端收到服务端的确认后，进入FIN_WAIT2（终止等待2）状态，等待服务端发出的连接释放报文段。</p>
+</blockquote>
+<blockquote>
+<p>第三次挥手：如果服务端也想断开连接了，和客户端的第一次挥手一样，发给 FIN 报文，且指定一个序列号。此时服务端处于 LAST_ACK 的状态。</p>
+</blockquote>
+<blockquote>
+<p>即服务端没有要向客户端发出的数据，服务端发出连接释放报文段（FIN=1，ACK=1，序号seq=w，确认号ack=u+1），服务端进入LAST_ACK（最后确认）状态，等待客户端的确认。</p>
+</blockquote>
+<blockquote>
+<p>第四次挥手：客户端收到 FIN 之后，一样发送一个 ACK 报文作为应答，且把服务端的序列号值 +1 作为自己 ACK 报文的序列号值，此时客户端处于 TIME_WAIT 状态。需要过一阵子以确保服务端收到自己的 ACK 报文之后才会进入 CLOSED 状态，服务端收到 ACK 报文之后，就处于关闭连接了，处于 CLOSED 状态。</p>
+</blockquote>
+<blockquote>
+<p>即客户端收到服务端的连接释放报文段后，对此发出确认报文段（ACK=1，seq=u+1，ack=w+1），客户端进入TIME_WAIT（时间等待）状态。此时TCP未释放掉，需要经过时间等待计时器设置的时间2MSL后，客户端才进入CLOSED状态。</p>
+</blockquote>
+<p>收到一个FIN只意味着在这一方向上没有数据流动。客户端执行主动关闭并进入TIME_WAIT是正常的，服务端通常执行被动关闭，不会进入TIME_WAIT状态。</p>
+<p>在socket编程中，任何一方执行close()操作即可产生挥手操作。</p>
+<h3 id="六挥手为什么需要四次">六、挥手为什么需要四次？</h3>
+<p>因为当服务端收到客户端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。</p>
+<p>但是关闭连接时，当服务端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉客户端，“你发的FIN报文我收到了”。只有等到我服务端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四次挥手。</p>
+<h3 id="七tcp的粘包问题">七、TCP的粘包问题</h3>
+<p>1 什么是粘包现象</p>
+<p>　　TCP粘包是指发送方发送的若干包数据到接收方接收时粘成一包，从接收缓冲区看，后一包数据的头紧接着前一包数据的尾。</p>
+<p>2 为什么出现粘包现象</p>
+<p>　　（1）发送方原因</p>
+<p>　　我们知道，TCP默认会使用Nagle算法。而Nagle算法主要做两件事：1）只有上一个分组得到确认，才会发送下一个分组；2）收集多个小分组，在一个确认到来时一起发送。</p>
+<p>　　所以，正是Nagle算法造成了发送方有可能造成粘包现象。</p>
+<p>　　（2）接收方原因</p>
+<p>　　TCP接收到分组时，并不会立刻送至应用层处理，或者说，应用层并不一定会立即处理；实际上，TCP将收到的分组保存至接收缓存里，然后应用程序主动从缓存里读收到的分组。这样一         来，如果TCP接收分组的速度大于应用程序读分组的速度，多个包就会被存至缓存，应用程序读时，就会读到多个首尾相接粘到一起的包。</p>
+<p>3 什么时候需要处理粘包现象</p>
+<p>　　（1）如果发送方发送的多个分组本来就是同一个数据的不同部分，比如一个很大的文件被分成多个分组发送，这时，当然不需要处理粘包的现象；</p>
+<p>　　（2）但如果多个分组本毫不相干，甚至是并列的关系，我们就一定要处理粘包问题了。</p>
+<p>4 如何处理粘包现象</p>
+<p>　　（1）发送方</p>
+<p>　　对于发送方造成的粘包现象，我们可以通过关闭Nagle算法来解决，使用TCP_NODELAY选项来关闭Nagle算法。</p>
+<p>　　（2）接收方</p>
+<p>　　遗憾的是TCP并没有处理接收方粘包现象的机制，我们只能在应用层进行处理。</p>
+<p>　　（3）应用层处理</p>
+<p>　　应用层的处理简单易行！并且不仅可以解决接收方造成的粘包问题，还能解决发送方造成的粘包问题。</p>
+<p>　　解决方法就是循环处理：应用程序在处理从缓存读来的分组时，读完一条数据时，就应该循环读下一条数据，直到所有的数据都被处理；但是如何判断每条数据的长度呢？</p>
+<p>　　两种途径：</p>
+<p>　　　　1）格式化数据：每条数据有固定的格式（开始符、结束符），这种方法简单易行，但选择开始符和结束符的时候一定要注意每条数据的内部一定不能出现开始符或结束符；</p>
+<p>　　　　2）发送长度：发送每条数据的时候，将数据的长度一并发送，比如可以选择每条数据的前4字节是数据的长度（一个int来储存数据长度大小），应用层处理时可以根据长度来判断每条数据的开始和结束。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fsanciwoshou%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fsanciwoshou%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fnetdb%2fsanciwoshou%2f&amp;text=%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b%e5%92%8c%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b%e8%af%a6%e8%a7%a3" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
+
+<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+<li><a href="/post/netdb/fenbushi/">分布式系统浅谈</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

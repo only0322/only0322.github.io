@@ -28,7 +28,7 @@
   "@type": "BlogPosting",
   "headline": "Https协议与加密算法的运用",
   "url": "https://only0322.github.io/post/netdb/https/",
-  "wordCount": "306",
+  "wordCount": "298",
   "datePublished": "2021-02-27T18:41:40+08:00",
   "dateModified": "2021-02-27T18:41:40+08:00",
   "author": {
@@ -165,7 +165,7 @@
 <h3 id="rsa">RSA：</h3>
 <ol>
 <li>
-<p>随机选择两个不相等的质数p和11和13。（实际应用中，这两个质数越大，就越难破解。）</p>
+<p>随机选择两个<strong>不相等</strong>的质数p和11和13。（实际应用中，这两个质数越大，就越难破解。）</p>
 </li>
 <li>
 <p>计算p和q的乘积n。n = 11×13 = 143</p>
@@ -188,7 +188,6 @@
  <span style="color:#ae81ff">120</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">17</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
  <span style="color:#ae81ff">17</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">17</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
  <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">120</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>)<span style="color:#960050;background-color:#1e0010">；</span>
- <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">120</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>)<span style="color:#960050;background-color:#1e0010">；</span>
 <span style="color:#960050;background-color:#1e0010">最终得出，</span>d <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">17</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">；</span>
 </code></pre></div><p>虽然我们得到了 d=-17但 在rsa中 d必须是一个正整数,所以得到 e对φ(n)的模逆元 为 120 + （-17）也就是103。</p>
 <p>上面的例子 公钥 (143,7) 私钥(143, 103)。</p>
