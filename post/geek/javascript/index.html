@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="JavaScript核心原理解析" />
+<meta property="og:description" content="一、JavaScript语言是如何构建起来的 1.delete 0：JavaScript到底有什么是可以销毁的 在 JavaScript 中表达式是一个很独特的东西，所有一切表达式运算的终极目的都是为了得到一个值，例如字符串。然后再用另外一些操作将这个值输出出来，例如变成网页中的一个元素（element）。
+这个结果，才是delete这个操作要删除的东西。
+在JS中，语句和表达式可以被执行并存在执行结果。
+delete的运算结果   如果x根本不存在，delete x什么也不做，返回true" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/geek/javascript/" />
+<meta property="article:published_time" content="2021-03-29T17:57:06+08:00" />
+<meta property="article:modified_time" content="2021-03-29T17:57:06+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript核心原理解析"/>
+<meta name="twitter:description" content="一、JavaScript语言是如何构建起来的 1.delete 0：JavaScript到底有什么是可以销毁的 在 JavaScript 中表达式是一个很独特的东西，所有一切表达式运算的终极目的都是为了得到一个值，例如字符串。然后再用另外一些操作将这个值输出出来，例如变成网页中的一个元素（element）。
+这个结果，才是delete这个操作要删除的东西。
+在JS中，语句和表达式可以被执行并存在执行结果。
+delete的运算结果   如果x根本不存在，delete x什么也不做，返回true"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JavaScript核心原理解析",
+  "url": "https://only0322.github.io/post/geek/javascript/",
+  "wordCount": "118",
+  "datePublished": "2021-03-29T17:57:06+08:00",
+  "dateModified": "2021-03-29T17:57:06+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/geek/javascript/">
+
+    <title>JavaScript核心原理解析 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">爱一个人就应该勇敢地追求，哪怕是粉身碎骨，也比到老了后悔要好得多。</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/javascript/">JavaScript核心原理解析</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2021-03-29T17:57:06+08:00">Mon Mar 29, 2021</time>
+</p>
+  </header>
+  <h2 id="一javascript语言是如何构建起来的">一、JavaScript语言是如何构建起来的</h2>
+<h3 id="1delete-0javascript到底有什么是可以销毁的">1.delete 0：JavaScript到底有什么是可以销毁的</h3>
+<p>在 JavaScript 中表达式是一个很独特的东西，所有一切表达式运算的终极目的都是为了得到一个值，例如字符串。然后再用另外一些操作将这个值输出出来，例如变成网页中的一个元素（element）。</p>
+<p><strong>这个结果，才是delete这个操作要删除的东西。</strong></p>
+<p>在JS中，语句和表达式可以被执行并存在执行结果。</p>
+<h4 id="delete的运算结果">delete的运算结果</h4>
+<ol>
+<li>
+<p>如果x根本不存在，delete x什么也不做，返回true</p>
+</li>
+<li>
+<p>删除字面量 返回true</p>
+</li>
+<li>
+<p>如果x是对象，delete x即删除对象本身，返回false</p>
+</li>
+<li>
+<p>delete undefined 返回false</p>
+</li>
+</ol>
+<h3 id="2var-x--y--100声明语句与语法改变了javascript语言核心性质">2.var x = y = 100：声明语句与语法改变了JavaScript语言核心性质</h3>
+<p>let x所声明的那个x其实也已经存在 f() 函数的上下文环境中。访问它之所以会抛出异常（Exception），不是因为它不存在，而是因为这个标识符被拒绝访问了。</p>
+<p>JavaScript 是允许访问还没有绑定值的var所声明的标识符的。这种标识符后来统一约定称为“变量声明（varDelcs）”，而“let/const”则称为“词法声明（lexicalDecls）”。JavaScript 环境在创建一个“变量名（varName in varDecls）”后，会为它初始化绑定一个 undefined 值，而”词法名字（lexicalNames）”在创建之后就没有这项待遇，所以它们在缺省情况下就是“还没有绑定值”的标识符。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">a</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>;
+<span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">b</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>;
+<span style="color:#75715e">//Uncaught ReferenceError: Cannot access &#39;b&#39; before initialization
+</span></code></pre></div><p>JavaScript的赋值其实是将右操作数的值赋值给左操作数的引用。</p>
+<p>也就是说，在 JavaScript 中，一个赋值表达式的左边和右边其实“都是”表达式。</p>
+<p>变量泄漏：变量可以随用随声明，也不用像后来的let语句一样，还要考虑在声明语句之前能不能访问的问题了。但是代码多了就容易出现很多问题。</p>
+<p><strong>var x = y = 100，在这行代码中，等号的右边是一个表达式y = 100，它发生了一次“向不存在的变量赋值”，所以它隐式地声明了一个全局变量y，并赋值为 100。</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#a6e22e">main</span>();
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>);
+<span style="color:#75715e">//0
+</span><span style="color:#75715e">//ReferenceError: a is not defined
+</span></code></pre></div><p>赋值表达式也是有结果的，它的结果是右操作数的值。</p>
+<h3 id="3ax--a--n2一道被无数人无数次地解释过的经典面试题">3.a.x = a = {n:2}：一道被无数人无数次地解释过的经典面试题</h3>
+<p>（赋值表达式左侧的）操作数可以是另一个表达式——这在专栏的第一讲里就讲过了，而“var 声明”语句中的等号左边，绝不可能是一个表达式</p>
+<p><strong>JavaScript 总是严格按照从左至右的顺序来计算表达式。</strong></p>
+<p>例如，在表达式w = x + y * z中，将首先计算子表达式 w，然后计算 x、y 和 z；然后，y 的值和 z 的值相乘，再加上 x 的值；最后将其赋值给表达式 w 所指代的变量或属性。</p>
+<p>但是带有var let const的变量就不是表达式而是一个标识符了。</p>
+<h3 id="4export-default-function-你无法导出一个匿名函数表达式">4.export default function() {}：你无法导出一个匿名函数表达式</h3>
+<p>顺便说下JavaScript的模块技术</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2fjavascript%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2fjavascript%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fgeek%2fjavascript%2f&amp;text=JavaScript%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e8%a7%a3%e6%9e%90" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
+
+<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
+
+<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+<li><a href="/post/other/docker/">Docker技术详解</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
