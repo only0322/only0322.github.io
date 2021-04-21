@@ -34,7 +34,7 @@ delete的运算结果   如果x根本不存在，delete x什么也不做，返�
   "@type": "BlogPosting",
   "headline": "JavaScript核心原理解析",
   "url": "https://only0322.github.io/post/geek/javascript/",
-  "wordCount": "118",
+  "wordCount": "798",
   "datePublished": "2021-03-29T17:57:06+08:00",
   "dateModified": "2021-03-29T17:57:06+08:00",
   "author": {
@@ -173,10 +173,8 @@ delete的运算结果   如果x根本不存在，delete x什么也不做，返�
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 }
 <span style="color:#a6e22e">main</span>();
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>);
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>);
-<span style="color:#75715e">//0
-</span><span style="color:#75715e">//ReferenceError: a is not defined
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>); <span style="color:#75715e">//0
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>); <span style="color:#75715e">//ReferenceError: a is not defined
 </span></code></pre></div><p>赋值表达式也是有结果的，它的结果是右操作数的值。</p>
 <h3 id="3ax--a--n2一道被无数人无数次地解释过的经典面试题">3.a.x = a = {n:2}：一道被无数人无数次地解释过的经典面试题</h3>
 <p>（赋值表达式左侧的）操作数可以是另一个表达式——这在专栏的第一讲里就讲过了，而“var 声明”语句中的等号左边，绝不可能是一个表达式</p>
@@ -184,7 +182,303 @@ delete的运算结果   如果x根本不存在，delete x什么也不做，返�
 <p>例如，在表达式w = x + y * z中，将首先计算子表达式 w，然后计算 x、y 和 z；然后，y 的值和 z 的值相乘，再加上 x 的值；最后将其赋值给表达式 w 所指代的变量或属性。</p>
 <p>但是带有var let const的变量就不是表达式而是一个标识符了。</p>
 <h3 id="4export-default-function-你无法导出一个匿名函数表达式">4.export default function() {}：你无法导出一个匿名函数表达式</h3>
-<p>顺便说下JavaScript的模块技术</p>
+<p>顺便说下JavaScript的模块技术，以下是导出的方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#75715e">// 导出“（声明的）名字”
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">let</span><span style="color:#960050;background-color:#1e0010">/const/var&gt; x ...;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">x</span>() ...
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">x</span> ...
+<span style="color:#66d9ef">export</span> {<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">z</span>, ...};
+
+
+<span style="color:#75715e">// 导出“（重命名的）名字”
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> { <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">y</span>, ...};
+<span style="color:#66d9ef">export</span> { <span style="color:#a6e22e">x</span> <span style="color:#a6e22e">as</span> <span style="color:#66d9ef">default</span>, ... };
+
+
+<span style="color:#75715e">// 导出“（其它模块的）名字”
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> ... <span style="color:#a6e22e">from</span> ...;
+
+
+<span style="color:#75715e">// 导出“值”
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">expression</span>
+</code></pre></div><p>但是对于最后这种形式，也就是“（导出）值”的形式，事实上是非常特殊的。</p>
+<p>因为如要导出一个模块的全部内容就必须导出“（全部的）名字和值”，然而纯粹的值没有名字，于是也就没法访问了，所以这就与“导出点什么东西”的概念矛盾了。</p>
+<p>所以 ECMAScript 6 模块约定了一个称为&quot;default&quot;的名字，用于来导出当前模块中的一个“值”。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">varName</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">varName</span>,  <span style="color:#75715e">// 直接导出名字
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">propName</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">123</span>,  <span style="color:#75715e">// 导出值
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">funcName</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() { }, <span style="color:#75715e">// 导出函数
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">foo</span>() { <span style="color:#75715e">// 或导出与主对象相关联的方法
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// method
+</span><span style="color:#75715e"></span>  }
+}
+</code></pre></div><p>export做了下面两件事：导出一个名字，为上述名字绑定一个值</p>
+<p>和用let声明一个变量的过程是一致的。</p>
+<p>import则做如下工作：按照语法在当前模块声明名字，添加一个当前模块对目标模块的依赖项。</p>
+<p>有了上述的第二步操作，JavaScript 就可以依据所有它能在静态文本中发现的import语句来形成模块依赖树，最后就可以找到这个模块依赖树最顶端的根模块，并尝试加载之。</p>
+<p><strong>在处理 export/import 语句的全程，没有表达式被执行</strong></p>
+<p>按照 JavaScript 的约定，匿名函数表达式可以理解为一个函数的“字面量（值）;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">b</span> () {
+
+}
+
+<span style="color:#a6e22e">a</span>();
+<span style="color:#a6e22e">b</span>();<span style="color:#75715e">//此时会报错 b is not defined
+</span></code></pre></div><p>export &hellip;语句通常是按它的词法声明来创建的标识符的，例如export var x = &hellip;就意味着在当前模块环境中创建的是一个变量，并可以修改等等。但是当它被导入时，在import语句所在的模块中却是一个常量，因此总是不可写的。</p>
+<p>由于export default &hellip;没有显式地约定名字“default（或default）”应该按let/const/var的哪一种来创建，因此 JavaScript 缺省将它创建成一个普通的变量（var），但即使是在当前模块环境中，它事实上也是不可写的，因为你无法访问一个命名为“default”的变量——它不是一个合法的标识符。</p>
+<h3 id="4for循环并不比使用函数递归节省开销">4.for循环并不比使用函数递归节省开销</h3>
+<p>块级作用域：大括号划分的一个区域</p>
+<p>switch语句只有一个作用域。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+<span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">c</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>); <span style="color:#75715e">// ReferenceError
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+        <span style="color:#66d9ef">break</span>;
+}
+</code></pre></div><p><strong>主要是let又重新申明了</strong></p>
+<p>在这个例子中，switch 语句内是无法访问到外部变量x的，即便声明变量x的分支case &lsquo;b&rsquo;永远都执行不到。这是因为所有分支都处在同一个块级作用域中，所以任意分支的声明都会给该作用域添加这个标识符，从而覆盖了全局的变量x。</p>
+<p>还有try catch finally with</p>
+<p>由于函数存在“重新进入”的问题，所以它必须有一个作用域来管理“重新进入之前”的那些标识符。这个东西想必你是听说过的，它被称为“闭包”。</p>
+<p><code>for(var x = ...)</code>就是变量提升，越过当前语法范围，在更外围的作用域登记名字。</p>
+<p>在循环体内是否需要一个新的块级作用域呢？这取决于在语言设计上是否支持如下代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">102</span>; <span style="color:#a6e22e">x</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">105</span>; <span style="color:#a6e22e">x</span><span style="color:#f92672">++</span>)
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+</code></pre></div><p>JavaScript是不允许申明新的变量的，但这却是一个普遍存在的语法禁例。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#75715e">// if语句中的禁例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">false</span>) <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+
+<span style="color:#75715e">// while语句中的禁例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">false</span>) <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+
+<span style="color:#75715e">// with语句中的禁例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">with</span> (<span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+</code></pre></div><p>所以，现在可以确定：循环语句（对于支持“let/const”的 for 语句来说）“通常情况下”只支持一个块级作用域。</p>
+<p>更进一步地说，在上面的代码中，我们并没有机会覆盖 for 语句中的“let/const”声明。</p>
+<p>但<code>for(let i=0;...)</code>这样的代码显然必须增加作用域了。</p>
+<p>在语法设计上，需要为使用let/const声明循环变量的 for 语句多添加一个作用域。</p>
+<p>在 JavaScript 的具体执行过程中，作用域是被作为环境的上下文来创建的。如果将 for 语句的块级作用域称为 forEnv，并将上述为循环体增加的作用域称为 loopEnv，那么 loopEnv 它的外部环境就指向 forEnv。于是在 loopEnv 看来，变量i其实是登记在父级作用域 forEnv 中，并且 loopEnv 只能使用它作为名字“i”的一个引用。</p>
+<p>更准确地说，在 loopEnv 中访问变量i，在本质上就是通过环境链回溯来查找标识符（Resolve identifier, or Get Identifier Reference）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">x</span>)
+  <span style="color:#a6e22e">setTimeout</span>(()=&gt;<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>), <span style="color:#ae81ff">1000</span>);
+</code></pre></div><p>这样的代码显然需要创建无数个副本才能使运行结果符合预期。</p>
+<p>一种理论上的观点，也就是所谓“循环与函数递归在语义上等价”。所以在事实上，上述这种 for 循环并不比使用函数递归节省开销。</p>
+<h2 id="二从表达式到引擎javascript是如何运行的">二、从表达式到引擎：JavaScript是如何运行的</h2>
+<h3 id="1break语句">1.break语句</h3>
+<p>已经废弃goto操作，因为太古老且难以维护。</p>
+<blockquote>
+<p>作用域退出，就是函数 RETURN。
+作用域挂起，就是执行权的转移。
+作用域的创建，就是一个闭包的初始化。</p>
+</blockquote>
+<h3 id="2javascript中特殊的可执行结构">2.JavaScript中特殊的可执行结构</h3>
+<p>在 JavaScript 语言的内核中，参数表其实是一个独立的语法组件：</p>
+<ul>
+<li>
+<p>对于函数来说，参数表就是在函数调用时传入的参数 0 到 n；</p>
+</li>
+<li>
+<p>对于构造器以及构造器的 new 运算来说，参数表就是 new 运算的一个运算数。</p>
+</li>
+</ul>
+<p>参数列表就是一个模板。</p>
+<p>所有这些执行的结果都是一个名字，执行的语义就是给这个名字一个值。显然这是不够的，因为除了给这个名字一个值之外，最终还得使用这个名字以便进行更多的运算。</p>
+<p>那么，这个“找到名字并使用名字”的过程，就称为“发现（Resolve binding）”，而其结果，就称为“引用（reference）”</p>
+<p><strong>发现一个名字与发现一个值本质上没有什么不同</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><h3 id="3x--x函数式语言的核心抽象函数与表达式的同一性">3.x =&gt; x：函数式语言的核心抽象：函数与表达式的同一性</h3>
+<p>讲述函数的执行过程：</p>
+<p><strong>函数的一体两面</strong></p>
+<p>用静态的视角来看函数，它就是一个函数对象（函数的实例）。如果不考虑它作为对象的那些特性，那么函数也无非就是“用三个语义组件构成的实体”。</p>
+<p>这三个语义组件是指：</p>
+<ol>
+<li>
+<p>参数：函数总是有参数的，即使它的形式参数表为空；</p>
+</li>
+<li>
+<p>执行体：函数总是有它的执行过程，即使是空的函数体或空语句；</p>
+</li>
+<li>
+<p>结果：函数总是有它的执行的结果，即使是 undefined。</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>() {
+  ...
+}
+</code></pre></div><p>语法( )指示了参数，而{ }指示了执行体，并且，我们隐式地知道该函数有一个结果。这也是 JavaScript 设计经常被批判的一处：由于没有静态类型声明，所以我们也无法知道函数返回何种结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array;
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>() {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>});
+</code></pre></div><p>任何时候只要用户代码引用一次这样的函数（的声明或字面量），那么它就会拿到该函数的一个闭包。注意，得到这个闭包的过程与是否调用它是无关的。</p>
+<h3 id="4throw语法">4.throw语法</h3>
+<p>任何 JavaScript 语句执行时总是会“返回”一个值，包括空语句。</p>
+<p>throw语句返回的是一个字面量，所以和空语句一样非常的简单。</p>
+<p>return 语句总是显式地返回值或隐式地置返回值为 undefined，也就是说它总是返回值，而 break 和 continue 则是不携带返回值的。那么是不是说，当一个“语句块”的最终语句是 break 或 continue 以及其他一些不携带返回值的语句时，该“语句块”总是没有返回值的呢？</p>
+<p>答案是否。</p>
+<p>ECMAScript 语言约定，在块中的多个语句顺序执行时，遵从两条规则：在向前覆盖既有的语句完成值时，empty值不覆盖任何值；部分语句在没有有效返回值，且既有语句的返回值是empty时，默认用undefined覆盖之。</p>
+<p>如果throw语句本身就存在问题，则直接抛出值本身，比如</p>
+<p><code>throw(1/0)</code></p>
+<h2 id="三从原型到类javascript是如何构建的">三、从原型到类：JavaScript是如何构建的</h2>
+<h3 id="1javascript的对象">1.JavaScript的对象</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#a6e22e">scope</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">object</span><span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">创建本闭包的对象或函数</span><span style="color:#f92672">&gt;</span>,
+  <span style="color:#a6e22e">parent</span><span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">父级的scope</span><span style="color:#f92672">&gt;</span>
+}
+</code></pre></div><h4 id="字面量和标识符">字面量和标识符</h4>
+<p>通常情况下，开发人员会将标识符直接称为名字（在 ECMAScript 规范中，它的全称是“标识符名字（IdentifierName）”），而字面量是一个数据的文本表示。显然，通常标识符就用作后者的名字标识。</p>
+<p>对于这两种东西，在 ECMAScript 中的处理机制并不太一样，并且在文本解析阶段就会把二者区分开来。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// var x = 1;
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span>;
+<span style="color:#a6e22e">x</span>;
+</code></pre></div><p>如果其中“1”是字面量值，JavaScript 会直接处理它；而 x 是一个标识符（哪怕它只是一个值类型数据的变量名），就需要建立一个“引用”来处理了。</p>
+<p>源于 JavaScript 中面向对象系统的独特设计，它的对象属性存取结果总是不确定的。</p>
+<ul>
+<li>
+<p>如果属性不是自有的，那么它的值就是原型决定的；</p>
+</li>
+<li>
+<p>当属性是存取方法的，那么它的值就是求值决定的。</p>
+</li>
+</ul>
+<h3 id="2对象构造的过程">2.对象构造的过程</h3>
+<p>ECMAScript 6 开始，JavaScript 有了使用class来声明“类”的语法(之前是function + this)。</p>
+<p>自此之后，JavaScript 的“类”与“函数”有了明确的区别：类只能用 new 运算来创建，而不能使用“()”来做函数调用。例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AClass</span>()
+<span style="color:#a6e22e">AClass</span> {}
+
+<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">AClass</span>()
+<span style="color:#a6e22e">TypeError</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Class</span> <span style="color:#a6e22e">constructor</span> <span style="color:#a6e22e">AClass</span> <span style="color:#a6e22e">cannot</span> <span style="color:#a6e22e">be</span> <span style="color:#a6e22e">invoked</span> <span style="color:#a6e22e">without</span> <span style="color:#e6db74">&#39;new&#39;</span>
+</code></pre></div><p>同时也不能对方法做new运算:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">对方法使用new运算会导致异常</span><span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">foo</span>()
+<span style="color:#a6e22e">TypeError</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">foo</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">constructor</span>
+</code></pre></div><p>在 ECMAScript 6 之后，函数可以简单地分为三个大类：</p>
+<ol>
+<li>类：只可以做 new 运算；</li>
+<li>方法：只可以做调用“( )”运算；</li>
+<li>一般函数：（除部分函数有特殊限制外，）同时可以做 new 和调用运算。</li>
+</ol>
+<h3 id="3对象的本质">3.对象的本质</h3>
+<p>“结构”是应用编程的必须，而“解构”是底层计算的必须。从一个“结构（这里是指数据结构，或者对象等复杂的结构）”中把那些值数据取出来，就称为解构。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>}
+</code></pre></div><p>等号右侧是一个对象的字面量，它的语义是将a、b两个数据变成“对象”这个数据结构中的两个成员。其中，由于 a、b 都是既已约定的名字，所以在作为对象成员的时候，“名字 + 值”就都已经具备了，完全符合“关联数组（或名 / 值数据对）”的语义要求。</p>
+<p>左侧则是一个赋值模板，变量名字和值之前位置关系的一个说明。</p>
+<h3 id="4js的null">4.js的null</h3>
+<p>null是一个对象。</p>
+<p>早期的 JavaScript 一共有 6 种类型，其中 number、string、boolean、object 和 function 都是有一个确切的“值”的，而第 6 种</p>
+<p>类型Undefined定义了它们的反面，也就是“非值”。</p>
+<p>null用于表达一个对象不存在，也就是“非对象”，例如在原型继承中上溯原型链直到根类——根类没有父类，因此它的原型就指向null。</p>
+<p>对于 JavaScript 来说，它只有 13 个，可以分成三类，其中包括：</p>
+<p>操作原型的，3 个，分别用于读写内部原型槽，以及基于原型链检索；</p>
+<p>操作属性表的，8 个，包括冻结、检索、置值和查找等（类似于数据库的增删查改）；</p>
+<p>操作函数行为的，2 个，分别用于函数调用和对象构造。</p>
+<h2 id="四进阶">四、进阶</h2>
+<h3 id="1-动态类型的ab">1. 动态类型的a+b</h3>
+<p>“一切都能转换成字符串”只是理论上行得通，而实际上很多情况下是做不到的。在这些“无法完成转换”的情况下，JavaScript 仍然会尝试给出一个有效的字符串值。基本上，这种转换只能保证“不抛出异常”，而无法完成任何有效的计算。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> (<span style="color:#66d9ef">new</span> Object).<span style="color:#a6e22e">toString</span>()
+<span style="color:#e6db74">&#39;[object Object]&#39;</span>
+</code></pre></div><ul>
+<li>
+<p>浏览器可以显示的东西，是 string；</p>
+</li>
+<li>
+<p>可以计算的东西，是 number；</p>
+</li>
+<li>
+<p>可以表达逻辑的东西，是 boolean。</p>
+</li>
+</ul>
+<p>因此，在一个“最小的、可以被普通人理解的、可计算的程序系统中”，支持的“值类型数据”的最小集合，就应该是这三种。</p>
+<p>除了 undefined、null、0、NaN、&quot;&quot;（empty string）以及 BigInt 中的 0n 返回 false 之外，其他的值转换为 boolean 时，都将是 true 值。</p>
+<h4 id="隐式转换">隐式转换</h4>
+<p>JavaScript 的 typeof() 所支持的 7 种类型，其中的“对象（object）”与“函数（function）”算一大类，合称为引用类型，而其他类型作为值类型。</p>
+<p>JavaScript的类型转换规则：</p>
+<ol>
+<li>
+<p>从值 x 到引用，调用 Object(x) 函数。</p>
+</li>
+<li>
+<p>从引用 x 到值，调用 x.valueOf() 方法；或调用 4 种值类型的包装类函数，例如 Number(x)，或者 String(x) 等等。</p>
+</li>
+</ol>
+<p>“从值 x 到引用”。因为主要的值类型都有对应的引用类型，因此 JavaScript 可以用简单方法一一对应地将它们转换过去。</p>
+<p>使用<code>Object(x)</code>不管x本身是什么，都会返回一个对象</p>
+<p>类似的还包括字符串、布尔值、符号等。而 null、undefined 将被转换为一个一般的、空白的对象，与new Object或一个空白字面量对象（也就是{ }）的效果一样。</p>
+<p>这个运算非常好用的地方在于，如果 x 已经是一个对象，那么它只会返回原对象，而不会做任何操作。<strong>也就是说，它没有任何的副作用。</strong></p>
+<p>任何对象都会有继承自原型的两个方法，称为toString()和valueOf()，这是 JavaScript 中“对象转换为值”的关键。</p>
+<p>一般而言，你可以认为“任何东西都是可以转换为字符串的”，这个很容易理解，比如JSON.stringify()就利用了这一个简单的假设，它“几乎”可以将 JavaScript 中的任何对象或数据，转换成 JSON 格式的文本。</p>
+<h4 id="函数怎么转成字符串">函数怎么转成字符串</h4>
+<p>从最基础的来说，函数有两个层面的含义，一个是它的可执行代码，也就是文本形式的源代码；另一个则是函数作为对象，也有自己的属性。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> Object(<span style="color:#a6e22e">Symbol</span>())
+[<span style="color:#a6e22e">Symbol</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Symbol</span>()]
+</code></pre></div><p>但是函数转字符串，并没有什么实际的意义。</p>
+<p>JavaScript 约定，所有“对象 -&gt; 值”的转换结果要尽量地趋近于 string、number 和 boolean 三者之一。</p>
+<p>不过这从来都不是“书面的约定”，而是因为 JavaScript 在早期的作用，就是用于浏览器上的开发，而：</p>
+<ul>
+<li>
+<p>浏览器可以显示的东西，是 string；</p>
+</li>
+<li>
+<p>可以计算的东西，是 number；</p>
+</li>
+<li>
+<p>可以表达逻辑的东西，是 boolean。</p>
+</li>
+</ul>
+<p>JS将数据放到对象实例的内部槽中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> Object(<span style="color:#a6e22e">x</span>);
+
+<span style="color:#75715e">// 等效于（如果能操作内部槽的话）
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">obj</span>.[[<span style="color:#a6e22e">PrimitiveValue</span>]] <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;
+</code></pre></div><p>ECMAScript 为了兼容旧版本的 JavaScript，直接将这个转换定义成了一张表格，这个表格在 ECMAScript 规范或者我们常用的MDN（Mozilla Developer Network）上可以直接查到</p>
+<p>。简单地说，就是除了 undefined、null、0、NaN、&quot;&quot;（empty string）以及 BigInt 中的 0n 返回 false 之外，其他的值转换为 boolean 时，都将是 true 值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span><span style="color:#a6e22e">n</span>;  <span style="color:#75715e">// `bigint` value
+</span><span style="color:#75715e"></span><span style="color:#f92672">&gt;</span> String(<span style="color:#a6e22e">x</span>)  <span style="color:#75715e">// to `string` value
+</span><span style="color:#75715e"></span><span style="color:#e6db74">&#39;100n&#39;</span>
+
+<span style="color:#f92672">&gt;</span> Boolean(<span style="color:#a6e22e">x</span>); <span style="color:#75715e">// to `boolean` value
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">true</span>
+</code></pre></div><p>ECMAScript 在后期就倾向于抛弃隐式类型转换，多数的“新方法”在发现类型不匹配的时候，都设计为显式地抛出类型错误。一个典型的结果就是，在 ECMAScript 3 的时代，TypeError 这个词在规范中出现的次数是 24 次；到了 ECMAScript 5，是 114 次；而 ECMAScript 6 开始就暴增到 419 次。</p>
+<p>输出的结果，总是会“收敛”到两种类型：字符串，或者数值。“隐式转换”其实只是表面现象，核心的问题是，这种转换的结果总是倾向于“string/number”两种值类型。</p>
+<h4 id="类型转换和求值的规则">类型转换和求值的规则</h4>
+<p>JavaScript 约定：如果x原本就是原始值，那么取值操作直接就返回x本身。</p>
+<p>JavaScript 有一项特别的设定，就是对“引擎推断目的”这一行为做一个预设。如果某个运算没有预设目的，而 JavaScript 也不能推断目的，那么 JavaScript 就会强制将这个预设为“number”，并进入“传统的”类型转换逻辑</p>
+<p><strong>如果一个运算无法确定类型，那么在类型转换前，它的运算数将被预设为 number</strong></p>
+<p>JS会自动插入分号，所以：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#f92672">+</span>[] <span style="color:#a6e22e">将等义于</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#f92672">+</span> Number([])
+<span style="color:#ae81ff">0</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#f92672">+</span>{} <span style="color:#a6e22e">将等义于</span>
+<span style="color:#f92672">&gt;</span> <span style="color:#f92672">+</span> Number({})
+<span style="color:#66d9ef">NaN</span>
+</code></pre></div><h3 id="2函数的类化">2.函数的类化</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> Function(<span style="color:#e6db74">&#39;x = 100&#39;</span>)();
+</code></pre></div><p>这里稍微需要强调一下的是“最后一对括号的使用”，由于运算符优先级的设计，它是在 new 运算之后才被调用的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#75715e">// （等义于）
+</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">new</span> Function(<span style="color:#e6db74">&#39;x = 100&#39;</span>))()
+
+<span style="color:#75715e">// （或）
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Function(<span style="color:#e6db74">&#39;x = 100&#39;</span>)
+<span style="color:#a6e22e">f</span>()
+</code></pre></div><p>也就是说：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> Function(<span style="color:#a6e22e">x</span>)
+
+<span style="color:#75715e">// vs.
+</span><span style="color:#75715e"></span>Function(<span style="color:#a6e22e">x</span>)
+</code></pre></div><p>That&rsquo;s all</p>
 
 
   
