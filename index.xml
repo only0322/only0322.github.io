@@ -7,7 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Mon, 29 Mar 2021 17:57:06 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 17:46:07 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>初等数论学习</title>
+      <link>https://only0322.github.io/post/math/numbertheory/</link>
+      <pubDate>Wed, 21 Apr 2021 17:46:07 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/math/numbertheory/</guid>
+      <description>一、整数 1.基础 1.1 良序性质 每个非空的正整数集合都有一个最小元
+部分整数集合没有最小元，如小于100的整数，负整数，所有整数。
+1.2 证明根号2是无理数 有理数都可以写成p/q的形式，其中p和q是整数
+1.3 代数数和超越数 如果x是整系数多项式的根，则称为代数数，如根号2，和任何有理数。</description>
+    </item>
+    
+    <item>
+      <title>数学学习汇总</title>
+      <link>https://only0322.github.io/math/</link>
+      <pubDate>Wed, 21 Apr 2021 17:45:01 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/math/</guid>
+      <description> 初等数论  </description>
+    </item>
+    
     <item>
       <title>JavaScript核心原理解析</title>
       <link>https://only0322.github.io/post/geek/javascript/</link>

@@ -10,7 +10,7 @@
 <meta property="og:description" content="努力学习，珍惜时间" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2021-03-29T17:57:06+08:00" />
+<meta property="og:updated_time" content="2021-04-21T17:46:07+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2021-03-29T17:57:06+08:00",
+  "dateModified": "2021-04-21T17:46:07+08:00",
   "keywords": "",
   "description":"努力学习，珍惜时间"
 }
@@ -89,6 +89,9 @@
           <a class="nav-link" href="/opensource" title="">开源项目学习</a>
           
           
+          <a class="nav-link" href="/math" title="">数学</a>
+          
+          
           <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
           
           
@@ -120,6 +123,26 @@
 
           
 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqdead/">RabbitMQ消息重发、死信处理</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-02T22:01:18+08:00">Tue Jun 2, 2020</time> by 吉法师</p>
+  </header>
+  了解死信队列 从图中发现知：
+生产者发送的消息会经由交换机传送到绑定的队列中，然后经由消费者接受消息，消息一旦被消费者消费后，就会移除队列中，表示整个流程的结束。
+但是如果消息没有被消费成功（或者说消息变为了死信），那么正常来说和原来的（正常）队列绑定的消费者就无法消费消息，那么变为死信的消息怎么处理啦！
+在正常的业务中，会针对这一部分进行特殊处理，可以考虑指定一个死信交换机，并绑定一个死信队列，当消息变成死信时，该消息就会被发送到该死信队列上，这样就方便我们查看消息失败的原因了。
+换句话说就是 没有被消费的消息， 换个地方重新被消费。
+整个流程可以表示成
+生产者 &ndash;&gt; 消息 &ndash;&gt; 交换机 &ndash;&gt; 队列 &ndash;&gt; 变成死信 &ndash;&gt; DLX交换机 &ndash;&gt;队列 &ndash;&gt; 消费者
+  <a href='https://only0322.github.io/post/rabbitmq/rmqdead/'>Read more →</a>
+</article> 
 
 
 
@@ -189,23 +212,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/vuestudent/">Vue制作的学生管理系统</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-05-26T06:21:13+08:00">Tue May 26, 2020</time> by 吉法师</p>
-  </header>
-  首先给出项目地址：码云连接
-前端存放在manager目录下，后端则是BackEnd目录。
-一、用到的技术 1.前端:Vue+iview 2.后端:Node.js+Koa 3.数据库:MySQL 二、各模块功能实现 1.登录界面 登录界面通过前端渲染两个对话框，供用户输入账号密码，发送post请求至后端。
-后端去数据库查询预先配置好的公私钥，通过RSA解密密文，与前端发送的密码明文进行匹配。
-  <a href='https://only0322.github.io/post/front/vuestudent/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/10/" rel="prev" role="button">Previous page</a>
@@ -235,6 +241,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
+
 <li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
 
 <li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
@@ -252,8 +260,6 @@
 <li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
 
 <li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
-
-<li><a href="/post/other/docker/">Docker技术详解</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

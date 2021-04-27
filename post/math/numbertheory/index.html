@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="初等数论学习" />
+<meta property="og:description" content="一、整数 1.基础 1.1 良序性质 每个非空的正整数集合都有一个最小元
+部分整数集合没有最小元，如小于100的整数，负整数，所有整数。
+1.2 证明根号2是无理数 有理数都可以写成p/q的形式，其中p和q是整数
+1.3 代数数和超越数 如果x是整系数多项式的根，则称为代数数，如根号2，和任何有理数。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/math/numbertheory/" />
+<meta property="article:published_time" content="2021-04-21T17:46:07+08:00" />
+<meta property="article:modified_time" content="2021-04-21T17:46:07+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="初等数论学习"/>
+<meta name="twitter:description" content="一、整数 1.基础 1.1 良序性质 每个非空的正整数集合都有一个最小元
+部分整数集合没有最小元，如小于100的整数，负整数，所有整数。
+1.2 证明根号2是无理数 有理数都可以写成p/q的形式，其中p和q是整数
+1.3 代数数和超越数 如果x是整系数多项式的根，则称为代数数，如根号2，和任何有理数。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "初等数论学习",
+  "url": "https://only0322.github.io/post/math/numbertheory/",
+  "wordCount": "84",
+  "datePublished": "2021-04-21T17:46:07+08:00",
+  "dateModified": "2021-04-21T17:46:07+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/math/numbertheory/">
+
+    <title>初等数论学习 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/qt" title="">Qt学习归档</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/math" title="">数学</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">努力学习，珍惜时间</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/math/numbertheory/">初等数论学习</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2021-04-21T17:46:07+08:00">Wed Apr 21, 2021</time>
+</p>
+  </header>
+  <h2 id="一整数">一、整数</h2>
+<h3 id="1基础">1.基础</h3>
+<h4 id="11-良序性质">1.1 良序性质</h4>
+<p>每个非空的正整数集合都有一个<strong>最小元</strong></p>
+<p>部分整数集合没有最小元，如小于100的整数，负整数，所有整数。</p>
+<h4 id="12-证明根号2是无理数">1.2 证明根号2是无理数</h4>
+<p>有理数都可以写成p/q的形式，其中p和q是整数</p>
+<p><img src="/images/math/sqrt2" alt="证明"></p>
+<h4 id="13-代数数和超越数">1.3 代数数和超越数</h4>
+<p>如果x是整系数多项式的根，则称为代数数，如根号2，和任何有理数。</p>
+<p>有理数a/b是bx-a的根(a,b是整数且b不为0)，所有有理数是代数数。</p>
+<p>如果数a不是代数数，则称为超越数，如π，e（1+1/x)^x的极限</p>
+<h4 id="14-抽屉原理鸽笼原理">1.4 抽屉原理（鸽笼原理）</h4>
+<p>抽屉原理I：把n+1个苹果放到n个抽屉里，则至少有一个抽屉中有2个或2个以上的苹果。
+抽屉原理II：把mxn+r个苹果放到n个抽屉里，则至少有一个抽屉中有不少于m+l个苹果。</p>
+<h4 id="15-求和符号">1.5 求和符号</h4>
+<p>100 ←上界 n
+∑ i = 1+2+3+4+5+···+100
+i=1↘下界 i</p>
+<h4 id="16-数学归纳法">1.6 数学归纳法</h4>
+<p>数学归纳法需要两个步骤：</p>
+<ol>
+<li>
+<p>设S属于命题里的正整数集合，命题对整数1为真。（基础步骤）</p>
+</li>
+<li>
+<p>证明对每个正整数n，n属于S则n+1也疏忽S。（归纳步骤)</p>
+</li>
+</ol>
+<p><img src="/images/math/mathconclude.png" alt="数学归纳法"></p>
+<h4 id="17-斐波那契数列">1.7 斐波那契数列</h4>
+<p>fn = fn-1 + fn-2</p>
+<p>如f3 =f1 + f2 = 1+1 = 2
+f4 = 3
+f5 = 5
+f6 = 8
+……</p>
+<h4 id="18-整除性">1.8 整除性</h4>
+<p>a|b 表示a可以整除b。</p>
+<h4 id="19-整数运算的复杂度">1.9 整数运算的复杂度</h4>
+<p>用大O记法来表示。</p>
+<h3 id="2-素数">2 素数</h3>
+<p>每一个大于1的正素数都有一个素因子</p>
+<h4 id="2-素性校验">2. 素性校验</h4>
+<ol>
+<li>如果n是一个合数，则n一定有一个不超过根号n的素因子(艾拉托色尼斯筛法)</li>
+</ol>
+<p>比如小于100的合数，一定有小于10的素因子，小于10的素数为2，3，5，7，则分别筛去能被2，3，5，7整除的数即可。</p>
+<ol start="2">
+<li>梅森素数</li>
+</ol>
+<p>形如2^n - 1的素数</p>
+<ol start="3">
+<li>哥德巴赫猜想</li>
+</ol>
+<p>每一个大于2的正偶数可以写成两个素数的和</p>
+<ol start="4">
+<li>欧几里得原理</li>
+</ol>
+<p>求(a,b)用辗转相除法，最后一个乘数就是a和b的最大公因数。</p>
+<h4 id="3-算数基本原理">3. 算数基本原理</h4>
+<p>每一个大于1的正整数都可以被唯一地写成素数的乘积，在乘积中的素因子按照非降序排列。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fmath%2fnumbertheory%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fmath%2fnumbertheory%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fmath%2fnumbertheory%2f&amp;text=%e5%88%9d%e7%ad%89%e6%95%b0%e8%ae%ba%e5%ad%a6%e4%b9%a0" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
+
+<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
+
+<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
+
+<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
+
+<li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
+
+<li><a href="/post/java/base/">Java知识合集</a></li>
+
+<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
+
+<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
+
+<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
+
+<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>
