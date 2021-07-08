@@ -8,11 +8,12 @@
 
 <meta property="og:title" content="23种设计模式归纳" />
 <meta property="og:description" content="设计模式的定义 软件设计模式（Design pattern），又称设计模式，是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性、程序的重用性。
+开闭原则：鼓励扩展，但拒绝（或不推荐）修改。比如BFF中经常出现v2,v3的函数。
 设计模式的分类 总体来说设计模式分为三大类：
 创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。
 结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
 行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
- 单例模式 工厂模式  " />
+一、单例模式 概念：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://only0322.github.io/post/other/pattern/" />
 <meta property="article:published_time" content="2020-06-11T22:24:14+08:00" />
@@ -23,11 +24,12 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="23种设计模式归纳"/>
 <meta name="twitter:description" content="设计模式的定义 软件设计模式（Design pattern），又称设计模式，是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性、程序的重用性。
+开闭原则：鼓励扩展，但拒绝（或不推荐）修改。比如BFF中经常出现v2,v3的函数。
 设计模式的分类 总体来说设计模式分为三大类：
 创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。
 结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
 行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
- 单例模式 工厂模式  "/>
+一、单例模式 概念："/>
 <meta name="generator" content="Hugo 0.80.0" />
 
 
@@ -38,7 +40,7 @@
   "@type": "BlogPosting",
   "headline": "23种设计模式归纳",
   "url": "https://only0322.github.io/post/other/pattern/",
-  "wordCount": "10",
+  "wordCount": "529",
   "datePublished": "2020-06-11T22:24:14+08:00",
   "dateModified": "2020-06-11T22:24:14+08:00",
   "author": {
@@ -106,6 +108,9 @@
           <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
           
           
+          <a class="nav-link" href="/book" title="">文学</a>
+          
+          
           <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
           
           
@@ -144,15 +149,316 @@
   </header>
   <h2 id="设计模式的定义">设计模式的定义</h2>
 <p>软件设计模式（Design pattern），又称设计模式，是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性、程序的重用性。</p>
+<p>开闭原则：鼓励扩展，但拒绝（或不推荐）修改。比如BFF中经常出现v2,v3的函数。</p>
 <h2 id="设计模式的分类">设计模式的分类</h2>
 <p>总体来说设计模式分为三大类：</p>
 <p>创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。</p>
 <p>结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</p>
 <p>行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</p>
+<h3 id="一单例模式">一、单例模式</h3>
+<p>概念：</p>
 <ol>
-<li><a href="/post/Other/singlepattern">单例模式</a></li>
-<li><a href="/post/Other/factorypattern">工厂模式</a></li>
+<li>单例类只能有一个实例。</li>
+<li>单例类必须自己创建自己的唯一实例。</li>
+<li>单例类必须给所有其他对象提供这一实例。</li>
 </ol>
+<p>以Node.js代码为例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//类定义
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HttpManager</span> {
+    <span style="color:#a6e22e">constructor</span>() {
+        
+    }
+}
+
+<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">http</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HttpManager</span>();
+
+<span style="color:#75715e">//main.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">HttpManager</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./HttpManager.js&#39;</span>);
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">http</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HttpManager</span>();
+    <span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">http</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>; <span style="color:#75715e">//个人认为是关键代码
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#a6e22e">main</span>();
+</code></pre></div><p>优点：</p>
+<ol>
+<li>在内存中只有一个实例，减少内存开销，同时不需要考虑资源的多重占用。</li>
+<li>在Nodejs中，这样可以全局地调用这些类的方法，不需要导入模块了。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>在Vscode中，这样实现单例类不能进行代码跳转，极其考验对系统的理解能力。</li>
+<li>没有接口，不能继承（私有），与单一职责原则冲突，一个类应该只关心内部逻辑，而不关心外面怎么样来实例化。</li>
+</ol>
+<p><strong>单例类设计出来，可能内部也没有资源加解锁的逻辑？所以不让别人继承？</strong></p>
+<h3 id="二工厂模式">二、工厂模式</h3>
+<p>简单工厂模式属于类的创建型模式,又叫做静态工厂方法模式。通过专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
+<p>实际的场景：</p>
+<ol>
+<li>
+<p>图形化库中，单行的编辑栏和多行的编辑栏，都是继承了基类的编辑功能，只是各自进行了扩展。（<strong>是否是工厂模式？</strong>）</p>
+</li>
+<li>
+<p>设计一个连接服务器的框架，需要三个协议，&ldquo;POP3&rdquo;、&ldquo;IMAP&rdquo;、&ldquo;HTTP&rdquo;，可以把这三个作为产品类，共同实现一个接口。</p>
+</li>
+<li>
+<p>数据库的odbc，golang和Java提送连接数据库的包。</p>
+</li>
+</ol>
+<p>作用：</p>
+<ol>
+<li>
+<p>工厂模式是为了解耦：把对象的创建和使用的过程分开。就是Class A 想调用 Class B ，那么A只是调用B的方法，而至于B的实例化，就交给工厂类。</p>
+</li>
+<li>
+<p>工厂模式可以降低代码重复。如果创建对象B的过程都很复杂，需要一定的代码量，而且很多地方都要用到，那么就会有很多的重复代码。我们可以这些创建对象B的代码放到工厂里统一管理。既减少了重复代码，也方便以后对B的创建过程的修改维护。</p>
+</li>
+<li>
+<p>因为工厂管理了对象的创建逻辑，使用者并不需要知道具体的创建过程，只管使用即可，减少了使用者因为创建逻辑导致的错误。(如对数据库的操作，mysql，oracle等。)</p>
+</li>
+</ol>
+<h3 id="三抽象工厂模式">三、抽象工厂模式</h3>
+<p>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
+<p>在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。</p>
+<h3 id="四建造者模式">四、建造者模式</h3>
+<p>建造者模式（Builder Pattern）使用多个简单的对象一步一步构建成一个复杂的对象。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
+<p>一个 Builder 类会一步一步构造最终的对象。该 Builder 类是独立于其他对象的。</p>
+<p>简单来说就是不断扩展类的过程：</p>
+<ol>
+<li>在Computer 中创建一个静态内部类 Builder，然后将Computer 中的参数都复制到Builder类中。</li>
+<li>在Computer中创建一个private的构造函数，参数为Builder类型</li>
+<li>在Builder中创建一个public的构造函数，参数为Computer中必填的那些参数，cpu 和ram。</li>
+<li>在Builder中创建设置函数，对Computer中那些可选参数进行赋值，返回值为Builder类型的实例</li>
+<li>在Builder中创建一个build()方法，在其中构建Computer的实例并返回</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Computer</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String cpu<span style="color:#f92672">;</span><span style="color:#75715e">//必须
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String ram<span style="color:#f92672">;</span><span style="color:#75715e">//必须
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> usbCount<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String keyboard<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String display<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Computer</span><span style="color:#f92672">(</span>Builder builder<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cpu</span><span style="color:#f92672">=</span>builder<span style="color:#f92672">.</span><span style="color:#a6e22e">cpu</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ram</span><span style="color:#f92672">=</span>builder<span style="color:#f92672">.</span><span style="color:#a6e22e">ram</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">usbCount</span><span style="color:#f92672">=</span>builder<span style="color:#f92672">.</span><span style="color:#a6e22e">usbCount</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">keyboard</span><span style="color:#f92672">=</span>builder<span style="color:#f92672">.</span><span style="color:#a6e22e">keyboard</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">display</span><span style="color:#f92672">=</span>builder<span style="color:#f92672">.</span><span style="color:#a6e22e">display</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Builder</span><span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">private</span> String cpu<span style="color:#f92672">;</span><span style="color:#75715e">//必须
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> String ram<span style="color:#f92672">;</span><span style="color:#75715e">//必须
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> usbCount<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> String keyboard<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> String display<span style="color:#f92672">;</span><span style="color:#75715e">//可选
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Builder</span><span style="color:#f92672">(</span>String cup<span style="color:#f92672">,</span>String ram<span style="color:#f92672">){</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cpu</span><span style="color:#f92672">=</span>cup<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ram</span><span style="color:#f92672">=</span>ram<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> Builder <span style="color:#a6e22e">setUsbCount</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> usbCount<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">usbCount</span> <span style="color:#f92672">=</span> usbCount<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">public</span> Builder <span style="color:#a6e22e">setKeyboard</span><span style="color:#f92672">(</span>String keyboard<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">keyboard</span> <span style="color:#f92672">=</span> keyboard<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">public</span> Builder <span style="color:#a6e22e">setDisplay</span><span style="color:#f92672">(</span>String display<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">display</span> <span style="color:#f92672">=</span> display<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>        
+        <span style="color:#66d9ef">public</span> Computer <span style="color:#a6e22e">build</span><span style="color:#f92672">(){</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Computer<span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#75715e">//省略getter方法
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+Computer computer<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> Computer<span style="color:#f92672">.</span><span style="color:#a6e22e">Builder</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;因特尔&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;三星&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">setDisplay</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;三星24寸&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">setKeyboard</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;罗技&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">setUsbCount</span><span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</code></pre></div><h3 id="五原型模式">五、原型模式</h3>
+<p>用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在这里，原型实例指定了要创建的对象的种类。用这种方式创建对象非常高效，根本无须知道对象创建的细节。例如，Windows 操作系统的安装通常较耗时，如果复制就快了很多。</p>
+<p>原型模式的优点：</p>
+<ul>
+<li>Java 自带的原型模式基于内存二进制流的复制，在性能上比直接 new 一个对象更加优良。</li>
+<li>可以使用深克隆方式保存对象的状态，使用原型模式将对象复制一份，并将其状态保存起来，简化了创建对象的过程，以便在需要的时候使用（例如恢复到历史某一状态），可辅助实现撤销操作。</li>
+</ul>
+<p>原型模式的缺点：</p>
+<ul>
+<li>需要为每一个类都配置一个 clone 方法。</li>
+<li>clone 方法位于类的内部，当对已有类进行改造的时候，需要修改代码，违背了开闭原则。</li>
+<li>当实现深克隆时，需要编写较为复杂的代码，而且当对象之间存在多重嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来会比较麻烦。因此，深克隆、浅克隆需要运用得当。</li>
+</ul>
+<p>原型模式的克隆分为浅克隆和深克隆。</p>
+<ul>
+<li>
+<p>浅克隆：创建一个新对象，新对象的属性和原来对象完全相同，对于非基本类型属性，仍指向原有属性所指向的对象的内存地址。</p>
+</li>
+<li>
+<p>深克隆：创建一个新对象，属性中引用的其他对象也会被克隆，不再指向原有对象地址。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Shape</span> <span style="color:#66d9ef">extends</span> Cloneable <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">clone</span><span style="color:#f92672">();</span>    <span style="color:#75715e">//拷贝
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">countArea</span><span style="color:#f92672">();</span>    <span style="color:#75715e">//计算面积
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> <span style="color:#66d9ef">implements</span> Shape <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">clone</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Circle w <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            w <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Circle<span style="color:#f92672">)</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">clone</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>CloneNotSupportedException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;拷贝圆失败!&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> w<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">countArea</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这是一个圆，请输入圆的半径：&#34;</span><span style="color:#f92672">);</span>
+        Scanner input <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span>
+        r <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该圆的面积=&#34;</span> <span style="color:#f92672">+</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">1415</span> <span style="color:#f92672">*</span> r <span style="color:#f92672">*</span> r <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#66d9ef">implements</span> Shape <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">clone</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Square b <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            b <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Square<span style="color:#f92672">)</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">clone</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>CloneNotSupportedException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;拷贝正方形失败!&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> b<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">countArea</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这是一个正方形，请输入它的边长：&#34;</span><span style="color:#f92672">);</span>
+        Scanner input <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span>
+        a <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;该正方形的面积=&#34;</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">*</span> a <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProtoTypeManager</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Shape<span style="color:#f92672">&gt;</span> ht <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Shape<span style="color:#f92672">&gt;();</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ProtoTypeManager</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        ht<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Circle&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Circle<span style="color:#f92672">());</span>
+        ht<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Square&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Square<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addshape</span><span style="color:#f92672">(</span>String key<span style="color:#f92672">,</span> Shape obj<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        ht<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> obj<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> Shape <span style="color:#a6e22e">getShape</span><span style="color:#f92672">(</span>String key<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Shape temp <span style="color:#f92672">=</span> ht<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>Shape<span style="color:#f92672">)</span> temp<span style="color:#f92672">.</span><span style="color:#a6e22e">clone</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProtoTypeShape</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        ProtoTypeManager pm <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ProtoTypeManager<span style="color:#f92672">();</span>
+        Shape obj1 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Circle<span style="color:#f92672">)</span> pm<span style="color:#f92672">.</span><span style="color:#a6e22e">getShape</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Circle&#34;</span><span style="color:#f92672">);</span>
+        obj1<span style="color:#f92672">.</span><span style="color:#a6e22e">countArea</span><span style="color:#f92672">();</span>
+        Shape obj2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Shape<span style="color:#f92672">)</span> pm<span style="color:#f92672">.</span><span style="color:#a6e22e">getShape</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Square&#34;</span><span style="color:#f92672">);</span>
+        obj2<span style="color:#f92672">.</span><span style="color:#a6e22e">countArea</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="六适配器模式">六、适配器模式</h3>
+<p>将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<h4 id="用途">用途</h4>
+<p>主要解决在软件系统中，常常要将一些&quot;现存的对象&quot;放到新的环境中，而新环境要求的接口是现对象不能满足的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AC110</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">AC</span> {
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">final</span> <span style="color:#a6e22e">int</span> <span style="color:#a6e22e">output</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">110</span>;
+
+    <span style="color:#66d9ef">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">int</span> <span style="color:#a6e22e">outputAC() {</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">output</span>;
+    }
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AC220</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">AC</span> {
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">final</span> <span style="color:#a6e22e">int</span> <span style="color:#a6e22e">output</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">220</span>;
+
+    <span style="color:#66d9ef">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">int</span> <span style="color:#a6e22e">outputAC() {</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">output</span>;
+    }
+}
+
+</code></pre></div><h4 id="优点">优点：</h4>
+<ol>
+<li>可以让任何两个没有关联的类一起运行。</li>
+<li>提高了类的复用。</li>
+<li>增加了类的透明度。</li>
+<li>灵活性好。</li>
+</ol>
+<h4 id="缺点">缺点：</h4>
+<p>过多地使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是 A 接口，其实内部被适配成了 B 接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。</p>
+<h3 id="七桥接模式">七、桥接模式</h3>
+<p>桥接（Bridge）是用于把抽象化与实现化解耦，使得二者可以独立变化。这种类型的设计模式属于结构型模式，它通过提供抽象化和实现化之间的桥接结构，来实现二者的解耦。</p>
+<p>这种模式涉及到一个作为桥接的接口，使得实体类的功能独立于接口实现类。这两种类型的类可被结构化改变而互不影响。</p>
+<p>没什么卵用。</p>
+<h3 id="八过滤器模式">八、过滤器模式</h3>
+<p>过滤器模式属于结构型模式，它通过将多个不同的过滤标准结合起来从而达到一个统一的过滤标准，使具体的过滤对上层隔离。</p>
+<p>没什么卵用。</p>
+<h3 id="九组合模式">九、组合模式</h3>
+<p>组合模式（Composite Pattern），又叫部分整体模式，是用于把一组相似的对象当作一个单一的对象。组合模式依据树形结构来组合对象，用来表示部分以及整体层次。这种类型的设计模式属于结构型模式，它创建了对象组的树形结构。</p>
+<p>这种模式创建了一个包含自己对象组的类。该类提供了修改相同对象组的方式。</p>
+<p>没什么卵用。</p>
+<h3 id="十装饰器模式">十、装饰器模式</h3>
+<p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。</p>
+<p>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。</p>
+<p>没什么卵用。</p>
+<h3 id="十一观察者模式">十一、观察者模式</h3>
+<p>当对象间存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，则会自动通知依赖它的对象。观察者模式属于行为型模式。</p>
+<p>经典的事件驱动。</p>
+<p>Qt的信号槽和Vue的双向绑定是利用了观察者模式实现的。</p>
+<h3 id="十二mvc模式">十二、MVC模式</h3>
+<p>MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。</p>
+<ul>
+<li>
+<p>Model（模型） - 模型代表一个存取数据的对象或 JAVA POJO。它也可以带有逻辑，在数据变化时更新控制器。</p>
+</li>
+<li>
+<p>View（视图） - 视图代表模型包含的数据的可视化。</p>
+</li>
+<li>
+<p>Controller（控制器） - 控制器作用于模型和视图上。它控制数据流向模型对象，并在数据变化时更新视图。它使视图与模型分离开。</p>
+</li>
+</ul>
+<p>MVC模式只有网页后端开发能用得上？</p>
+<h2 id="总结">总结</h2>
+<p>由于剩下的设计模式几乎用不到，故按照<strong>个人理解</strong>总结下目前小程序BFF用到的设计模式。</p>
+<ol>
+<li>单例类</li>
+</ol>
+<p>BFF用到了单例类，且是&quot;饱汉式”，因为我们代码中的每个类在进程中几乎只会实例化一次，而且是程序运行到某个模块之后（因为JS的特点）才会实例化相关的类。</p>
+<p>如果是程序启动后立刻实例化所有需要的类，则是“饿汉式”，这样对于数据管理会相对容易一些。</p>
+<ol start="2">
+<li>适配器模式</li>
+</ol>
+<p>BFF本身做的工作应该就是适配多个系统，提供统一对外的接口，个人认为其中许多filter方法实际是做了适配器的工作。</p>
+<ol start="3">
+<li>迭代器模式</li>
+</ol>
+<p>通过lodash和foreach 告别了for循环。</p>
+<p>还有吗？</p>
 
 
   
@@ -197,6 +503,10 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
+
+<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
+
 <li><a href="/post/math/numbertheory/">初等数论学习</a></li>
 
 <li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
@@ -212,10 +522,6 @@
 <li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
 
 <li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
-
-<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
-
-<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

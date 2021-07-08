@@ -10,7 +10,7 @@
 <meta property="og:description" content="努力学习，珍惜时间" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2021-04-21T17:46:07+08:00" />
+<meta property="og:updated_time" content="2021-06-11T14:00:25+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2021-04-21T17:46:07+08:00",
+  "dateModified": "2021-06-11T14:00:25+08:00",
   "keywords": "",
   "description":"努力学习，珍惜时间"
 }
@@ -95,6 +95,9 @@
           <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
           
           
+          <a class="nav-link" href="/book" title="">文学</a>
+          
+          
           <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
           
           
@@ -123,6 +126,35 @@
 
           
 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/leetcode/binary/">位运算总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-09-11T17:05:36+08:00">Fri Sep 11, 2020</time> by 吉法师</p>
+  </header>
+  求出反码中2的个数 class Solution { public: int NumberOf1(int n) { unsigned int m = n; int count = 0; while(m) { count += (m&amp;1); m = m&gt;&gt;1; } return count; } }; unsigned 可以将int转换一下，有符号整数变为无符号数。
+  <a href='https://only0322.github.io/post/leetcode/binary/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/leetcode/listcircle/">链表部分</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-09-11T08:16:07+08:00">Fri Sep 11, 2020</time> by 吉法师</p>
+  </header>
+  判断链表是否有环 方法 快慢指针
+/** * Definition for singly-linked list. * struct ListNode { * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) {} * }; */ class Solution { public: bool hasCycle(ListNode *head) { ListNode * p1 = head, * p2 = head; while(p2 !
+  <a href='https://only0322.github.io/post/leetcode/listcircle/'>Read more →</a>
+</article> 
 
 
 
@@ -171,35 +203,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/virtual/">C++虚函数总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-09T17:08:08+08:00">Wed Sep 9, 2020</time> by 吉法师</p>
-  </header>
-  一、虚函数的定义 虚函数是为了允许用基类的指针来调用子类的这个函数
-二、简单实现 class Next :public Base { void show() { cout&lt;&lt;&#34;Next show&#34;&lt;&lt;endl; } }; class That :public Base { void show() override { cout&lt;&lt;&#34;That show&#34;&lt;&lt;endl; } }; class Same :public Base { virtual void show() { cout&lt;&lt;&#34;That show&#34;&lt;&lt;endl; } }; int main() { Base *be = new Next; be-&gt;show(); return 0; } 这就实现了Base调用Next类的函数了。
-  <a href='https://only0322.github.io/post/cpp/virtual/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/go/base/">Go语言基础</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-08T06:12:45+08:00">Tue Sep 8, 2020</time> by 吉法师</p>
-  </header>
-  一、Hello World package main import &#34;fmt&#34; func main() { fmt.Println(&#34;Hello, World!
-  <a href='https://only0322.github.io/post/go/base/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/4/" rel="prev" role="button">Previous page</a>
@@ -229,6 +232,10 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
+
+<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
+
 <li><a href="/post/math/numbertheory/">初等数论学习</a></li>
 
 <li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
@@ -244,10 +251,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 <li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
 
 <li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
-
-<li><a href="/post/geek/netprotocol/">趣谈网络协议学习笔记</a></li>
-
-<li><a href="/post/geek/geeklearn/">极客时间学习汇总</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
