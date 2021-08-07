@@ -10,7 +10,7 @@
 <meta property="og:description" content="努力学习，珍惜时间" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2021-06-11T14:00:25+08:00" />
+<meta property="og:updated_time" content="2021-08-04T11:52:33+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2021-06-11T14:00:25+08:00",
+  "dateModified": "2021-08-04T11:52:33+08:00",
   "keywords": "",
   "description":"努力学习，珍惜时间"
 }
@@ -134,6 +134,24 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/hextobin/">nodejs16进制转2进制遇到的坑</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-03-03T21:26:15+08:00">Tue Mar 3, 2020</time> by 吉法师</p>
+  </header>
+  背景 我在初学nodejs这门语言的时候，遇到了16进制无法正常转成2进制的问题。
+解决思路 先是对一个字符串使用toString(2)。然而发现字符串再使用这种方法，已经没有意义了。
+16进制转2进制的过程：16进制字符串-&gt;数字-&gt;2进制数
+weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&quot;16&quot;).toString(2); weekdatebin=PrefixInteger(weekdatebin,32); 但也有问题，24个十六进制数，是无法转成24*4的2进制数的，太长了，会报错。
+一种解决方案，就是将这24位的数拆分成3个8位进行处理，还有一种方式则是通过C语言的按位与思想，但是没有深入尝试了。
+  <a href='https://only0322.github.io/post/node/hextobin/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/webbench/">著名压测工具webbench源码解析</a></h2>
     <p class="blog-post-meta"><time datetime="2020-02-27T16:33:28+08:00">Thu Feb 27, 2020</time> by 吉法师</p>
   </header>
@@ -200,22 +218,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/linux/gitauto/">用shell脚本实现git项目自动（定时）更新</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-02-23T09:16:05+08:00">Sun Feb 23, 2020</time> by 吉法师</p>
-  </header>
-  背景 我在学习开源项目的过程中，会囤积不少的开源项目，因此也就需要用一个便捷的脚本进行管理，对开源项目进行自动同步。
-环境设置 macOS或者Linux都可以，通过shell脚本实现
-脚本 #/bin/bash Opensource=/Users/hideyoshi/Desktop/OpenSource #切换到开源项目根目录 cd ${Opensource} currentpath=$(pwd) echo &#34;currentpath is :$currentpath&#34; rm -f /Users/hideyoshi/Desktop/shbin/filelist.
-  <a href='https://only0322.github.io/post/linux/gitauto/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/post/page/14/" rel="prev" role="button">Previous page</a>
@@ -245,6 +247,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/book/critiquesummary/">纯粹理性批判总结</a></li>
+
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
@@ -262,8 +266,6 @@
 <li><a href="/post/java/base/">Java知识合集</a></li>
 
 <li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
-
-<li><a href="/post/geek/shuju/">数据结构与算法之美学习笔记</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

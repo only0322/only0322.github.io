@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Fri, 11 Jun 2021 14:00:25 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Aug 2021 11:52:33 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>纯粹理性批判总结</title>
+      <link>https://only0322.github.io/post/book/critiquesummary/</link>
+      <pubDate>Wed, 04 Aug 2021 11:52:33 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/book/critiquesummary/</guid>
+      <description>一、来源 纯粹理性批判来自对休谟问题的回答，所以首先必须对休谟问题大致了解。
+同笛卡尔一样，英国哲学家休谟也是一个走极端的人，这种品质成就了他在哲学上的重要地位。他把经验派的原则——凡在理智中的无不现在感觉中——推到了极点，从而终结了经验派。
+休谟严格地按照经验派的原则去论证，从而剔除了思维中所有非感觉的成分。而这个成分就是：真理。因此他的结论是：人类不可能走上通往真理的道路上，并从中获取具有相对有效性的真理。
+下面详细解释。比如我们做小球的碰撞实验，观察到的是这样一种事实，即小球甲运动到小球乙的位置，然后小球乙开始运动。我们测量甲乙的运动变化，根据变化列出方程，我们认为方程反应了甲乙运动的内在规律。但在得出规律之前，有一点必须被保证。 即，如何保证小球乙的运动是由小球甲导致的？如何能保证这两个事件之间具有因果关联？ 可能的事实是：甲乙的运动没有任何关系，小球甲运动到无限接近小球乙的地方就突然停下，然后小球乙就无缘无故自己开始运动。因为我们并没有看到甲和乙之间的能量传递。根据经验派的原则：没有感觉到的东西是不能被承认为真实的，所以不能把小球甲当做小球乙运动的原因。我们只能说，这两个事件之间没有任何因果联系。休谟认为，我们之所以把小球甲当作是小球乙运动的原因，只是出于一种心理习惯，即当我们在时间的序列中看到两个事件相继地发生，我们就会把这两个事件联系在一起并幻想其中有因果关系。
+休谟问题的核心就是：不管实验设计得多精密，仅仅通过感知，是不可能找到真理的。因为感觉和规律，这两者完全异质，彻底隔绝。感觉是个别的，生灭的，个人有个人的感觉；而规律是普遍的，永恒的。不能保证从个别生灭的个体感觉上升到普遍永恒的规律。这就是休谟问题的核心。
+二、纯粹理性批判——对知识与认识能力的反思 纯粹理性批判来自于康德对休谟问题的回应。这本书的整个理论框架充分反映出康德思想体系的基本特征：二元论、绝对的形式化。只要充分把握住纯粹理性批判的基本思路，就可以理解整个康德思想体系的核心。</description>
+    </item>
+    
     <item>
       <title>《纯粹理性批判》解析</title>
       <link>https://only0322.github.io/post/book/critique/</link>
@@ -28,7 +42,7 @@
       <pubDate>Fri, 11 Jun 2021 11:32:27 +0800</pubDate>
       
       <guid>https://only0322.github.io/book/</guid>
-      <description> 纯粹理性批判解析  </description>
+      <description> 纯粹理性批判解析 纯粹理性批判总结  </description>
     </item>
     
     <item>
