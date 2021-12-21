@@ -10,7 +10,7 @@
 <meta property="og:description" content="努力学习，珍惜时间" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2021-08-04T11:52:33+08:00" />
+<meta property="og:updated_time" content="2021-12-21T11:32:51+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2021-08-04T11:52:33+08:00",
+  "dateModified": "2021-12-21T11:32:51+08:00",
   "keywords": "",
   "description":"努力学习，珍惜时间"
 }
@@ -134,6 +134,22 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/doublelist/">C++双向链表实现</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-10T18:20:46+08:00">Fri Apr 10, 2020</time> by 吉法师</p>
+  </header>
+  双向链表的原理与特点 双链表相比单链表而言，有头结点和尾节点，而每个数据节点也有前后两个节点指针。
+源码地址 码云链接
+具体实现及原理 1.类结构定义 class Node { public: int data; Node * last; Node * next; }; class DoubleNode { private: Node * head; //头结点  Node * tail; //尾节点 }; 定义了head和tail节点，以及每个数据节点的前后指针，最基本的双向链表。
+  <a href='https://only0322.github.io/post/shuju/doublelist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/nodelist/">单链表原理与C++实现</a></h2>
     <p class="blog-post-meta"><time datetime="2020-03-22T15:42:43+08:00">Sun Mar 22, 2020</time> by 吉法师</p>
   </header>
@@ -201,24 +217,6 @@ int *p =new int[len];
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/nodedb/">Nodejs数据库和文件操作总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-05T19:48:53+08:00">Thu Mar 5, 2020</time> by 吉法师</p>
-  </header>
-  文件操作 需要引入nodejs自带的fs模块
-var fs=require(&quot;fs&quot;); var path=require(&quot;path&quot;); 异步读取文件fs.readFileSync()
-对buffer进行切割：slice()
-buffer转为方便操作的字符串toString()
-还需要进制转换操作
-  <a href='https://only0322.github.io/post/node/nodedb/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/13/" rel="prev" role="button">Previous page</a>
@@ -248,6 +246,8 @@ buffer转为方便操作的字符串toString()
     <ol class="list-unstyled">
 
 
+<li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
+
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
@@ -265,8 +265,6 @@ buffer转为方便操作的字符串toString()
 <li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
 
 <li><a href="/post/java/base/">Java知识合集</a></li>
-
-<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

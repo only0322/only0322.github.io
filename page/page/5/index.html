@@ -134,6 +134,26 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/gc/">Node.js的垃圾回收机制</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-09-24T16:24:21+08:00">Thu Sep 24, 2020</time> by 吉法师</p>
+  </header>
+  垃圾回收算法 垃圾：无法再被访问的对象或内存空间。
+延迟：指平均每次垃圾回收开始到结束需要的时间。
+吞吐量：指平均一定时间内能回收多少内存，内存多少这个概念非常广泛，可以指多少个对象，也可以指多少字节的空间，具体的应该看指标应需求而异。
+根节点：如全局变量上的对对象的引用、栈上对对象的引用等用户一定能够访问到的地址，是寻找活对象的入口。
+1.引用计数 这是最初级的垃圾收集算法。此算法把“对象是否不再需要”简化定义为“对象有没有其他对象引用到它”。如果没有引用指向该对象（零引用），对象将被垃圾回收机制回收。我们可以为每个对象都增加一个计数器，来记录对这个对象的引用数量，当引用计数归零时，这个对象变成了垃圾。
+优点：
+ (1)内存释放及时，当一个对象死亡时其占用的内存马上被释放 (2)延迟低，内存释放的时间均匀地分布在各个时间段  缺点:
+  <a href='https://only0322.github.io/post/node/gc/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/bibao/">Nodejs闭包</a></h2>
     <p class="blog-post-meta"><time datetime="2020-09-23T22:46:17+08:00">Wed Sep 23, 2020</time> by 吉法师</p>
   </header>
@@ -194,21 +214,6 @@ function a() { var i = 0; function b() { alert(++i); } return b; } var c = a(); 
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/interview/">Nodejs面试题汇总</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-10T10:55:25+08:00">Thu Sep 10, 2020</time> by 吉法师</p>
-  </header>
-  一、Nodejs模块引入方式 Node中，每个文件模块都是一个对象，它的定义如下：
-function Module(id, parent) { this.id = id; this.exports = {}; this.
-  <a href='https://only0322.github.io/post/node/interview/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/4/" rel="prev" role="button">Previous page</a>
@@ -238,6 +243,8 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
+
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
@@ -255,8 +262,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 <li><a href="/post/node/n-readlines/">n-readlines具体使用</a></li>
 
 <li><a href="/post/java/base/">Java知识合集</a></li>
-
-<li><a href="/post/geek/linux/">趣谈Linux操作系统学习笔记</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
