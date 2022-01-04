@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Tue, 21 Dec 2021 11:32:51 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jan 2022 14:33:23 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java HashMap知识归纳</title>
+      <link>https://only0322.github.io/post/java/hashmap/</link>
+      <pubDate>Tue, 04 Jan 2022 14:33:23 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/java/hashmap/</guid>
+      <description>一、什么是HashMap HashMap是一个通过键值对存储数据的容器，所谓容器就是能够自动扩容的存储工具。我之前一直很好奇为什么叫Map，不是地图的意思吗？查了一下字典终于是明白了，这里的Map应该翻译成——映射。
+二、原理 1.构造 HashMap构造的时候会有默认的初始容量16，以及扩展因子，默认是0.75。数据存储的比例达到扩展因子之后，HashMap就会扩充，增加大小是2倍，和C++的Vector类似。长度小于8的时候是链表，后面就会转为红黑树存储。
+2.modCount 大概就是HashMap的结构信息，每次增加或者删除数据都会维护这个值。
+3.fail-fast机制 在我们常见的java集合中就可能出现fail-fast机制,比如ArrayList，HashMap。在多线程和单线程环境下都有可能出现快速失败。
+单线程在迭代的时候remove一个元素就会有fail-fast。</description>
+    </item>
+    
     <item>
       <title>Wrk使用浅谈</title>
       <link>https://only0322.github.io/post/other/wrk/</link>
@@ -135,7 +148,7 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
       <pubDate>Tue, 03 Nov 2020 17:21:36 +0800</pubDate>
       
       <guid>https://only0322.github.io/post/java/base/</guid>
-      <description></description>
+      <description> hashmap知识归纳  </description>
     </item>
     
     <item>
