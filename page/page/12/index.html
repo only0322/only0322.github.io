@@ -134,6 +134,23 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqipc/">RabbitMQ的消息机制</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-02T21:25:32+08:00">Tue Jun 2, 2020</time> by 吉法师</p>
+  </header>
+  1.RabbitMQ发送消息 对于消息发送方来说：
+生产者发送一条消息，正常情况下是通过交换机发送到队列中，再由消费者接受队列中消息，由消费者进行逻辑操作。
+但是RabbitMQ在收到消息后，还需要有一段时间才能将消息存入磁盘之中。 并且也并不是为每条消息都做fsync的处理，可能仅仅保存到cache中而不是物理磁盘上。如果RabbitMQ broker正巧发生了崩溃，因为消息还没来得及保存磁盘，消息将会丢失。
+2.如何确认消息的发送是否成功？  a. 消息发送确认  RabbitMQ底层是利用了AMQP协议进行消息传输，关于消费者和生产者的模型就不再赘述了。
+  <a href='https://only0322.github.io/post/rabbitmq/rmqipc/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqstart/">RabbitMQ的启动过程</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-01T21:27:07+08:00">Mon Jun 1, 2020</time> by 吉法师</p>
   </header>
@@ -195,20 +212,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/koa/">Koa和Koa-router的具体使用</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-05-20T06:17:31+08:00">Wed May 20, 2020</time> by 吉法师</p>
-  </header>
-  通过Koa来创建Koa实例 const Koa = require(&#39;koa&#39;); const app = new Koa(); 路由配置 预先设置好路由和响应，以此来进行操作。
-  <a href='https://only0322.github.io/post/node/koa/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/11/" rel="prev" role="button">Previous page</a>
@@ -238,6 +241,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
+
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
 
 <li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
@@ -255,8 +260,6 @@
 <li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
 
 <li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
-
-<li><a href="/post/geek/mysql/">MySQL实战45讲</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

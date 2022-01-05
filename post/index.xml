@@ -7,14 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 18:40:40 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jan 2022 10:42:22 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java思维导图合集</title>
+      <link>https://only0322.github.io/post/java/javaimage/</link>
+      <pubDate>Wed, 05 Jan 2022 10:42:22 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/java/javaimage/</guid>
+      <description> Java基础知识  Java面向对象  Java常用api  Java IO  Java 多线程、设计模式、网络、反射等  </description>
+    </item>
+    
     <item>
       <title>Jvm原理解析</title>
       <link>https://only0322.github.io/post/java/jvm/</link>
       <pubDate>Tue, 04 Jan 2022 18:40:40 +0800</pubDate>
       
       <guid>https://only0322.github.io/post/java/jvm/</guid>
-      <description>一、概述 JVM是Java虚拟机的简称，那Jvm到底做了什么事情呢？其实是实现了Java的一次编译，到处运行。
+      <description>jvm知识导图
+一、概述 JVM是Java虚拟机的简称，那Jvm到底做了什么事情呢？其实是实现了Java的一次编译，到处运行。
 二、编译流程 java程序经过一次编译之后，将java代码编译为字节码也就是class文件，然后在不同的操作系统上依靠不同的java虚拟机进行解释，最后再转换为不同平台的机器码，最终得到执行。
 这样我们是不是可以推演，如果要在mac系统上运行，是不是只需要安装mac java虚拟机就行了。那么了解了这个基本原理后，我们尝试去做更深的研究，一个普通的java程序它的执行流程到底是怎样的呢？例如我们写了一段这样的代码：
 public class HelloWorld { public static void main(String[] args) { System.</description>
