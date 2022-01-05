@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 14:33:23 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jan 2022 18:40:40 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jvm原理解析</title>
+      <link>https://only0322.github.io/post/java/jvm/</link>
+      <pubDate>Tue, 04 Jan 2022 18:40:40 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/java/jvm/</guid>
+      <description>一、概述 JVM是Java虚拟机的简称，那Jvm到底做了什么事情呢？其实是实现了Java的一次编译，到处运行。
+二、编译流程 java程序经过一次编译之后，将java代码编译为字节码也就是class文件，然后在不同的操作系统上依靠不同的java虚拟机进行解释，最后再转换为不同平台的机器码，最终得到执行。
+这样我们是不是可以推演，如果要在mac系统上运行，是不是只需要安装mac java虚拟机就行了。那么了解了这个基本原理后，我们尝试去做更深的研究，一个普通的java程序它的执行流程到底是怎样的呢？例如我们写了一段这样的代码：
+public class HelloWorld { public static void main(String[] args) { System.</description>
+    </item>
+    
     <item>
       <title>Java HashMap知识归纳</title>
       <link>https://only0322.github.io/post/java/hashmap/</link>
@@ -140,15 +152,6 @@ Server 层包括连接器、查询缓存、分析器、优化器、执行器等�
       <guid>https://only0322.github.io/post/node/n-readlines/</guid>
       <description>简介 n-readlines是我发现的一个按行读文件模块，使用起来也比readline简单。
 示例 const lineByLine = require(&amp;#39;n-readlines&amp;#39;); const liner = new lineByLine(&amp;#39;.</description>
-    </item>
-    
-    <item>
-      <title>Java知识合集</title>
-      <link>https://only0322.github.io/post/java/base/</link>
-      <pubDate>Tue, 03 Nov 2020 17:21:36 +0800</pubDate>
-      
-      <guid>https://only0322.github.io/post/java/base/</guid>
-      <description> hashmap知识归纳  </description>
     </item>
     
     <item>
@@ -1033,6 +1036,16 @@ weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&amp;quot;16&a
       <guid>https://only0322.github.io/post/linux/blog/</guid>
       <description>主要步骤如下
  安装hugo 配置github 发布  hugo安装 其实还是非常曲折的过程，原本官方都是推荐用brew install hugo的方式来进行安装，然而国内的网络环境实在是非常不方便。</description>
+    </item>
+    
+    <item>
+      <title>Java文章归档</title>
+      <link>https://only0322.github.io/java/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://only0322.github.io/java/</guid>
+      <description>先看一张知识导图
+ hashmap知识归纳 jvm归纳  </description>
     </item>
     
   </channel>

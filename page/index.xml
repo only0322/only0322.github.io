@@ -116,5 +116,15 @@
       <description> macOS配置环境变量与Linux的不同点 shell实现git项目自动更新 如何在github高效地搜索项目 github下载加速 用hugo搭建个人博客  </description>
     </item>
     
+    <item>
+      <title>Java文章归档</title>
+      <link>https://only0322.github.io/java/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://only0322.github.io/java/</guid>
+      <description>先看一张知识导图
+ hashmap知识归纳 jvm归纳  </description>
+    </item>
+    
   </channel>
 </rss>
