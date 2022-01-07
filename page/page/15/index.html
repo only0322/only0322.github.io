@@ -134,6 +134,59 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/doublelist/">C++双向链表实现</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-10T18:20:46+08:00">Fri Apr 10, 2020</time> by 吉法师</p>
+  </header>
+  双向链表的原理与特点 双链表相比单链表而言，有头结点和尾节点，而每个数据节点也有前后两个节点指针。
+源码地址 码云链接
+具体实现及原理 1.类结构定义 class Node { public: int data; Node * last; Node * next; }; class DoubleNode { private: Node * head; //头结点  Node * tail; //尾节点 }; 定义了head和tail节点，以及每个数据节点的前后指针，最基本的双向链表。
+  <a href='https://only0322.github.io/post/shuju/doublelist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/nodelist/">单链表原理与C++实现</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-03-22T15:42:43+08:00">Sun Mar 22, 2020</time> by 吉法师</p>
+  </header>
+  单链表的特点与运用场景 单链表是线性表的一种，对比顺序存储来说，链表的链式存储，也存在一定的优缺点。
+优点：适用于不确定元素的个数，以及需要频繁地进行增删元素，查找元素的情况。
+缺点：实现难度较顺序表更高，存储密度更低（同样的内存空间，需要存放节点指针的地址和存储的内容）
+单链表的数据结构 data域&ndash;存放结点值的数据域 next域&ndash;存放结点的直接后继的地址（位置）的指针域（链域）
+也正因为如此，才方便了我们插入和删除数据。
+源码
+单链表各模块详解 1.
+  <a href='https://only0322.github.io/post/shuju/nodelist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/bit/">C++位运算总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-03-18T09:25:22+08:00">Wed Mar 18, 2020</time> by 吉法师</p>
+  </header>
+  位运算是什么？ 程序中的所有数在计算机内存中都是以二进制的形式储存的。位运算就是直接对整数在内存中的二进制位进行操作。
+实际运用 1.找出数组中只出现过一次的数 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+题目的关键点是，其他数都出现了两次，这时可以想到异或的妙用。
+a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后的异或交换律，我们只需要将数组的每个元素依次异或，最后的结果就是只出现一次的那个数了。
+  <a href='https://only0322.github.io/post/cpp/bit/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/dp/">动态规划总结与实战</a></h2>
     <p class="blog-post-meta"><time datetime="2020-03-11T22:33:19+08:00">Wed Mar 11, 2020</time> by 吉法师</p>
   </header>
@@ -158,62 +211,6 @@
 代码部分  动态数组的创建。  假设数组的长度是未知的，完全可以用new在堆区分配内存。
 int *p =new int[len];
   <a href='https://only0322.github.io/post/cpp/arrayautoadd/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/nodedb/">Nodejs数据库和文件操作总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-05T19:48:53+08:00">Thu Mar 5, 2020</time> by 吉法师</p>
-  </header>
-  文件操作 需要引入nodejs自带的fs模块
-var fs=require(&quot;fs&quot;); var path=require(&quot;path&quot;); 异步读取文件fs.readFileSync()
-对buffer进行切割：slice()
-buffer转为方便操作的字符串toString()
-还需要进制转换操作
-  <a href='https://only0322.github.io/post/node/nodedb/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/hextobin/">nodejs16进制转2进制遇到的坑</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-03T21:26:15+08:00">Tue Mar 3, 2020</time> by 吉法师</p>
-  </header>
-  背景 我在初学nodejs这门语言的时候，遇到了16进制无法正常转成2进制的问题。
-解决思路 先是对一个字符串使用toString(2)。然而发现字符串再使用这种方法，已经没有意义了。
-16进制转2进制的过程：16进制字符串-&gt;数字-&gt;2进制数
-weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&quot;16&quot;).toString(2); weekdatebin=PrefixInteger(weekdatebin,32); 但也有问题，24个十六进制数，是无法转成24*4的2进制数的，太长了，会报错。
-一种解决方案，就是将这24位的数拆分成3个8位进行处理，还有一种方式则是通过C语言的按位与思想，但是没有深入尝试了。
-  <a href='https://only0322.github.io/post/node/hextobin/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/webbench/">著名压测工具webbench源码解析</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-02-27T16:33:28+08:00">Thu Feb 27, 2020</time> by 吉法师</p>
-  </header>
-  项目概述 Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。
-用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。 github地址：wenbbench
-项目整体流程 1.解析程序运行时的参数。
-2.根据选择的http协议组装报文。
-3.开始压力测试。
-4.获取压力测试的结果。
-1.解析程序运行时的参数 其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。
-  <a href='https://only0322.github.io/post/opensource/webbench/'>Read more →</a>
 </article> 
 
 
@@ -249,6 +246,12 @@ weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&quot;16&quot;
     <ol class="list-unstyled">
 
 
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
 
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
@@ -262,12 +265,6 @@ weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&quot;16&quot;
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
-
-<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
-
-<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
-
-<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

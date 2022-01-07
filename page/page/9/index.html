@@ -134,6 +134,51 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/qt/tableview/">QTableView的使用</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-21T07:12:50+08:00">Sun Jun 21, 2020</time> by 吉法师</p>
+  </header>
+  一、获取当前行 QModelIndex name = ParamModel-&gt;index(i,0,QModelIndex()); QModelIndex value = ParamModel-&gt;index(i,1,QModelIndex()); QString strName = name.
+  <a href='https://only0322.github.io/post/qt/tableview/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/postman/">用Qt制作一个Postman</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-19T19:45:12+08:00">Fri Jun 19, 2020</time> by 吉法师</p>
+  </header>
+  项目源码地址:码云
+一、什么是postman？ 著名开源项目之一，主要作用是后端利用postman来调试自己开发的接口。通过post给服务器发送请求，模拟浏览器的行为。
+二、MyPostman用到的技术  C++、Qt。 Qt的http框架，QJson，EasyQJson。 Sqlite3数据库  三、请求的收发  发请求  void MyPostman::RequestGET(QString BaseUrl) { QNetworkRequest request; int count = ui-&gt;tableView_Params-&gt;model()-&gt;rowCount(); for(int i=0;i&lt;count;i++) { QModelIndex name = ParamModel-&gt;index(i,0,QModelIndex()); QModelIndex value = ParamModel-&gt;index(i,1,QModelIndex()); QString strName = name.
+  <a href='https://only0322.github.io/post/opensource/postman/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/webserver/">Rust编写的Web服务</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-13T16:24:37+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
+  </header>
+  一、最基本的Web服务器 先看代码：
+use std::net::{TcpListener, TcpStream}; fn handle_client(_stream: TcpStream) { let mut buffer = [0; 512]; stream.
+  <a href='https://only0322.github.io/post/rust/webserver/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/rustsenior/">Rust的进阶知识</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-13T13:17:38+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
   </header>
@@ -157,54 +202,6 @@
   一、整型 整数型简称整型，按照比特位长度和有无符号分为一下种类：
    位长度 有符号 无符号     8-bit i8 u8   16-bit i16 u16   32-bit i32 u32   64-bit i64 u64   128-bit i128 u128   arch isize usize    通过let mut a :xxx = [value]来使用，例如：
   <a href='https://only0322.github.io/post/rust/types/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/rustbase/">Rust基础语法</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-13T07:38:43+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
-  </header>
-  一、变量 1. 可变与不可变 Rust的变量分可变变量和不可变变量。
-let a = 1就是一个不可变变量。这一点对于写过C的程序员来说很难理解。但Rust此举其实是为了防止程序中的变量以一种不可控的方式更改了自身的值。
-let mut a = 1,此时a就是一个可变变量了。
-  <a href='https://only0322.github.io/post/rust/rustbase/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/ruststart/">Rust的安装与启动</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-13T07:02:38+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
-  </header>
-  安装 Rust的安装也分系统
-Windows下为:
-https://www.rust-lang.org/tools/install
-MacOS:
-curl --proto '=https' --tlsv1.2 -sSf https://sh.
-  <a href='https://only0322.github.io/post/rust/ruststart/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/rustmain/">Rust知识合集</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-12T23:01:17+08:00">Fri Jun 12, 2020</time> by 吉法师</p>
-  </header>
-  语法部分  Rust的安装与启动 Rust基本语法 Rust的数据类型 Rust的进阶知识  实战部分  Rust编写的Web服务  
-  <a href='https://only0322.github.io/post/rust/rustmain/'>Read more →</a>
 </article> 
 
 
@@ -240,6 +237,12 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
 
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
@@ -253,12 +256,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
-
-<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
-
-<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
-
-<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

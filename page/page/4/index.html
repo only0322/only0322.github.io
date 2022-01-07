@@ -134,6 +134,55 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/linux/">趣谈Linux操作系统学习笔记</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-10-30T10:38:09+08:00">Fri Oct 30, 2020</time> by 吉法师</p>
+  </header>
+  综述 1.命令配合grep组合使用 如：ps -ef | grep &quot;zsh&quot; 这样就可以找到名称中含有zsh的进程了。
+系统初始化 1. 0号进程和1号进程 0号进程不会通过fork和kernel_thread生成 其实是一个进程管理的工具，通过kernel_thread来创建一号进程。
+  <a href='https://only0322.github.io/post/geek/linux/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/shuju/">数据结构与算法之美学习笔记</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-10-17T23:00:04+08:00">Sat Oct 17, 2020</time> by 吉法师</p>
+  </header>
+  一、入门 常见的时间复杂度类型 1.O(1) int i = 8; int j = 6; int sum = i + j; 代码的运行次数不会随着n进行变化，比如没有进入循环，所以是O(1)级别
+  <a href='https://only0322.github.io/post/geek/shuju/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/netprotocol/">趣谈网络协议学习笔记</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-10-16T21:09:41+08:00">Fri Oct 16, 2020</time> by 吉法师</p>
+  </header>
+  一、通讯协议综述 1.有了IP地址为什么还需要Mac地址？ IP地址相当于是传送数据到某个位置，但不知道具体给哪台计算机，MAC地址就是为了解决这个问题。
+至于修改MAC地址，实际上是修改了系统读取出来的这个MAC地址。也曾出现过两块劣质的网卡都是同一个MAC地址的情况，这样甚至会导致网络的堵塞。
+mac是身份证，ip是地址。
+用总经理和员工来比喻网络协议
+不准确，因为开会的时候员工未必会给会议提出建议，而一次tcp的三次握手，每次握手ip和mac层都加入了自己的包头。
+2.学习的方法 理解网络协议的工作模式，有两个小窍门：始终想象自己是一个处理网络包的程序：如何拿到网络包，如何根据规则进行处理，如何发出去；始终牢记一个原则：只要是在网络上跑的包，都是完整的。可以有下层没上层，绝对不可能有上层没下层。
+3.网段 私有IP地址是可以重复的，共有的则必须唯一。网段的划分是为了弥补刚开始对于计算机数量估计严重不足的问题。
+  <a href='https://only0322.github.io/post/geek/netprotocol/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/geeklearn/">极客时间学习汇总</a></h2>
     <p class="blog-post-meta"><time datetime="2020-10-16T21:08:42+08:00">Fri Oct 16, 2020</time> by 吉法师</p>
   </header>
@@ -158,54 +207,6 @@ Docker的基础是Linux容器（LXC）等技术，（LXC系统提供工具来管
 2.docker使用 docker images 查看镜像
 docker ps 查看容器
   <a href='https://only0322.github.io/post/other/docker/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/fenbushi/">分布式系统浅谈</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-10-10T16:49:26+08:00">Sat Oct 10, 2020</time> by 吉法师</p>
-  </header>
-  分布式的概念： 分布式这个词听起来很高大上, 实际上在我们以前经常构建分布式系统, 从最初的分离LAMP中的MySQL 到引入Varnish缓存页面, 再到使用LVS负载均衡Nginx|Apache, Nginx负载均衡Tomcat等等, 广义上都算是分布式系统.
-简单来说分布式就是将一个系统的各个组件(MySQL、PHP、Apache …)分布在网络上的各台主机, 并且各组件之间仅通过消息传递来通信并协调工作。
-  <a href='https://only0322.github.io/post/netdb/fenbushi/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/net/">网络和网络协议部分</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-10-03T16:50:48+08:00">Sat Oct 3, 2020</time> by 吉法师</p>
-  </header>
-  一、OSI七层模型 开放式系统互联通信参考模型。
-1.物理层（Physical Layer） 激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。物理层记住两个重要的设备名称，中继器（Repeater，也叫放大器）和集线器。
-2.数据链路层（Data Link Layer） 数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能。
-主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。
-  <a href='https://only0322.github.io/post/netdb/net/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/http/">Http协议详解</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-10-02T10:51:07+08:00">Fri Oct 2, 2020</time> by 吉法师</p>
-  </header>
-  一、概述 HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。
-HTTP协议的主要特点可概括如下：
- 1.支持客户/服务器模式。 2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。 3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。 4.
-  <a href='https://only0322.github.io/post/netdb/http/'>Read more →</a>
 </article> 
 
 
@@ -241,6 +242,12 @@ HTTP协议的主要特点可概括如下：
     <ol class="list-unstyled">
 
 
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
 
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
@@ -254,12 +261,6 @@ HTTP协议的主要特点可概括如下：
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
-
-<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
-
-<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
-
-<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

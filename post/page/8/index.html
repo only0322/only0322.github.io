@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-05T10:42:22+08:00" />
+<meta property="og:updated_time" content="2022-01-07T10:39:31+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-05T10:42:22+08:00",
+  "dateModified": "2022-01-07T10:39:31+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,57 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/hash/">哈希算法与哈希表详解</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-07-14T22:06:23+08:00">Tue Jul 14, 2020</time> by 吉法师</p>
+  </header>
+  一、什么是哈希函数 Hash（哈希），又称“散列”。
+散列（hash）英文原意是“混杂”、“拼凑”、“重新表述”的意思。
+在某种程度上，散列是与排序相反的一种操作，排序是将集合中的元素按照某种方式比如字典顺序排列在一起，而散列通过计算哈希值，打破元素之间原有的关系，使集合中的元素按照散列函数的分类进行排列。
+在介绍一些集合时，我们总强调需要重写某个类的 equlas() 方法和 hashCode() 方法，确保唯一性。这里的 hashCode() 表示的是对当前对象的唯一标示。计算 hashCode 的过程就称作 哈希。
+  <a href='https://only0322.github.io/post/shuju/hash/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/other/redis/">Redis知识整理</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-07-13T22:18:20+08:00">Mon Jul 13, 2020</time> by 吉法师</p>
+  </header>
+  一、简介 redis(REmote DIctionary Server)是一个key-value存储系统，它由C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value类型的数据库，并提供多种语言的API。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set &ndash;有序集合)和hash（哈希类型）。
+这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。
+与memcached一样，为了保证效率，数据都是缓存在内存中。区别的是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步，redis在3.0版本推出集群模式。
+二、Redis的特点  k、v键值存储以及数据结构存储（如列表、字典） 所有数据(包括数据的存储)操作均在内存中完成 单线程服务(这意味着会有较多的阻塞情况)，采用epoll模型进行请求响应，对比nginx 支持主从复制模式，更提供高可用主从复制模式（哨兵） 去中心化分布式集群 丰富的编程接口支持，如Python、Golang、Java、php、Ruby、Lua、Node.
+  <a href='https://only0322.github.io/post/other/redis/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/elevue/">Vue+Electron环境搭建</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-22T20:54:59+08:00">Mon Jun 22, 2020</time> by 吉法师</p>
+  </header>
+  一、创建项目 vue init simulatedgreg/electron-vue
+二、报错处理 先npm install
+然后修改webpack.web.config.js：
+new HtmlWebpackPlugin({ filename: &#39;index.
+  <a href='https://only0322.github.io/post/front/elevue/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/qt/tablewidget/">QTableWidget使用</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-21T07:21:45+08:00">Sun Jun 21, 2020</time> by 吉法师</p>
   </header>
@@ -153,51 +204,6 @@
   </header>
   一、主要用法，增加元素 for(int i=0;i&lt;array.size();i++) { QJsonValue value = array.at(i); QString project = value[&#34;name&#34;].
   <a href='https://only0322.github.io/post/qt/treeview/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/qt/tableview/">QTableView的使用</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-21T07:12:50+08:00">Sun Jun 21, 2020</time> by 吉法师</p>
-  </header>
-  一、获取当前行 QModelIndex name = ParamModel-&gt;index(i,0,QModelIndex()); QModelIndex value = ParamModel-&gt;index(i,1,QModelIndex()); QString strName = name.
-  <a href='https://only0322.github.io/post/qt/tableview/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/postman/">用Qt制作一个Postman</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-19T19:45:12+08:00">Fri Jun 19, 2020</time> by 吉法师</p>
-  </header>
-  项目源码地址:码云
-一、什么是postman？ 著名开源项目之一，主要作用是后端利用postman来调试自己开发的接口。通过post给服务器发送请求，模拟浏览器的行为。
-二、MyPostman用到的技术  C++、Qt。 Qt的http框架，QJson，EasyQJson。 Sqlite3数据库  三、请求的收发  发请求  void MyPostman::RequestGET(QString BaseUrl) { QNetworkRequest request; int count = ui-&gt;tableView_Params-&gt;model()-&gt;rowCount(); for(int i=0;i&lt;count;i++) { QModelIndex name = ParamModel-&gt;index(i,0,QModelIndex()); QModelIndex value = ParamModel-&gt;index(i,1,QModelIndex()); QString strName = name.
-  <a href='https://only0322.github.io/post/opensource/postman/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rust/webserver/">Rust编写的Web服务</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-13T16:24:37+08:00">Sat Jun 13, 2020</time> by 吉法师</p>
-  </header>
-  一、最基本的Web服务器 先看代码：
-use std::net::{TcpListener, TcpStream}; fn handle_client(_stream: TcpStream) { let mut buffer = [0; 512]; stream.
-  <a href='https://only0322.github.io/post/rust/webserver/'>Read more →</a>
 </article> 
 
 
@@ -233,6 +239,12 @@ use std::net::{TcpListener, TcpStream}; fn handle_client(_stream: TcpStream) { l
     <ol class="list-unstyled">
 
 
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
 
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
@@ -246,12 +258,6 @@ use std::net::{TcpListener, TcpStream}; fn handle_client(_stream: TcpStream) { l
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
-
-<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
-
-<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
-
-<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

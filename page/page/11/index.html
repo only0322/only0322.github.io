@@ -134,6 +134,54 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/sort/">常见排序算法总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-07T20:54:53+08:00">Sun Jun 7, 2020</time> by 吉法师</p>
+  </header>
+  前置知识 排序算法的种类： 基本知识  时间复杂度  一般情况下，算法中基本操作重复执行的次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作T(n)=Ｏ(f(n)),称Ｏ(f(n)) 为算法的渐进时间复杂度，简称时间复杂度。
+最坏时间复杂度和平均时间复杂度  最坏情况下的时间复杂度称最坏时间复杂度。一般不特别说明，讨论的时间复杂度均是最坏情况下的时间复杂度。
+  <a href='https://only0322.github.io/post/shuju/sort/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/sqlindex/">MySQL的索引和SQL优化</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-07T20:13:46+08:00">Sun Jun 7, 2020</time> by 吉法师</p>
+  </header>
+  索引 1.索引的分类 （1）从数据结构角度 B+树索引、hash索引、FULLTEXT索引、R-tree树索引
+（2） 从物理角度 聚族索引、非聚族索引
+（3）从逻辑角度 主键索引 唯一索引 多列索引 单列索引
+  <a href='https://only0322.github.io/post/mysql/sqlindex/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/dbdesign/">MySQL数据库设计思想</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-07T18:27:55+08:00">Sun Jun 7, 2020</time> by 吉法师</p>
+  </header>
+  一.数据库设计的目的 主要是为了减少数据冗余，避免数据维护异常，节省空间，高效访问。
+二.数据库设计的思想 1.理论 a.范式的概念 第一范式： 数据表中所有字段都是单一属性，不可再分
+第二范式： 在第一范式的基础上，数据表中不存在非关键字段对任意候选关键字段的部分函数依赖
+注：部分函数依赖是指，存在组合关键字中的某一关键字决定非关键字的情况，所有的单关键字都符合第二范式
+  <a href='https://only0322.github.io/post/mysql/dbdesign/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/hashmap/">哈希表与哈希索引</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-03T20:44:56+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
   </header>
@@ -161,57 +209,6 @@ hash函数就是根据key计算出应该存储地址的位置，而哈希表是�
 MySQL的B+树索引可分为聚焦索引和非聚焦索引。
 B+ 树是一种树数据结构，是一个n叉树，每个节点通常有多个孩子，一颗B+树包含根节点、内部节点和叶子节点。B+ 树通常用于数据库和操作系统的文件系统中。 B+ 树的特点是能够保持数据稳定有序，其插入与修改拥有较稳定的对数时间复杂度。 B+ 树元素自底向上插入。
   <a href='https://only0322.github.io/post/mysql/innodb/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/mysqlsrc/">MySQL的代码结构</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-03T19:46:59+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
-  </header>
-  代码结构简介 在阅读源码之前，我们首先要熟悉MySQL的项目结构。而MySQL由于项目过于庞大，开发人员众多，理解每个文件夹、模块的用途，也是一件非常重要的事。
-以下是MySQL的项目路径：
-  BUILD: 内含在各个平台、各种编译器下进行编译的脚本。如compile-pentium-debug表示在pentium架构上进行编译的脚本。
-  Client: 客户端工具，如mysql, mysqladmin之类。
-  <a href='https://only0322.github.io/post/mysql/mysqlsrc/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/mysql/">MySQL源码解析合集</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-03T19:39:29+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
-  </header>
-  源码部分  MySQL源码的目录结构 InnoDB存储引擎相关知识 哈希表与哈希索引  数据库应用部分  MySQL数据库设计思想 索引和SQL优化思路  
-  <a href='https://only0322.github.io/post/mysql/mysql/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqdead/">RabbitMQ消息重发、死信处理</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-02T22:01:18+08:00">Tue Jun 2, 2020</time> by 吉法师</p>
-  </header>
-  了解死信队列 从图中发现知：
-生产者发送的消息会经由交换机传送到绑定的队列中，然后经由消费者接受消息，消息一旦被消费者消费后，就会移除队列中，表示整个流程的结束。
-但是如果消息没有被消费成功（或者说消息变为了死信），那么正常来说和原来的（正常）队列绑定的消费者就无法消费消息，那么变为死信的消息怎么处理啦！
-在正常的业务中，会针对这一部分进行特殊处理，可以考虑指定一个死信交换机，并绑定一个死信队列，当消息变成死信时，该消息就会被发送到该死信队列上，这样就方便我们查看消息失败的原因了。
-换句话说就是 没有被消费的消息， 换个地方重新被消费。
-整个流程可以表示成
-生产者 &ndash;&gt; 消息 &ndash;&gt; 交换机 &ndash;&gt; 队列 &ndash;&gt; 变成死信 &ndash;&gt; DLX交换机 &ndash;&gt;队列 &ndash;&gt; 消费者
-  <a href='https://only0322.github.io/post/rabbitmq/rmqdead/'>Read more →</a>
 </article> 
 
 
@@ -247,6 +244,12 @@ B+ 树是一种树数据结构，是一个n叉树，每个节点通常有多个�
     <ol class="list-unstyled">
 
 
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
 
 <li><a href="/post/java/jvm/">Jvm原理解析</a></li>
@@ -260,12 +263,6 @@ B+ 树是一种树数据结构，是一个n叉树，每个节点通常有多个�
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
 
 <li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
-
-<li><a href="/post/math/numbertheory/">初等数论学习</a></li>
-
-<li><a href="/post/geek/javascript/">JavaScript核心原理解析</a></li>
-
-<li><a href="/post/netdb/https/">Https协议与加密算法的运用</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

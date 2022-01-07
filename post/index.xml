@@ -7,7 +7,36 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Wed, 05 Jan 2022 10:42:22 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Jan 2022 10:39:31 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Electron打包简易教程</title>
+      <link>https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/</link>
+      <pubDate>Fri, 07 Jan 2022 10:39:31 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/</guid>
+      <description>一、工具选用 electron-packager 或electron-builder都可以，但个人还是更喜欢electron-packager
+二、命令 electron-packager . Tal --platform=darwin --arch=x64 --icon=./Tal.ico --out=.</description>
+    </item>
+    
+    <item>
+      <title>Spring概述</title>
+      <link>https://only0322.github.io/post/spring/spring%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Wed, 05 Jan 2022 16:20:55 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/spring/spring%E6%A6%82%E8%BF%B0/</guid>
+      <description>一、介绍 Spring 是最受欢迎的企业级 Java 应用程序开发框架，数以百万的来自世界各地的开发人员使用 Spring 框架来创建性能好、易于测试、可重用的代码。
+Spring 框架是一个开源的 Java 平台，它最初是由 Rod Johnson 编写的，并且于 2003 年 6 月首次在 Apache 2.</description>
+    </item>
+    
+    <item>
+      <title>Spring学习合集</title>
+      <link>https://only0322.github.io/post/java/spring/</link>
+      <pubDate>Wed, 05 Jan 2022 15:55:51 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/java/spring/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Java思维导图合集</title>
       <link>https://only0322.github.io/post/java/javaimage/</link>
