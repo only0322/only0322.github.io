@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Fri, 07 Jan 2022 10:39:31 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Jan 2022 10:52:29 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring Ioc容器解读</title>
+      <link>https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/</link>
+      <pubDate>Tue, 11 Jan 2022 10:52:29 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/</guid>
+      <description>一、概述 什么是容器？ 容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。
+通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。
+Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。
+二、Ioc原理 Ioc介绍 IoC全称Inversion of Control，直译为控制反转</description>
+    </item>
+    
     <item>
       <title>Electron打包简易教程</title>
       <link>https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/</link>
@@ -34,7 +46,7 @@ Spring 框架是一个开源的 Java 平台，它最初是由 Rod Johnson 编写
       <pubDate>Wed, 05 Jan 2022 15:55:51 +0800</pubDate>
       
       <guid>https://only0322.github.io/post/java/spring/</guid>
-      <description></description>
+      <description> spring概述 Ioc容器  </description>
     </item>
     
     <item>

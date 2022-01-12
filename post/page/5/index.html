@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-07T10:39:31+08:00" />
+<meta property="og:updated_time" content="2022-01-11T10:52:29+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-07T10:39:31+08:00",
+  "dateModified": "2022-01-11T10:52:29+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,25 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/other/docker/">Docker技术详解</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-10-14T23:02:15+08:00">Wed Oct 14, 2020</time> by 吉法师</p>
+  </header>
+  1.docker介绍 Docker是诞生于2013年，是dotCloud的一个开源项目,基于Google推出的GO语言实现。遵从Apache2.0协议。
+Docker的目标是实现轻量级的操作系统虚拟化的解决方案。
+Docker的基础是Linux容器（LXC）等技术，（LXC系统提供工具来管理容器，具有先进的网络和存储支持，还有最小容器操作系统模版的广泛选择）。
+在LXC的基础上Docker进行了进一步的封装，用户不需要去关心容器的管理，操作更简单。就像操作一个快速轻量的虚拟机一样简单。
+2.docker使用 docker images 查看镜像
+docker ps 查看容器
+  <a href='https://only0322.github.io/post/other/docker/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/netdb/fenbushi/">分布式系统浅谈</a></h2>
     <p class="blog-post-meta"><time datetime="2020-10-10T16:49:26+08:00">Sat Oct 10, 2020</time> by 吉法师</p>
   </header>
@@ -196,24 +215,6 @@ HTTP协议的主要特点可概括如下：
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/interview/">C++面试题总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-26T17:02:02+08:00">Sat Sep 26, 2020</time> by 吉法师</p>
-  </header>
-  1.多态的实现 存在虚函数的类至少有一个(多继承会有多个)一维的虚函数表叫做虚表(virtual table)，属于类成员，虚表的元素值是虚函数的入口地址，在编译时就已经为其在数据端分配了空间。
-编译器另外还为每个类的对象提供一个虚表指针(vptr)，指向虚表入口地址，属于对象成员。
-在实例化派生类对象时，先实例化基类，将基类的虚表入口地址赋值给基类的虚表指针，当基类构造函数执行完时，再将派生类的虚表入口地址赋值给基类的虚表指针（派生类和基类此时共享一个虚表指针，并没有各自都生成一个），在执行父类的构造函数。
-以上是C++多态的实现过程，可以得出结论：
- 1.有虚函数的类必存在一个虚表。 2.虚表的构建：基类的虚表构建，先填上虚析构函数的入口地址，之后所有虚函数的入口地址按在类中声明顺序填入虚表；派生类的虚表构建，先将基类的虚表内容复制到派生类虚表中，如果派生类覆盖了基类的虚函数，则虚表中对应的虚函数入口地址也会被覆盖，为了后面寻址的一致性。  虚函数表中有序放置了父类和子类中的所有虚函数，并且相同虚函数在类继承链中的每一个虚函数表中的偏移量都是一致的。所以确定的虚函数对应virtual table中一个固定位置n，n是一个在编译时期就确定的常量，所以，使用vptr加上对应的n，就可以得到对应的函数入口地址。
-  <a href='https://only0322.github.io/post/cpp/interview/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/post/page/4/" rel="prev" role="button">Previous page</a>
@@ -243,6 +244,8 @@ HTTP协议的主要特点可概括如下：
     <ol class="list-unstyled">
 
 
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
 <li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
 
 <li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
@@ -260,8 +263,6 @@ HTTP协议的主要特点可概括如下：
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
-
-<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

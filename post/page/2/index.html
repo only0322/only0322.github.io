@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-07T10:39:31+08:00" />
+<meta property="og:updated_time" content="2022-01-11T10:52:29+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-07T10:39:31+08:00",
+  "dateModified": "2022-01-11T10:52:29+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,24 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/java/jvm/">Jvm原理解析</a></h2>
+    <p class="blog-post-meta"><time datetime="2022-01-04T18:40:40+08:00">Tue Jan 4, 2022</time> by 吉法师</p>
+  </header>
+  jvm知识导图
+一、概述 JVM是Java虚拟机的简称，那Jvm到底做了什么事情呢？其实是实现了Java的一次编译，到处运行。
+二、编译流程 java程序经过一次编译之后，将java代码编译为字节码也就是class文件，然后在不同的操作系统上依靠不同的java虚拟机进行解释，最后再转换为不同平台的机器码，最终得到执行。
+这样我们是不是可以推演，如果要在mac系统上运行，是不是只需要安装mac java虚拟机就行了。那么了解了这个基本原理后，我们尝试去做更深的研究，一个普通的java程序它的执行流程到底是怎样的呢？例如我们写了一段这样的代码：
+public class HelloWorld { public static void main(String[] args) { System.
+  <a href='https://only0322.github.io/post/java/jvm/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/java/hashmap/">Java HashMap知识归纳</a></h2>
     <p class="blog-post-meta"><time datetime="2022-01-04T14:33:23+08:00">Tue Jan 4, 2022</time> by 吉法师</p>
   </header>
@@ -202,22 +220,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/geek/computertheory/">深入浅出计算机组成原理</a></h2>
-    <p class="blog-post-meta"><time datetime="2021-05-26T16:53:38+08:00">Wed May 26, 2021</time> by 吉法师</p>
-  </header>
-  入门 一、冯诺依曼体系结构 必备硬件：CPU、内存、主板、硬盘、输入输出设备，显卡。
-可选硬件：独立显卡、机箱、风扇。
-手机将CPU、内存、网络通信，乃至摄像头芯片，都封装到一个芯片，然后再嵌入到手机主板上。这种方式叫 SoC，也就是 System on a Chip（系统芯片）。
-  <a href='https://only0322.github.io/post/geek/computertheory/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/post/" rel="prev" role="button">Previous page</a>
@@ -247,6 +249,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
 <li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
 
 <li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
@@ -264,8 +268,6 @@
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
-
-<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

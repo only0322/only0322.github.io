@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-07T10:39:31+08:00" />
+<meta property="og:updated_time" content="2022-01-11T10:52:29+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-07T10:39:31+08:00",
+  "dateModified": "2022-01-11T10:52:29+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,23 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/cirlist/">C++循环链表总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-13T18:37:12+08:00">Mon Apr 13, 2020</time> by 吉法师</p>
+  </header>
+  循环链表的结构与特点 循环链表也分为单链循环和双链循环，和普通的链表相比，区别就是遍历到尾节点之后，next指针不是空指针，而又重新指向了head。
+还是先给出源码
+cpp循环链表
+具体实现 1.类定义 class Node { public: int data; Node * next; }; class CirList { private: Node * head; }; 2.
+  <a href='https://only0322.github.io/post/shuju/cirlist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/doublelist/">C++双向链表实现</a></h2>
     <p class="blog-post-meta"><time datetime="2020-04-10T18:20:46+08:00">Fri Apr 10, 2020</time> by 吉法师</p>
   </header>
@@ -200,23 +217,6 @@ a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后�
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/arrayautoadd/">用C++实现数组的自动扩容</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-07T20:32:27+08:00">Sat Mar 7, 2020</time> by 吉法师</p>
-  </header>
-  用到的技巧 其实就是指针的简单使用，能够通过练习，加深对指针的理解。而在C++容器中，vector也是用数组实现的自动扩容。
-当然，我们需要保证数组名不会随之改变，不然就不算什么自动扩容了。
-代码部分  动态数组的创建。  假设数组的长度是未知的，完全可以用new在堆区分配内存。
-int *p =new int[len];
-  <a href='https://only0322.github.io/post/cpp/arrayautoadd/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/post/page/14/" rel="prev" role="button">Previous page</a>
@@ -246,6 +246,8 @@ int *p =new int[len];
     <ol class="list-unstyled">
 
 
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
 <li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
 
 <li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
@@ -263,8 +265,6 @@ int *p =new int[len];
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
-
-<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

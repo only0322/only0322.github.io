@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Spring Ioc容器解读" />
+<meta property="og:description" content="一、概述 什么是容器？ 容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。
+通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。
+Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。
+二、Ioc原理 Ioc介绍 IoC全称Inversion of Control，直译为控制反转" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/" />
+<meta property="article:published_time" content="2022-01-11T10:52:29+08:00" />
+<meta property="article:modified_time" content="2022-01-11T10:52:29+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Ioc容器解读"/>
+<meta name="twitter:description" content="一、概述 什么是容器？ 容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。
+通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。
+Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。
+二、Ioc原理 Ioc介绍 IoC全称Inversion of Control，直译为控制反转"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Spring Ioc容器解读",
+  "url": "https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/",
+  "wordCount": "284",
+  "datePublished": "2022-01-11T10:52:29+08:00",
+  "dateModified": "2022-01-11T10:52:29+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/">
+
+    <title>Spring Ioc容器解读 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/java" title="">Java学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/math" title="">数学</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/book" title="">文学</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-01-11T10:52:29+08:00">Tue Jan 11, 2022</time>
+</p>
+  </header>
+  <h2 id="一概述">一、概述</h2>
+<h3 id="什么是容器">什么是容器？</h3>
+<p>容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。</p>
+<p>通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。</p>
+<p>Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。</p>
+<h2 id="二ioc原理">二、Ioc原理</h2>
+<h3 id="ioc介绍">Ioc介绍</h3>
+<p>IoC全称Inversion of Control，直译为控制反转</p>
+<h3 id="需求背景">需求背景</h3>
+<ol>
+<li>
+<p>实例化一个组件很难，有些时候需要读取配置，而不同的类又需要单独编写配置的代码，比较麻烦。</p>
+</li>
+<li>
+<p>两个类实例化同一个组件，完全可以共用，但又不好决定谁负责创建和共享，不好处理。</p>
+</li>
+<li>
+<p>组件需要销毁释放资源，但如果被多个组件共享，那怎么保证该不该被销毁？？</p>
+</li>
+<li>
+<p>依赖关系复杂。</p>
+</li>
+</ol>
+<p>传统的应用程序中，控制权在程序本身，程序的控制流程完全由开发者控制，在IoC模式下，控制权发生了反转，即从应用程序转移到了IoC容器，所有组件不再由应用程序自己创建和配置，而是由IoC容器负责，这样，应用程序只需要直接使用已经创建好并且配置好的组件。为了能让组件在IoC容器中被“装配”出来，需要某种“注入”机制。</p>
+<h3 id="使用bean配置">使用Bean配置</h3>
+<p>因为IoC容器要负责实例化所有的组件，因此，有必要告诉容器如何创建组件，以及各组件的依赖关系。一种最简单的配置是通过XML文件来实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;beans&gt;</span>
+    <span style="color:#f92672">&lt;bean</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;dataSource&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;HikariDataSource&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;bean</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;bookService&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;BookService&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dataSource&#34;</span> <span style="color:#a6e22e">ref=</span><span style="color:#e6db74">&#34;dataSource&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/bean&gt;</span>
+    <span style="color:#f92672">&lt;bean</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;userService&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;UserService&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dataSource&#34;</span> <span style="color:#a6e22e">ref=</span><span style="color:#e6db74">&#34;dataSource&#34;</span> <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;/bean&gt;</span>
+<span style="color:#f92672">&lt;/beans&gt;</span>
+</code></pre></div><h3 id="使用annotation配置">使用Annotation配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MailService</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>这个@Component注解就相当于定义了一个Bean，它有一个可选的名称，默认是mailService，即小写开头的类名。</p>
+<p>然后，我们给UserService添加一个@Component注解和一个@Autowired注解：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Autowired</span>
+    MailService mailService<span style="color:#f92672">;</span>
+
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>使用@Autowired就相当于把指定类型的Bean注入到指定的字段中。和XML配置相比，@Autowired大幅简化了注入，因为它不但可以写在set()方法上，还可以直接写在字段上，甚至可以写在构造方法中：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span> <span style="color:#f92672">{</span>
+    MailService mailService<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">UserService</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@Autowired</span> MailService mailService<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">mailService</span> <span style="color:#f92672">=</span> mailService<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>使用Annotation配合自动扫描能大幅简化Spring的配置，我们只需要保证：</p>
+<ul>
+<li>每个Bean被标注为@Component并正确使用@Autowired注入；</li>
+<li>配置类被标注为@Configuration和@ComponentScan；</li>
+<li>所有Bean均在指定包以及子包内。</li>
+</ul>
+<p><strong>定义了@Component才是Bean，没有这个注解是无法使用Autowired注解的。</strong></p>
+<h3 id="定制bean">定制Bean</h3>
+<p>对于Spring容器来说，当我们把一个Bean标记为@Component后，它就会自动为我们创建一个单例（Singleton），即容器初始化时创建Bean，容器关闭前销毁Bean。在容器运行期间，我们调用getBean(Class)获取到的Bean总是同一个实例。</p>
+<p>还有一种Bean，我们每次调用getBean(Class)，容器都返回一个新的实例，这种Bean称为Prototype（原型），它的生命周期显然和Singleton不同。声明一个Prototype的Bean时，需要添加一个额外的@Scope注解：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#a6e22e">@Scope</span><span style="color:#f92672">(</span>ConfigurableBeanFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">SCOPE_PROTOTYPE</span><span style="color:#f92672">)</span> <span style="color:#75715e">// @Scope(&#34;prototype&#34;)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MailSession</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="注入list">注入List</h4>
+<p>有些时候，我们会有一系列接口相同，不同实现类的Bean。例如，注册用户时，我们要对email、password和name这3个变量进行验证。为了便于扩展，我们先定义验证接口：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EmailValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String password<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>email<span style="color:#f92672">.</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;^[a-z0-9]+\\@[a-z0-9]+\\.[a-z]{2,10}$&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;invalid email: &#34;</span> <span style="color:#f92672">+</span> email<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PasswordValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String password<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>password<span style="color:#f92672">.</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;^.{6,20}$&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;invalid password&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NameValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String password<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>name <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> name<span style="color:#f92672">.</span><span style="color:#a6e22e">isBlank</span><span style="color:#f92672">()</span> <span style="color:#f92672">||</span> name<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> 20<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;invalid name: &#34;</span> <span style="color:#f92672">+</span> name<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>最后，我们通过一个Validators作为入口进行验证：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Validators</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Autowired</span>
+    List<span style="color:#f92672">&lt;</span>Validator<span style="color:#f92672">&gt;</span> validators<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String password<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>var validator <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">validators</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            validator<span style="color:#f92672">.</span><span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>email<span style="color:#f92672">,</span> password<span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>因为Spring是通过扫描classpath获取到所有的Bean，而List是有序的，要指定List中Bean的顺序，可以加上@Order注解：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#a6e22e">@Order</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EmailValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span>
+<span style="color:#a6e22e">@Order</span><span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PasswordValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span>
+<span style="color:#a6e22e">@Order</span><span style="color:#f92672">(</span>3<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NameValidator</span> <span style="color:#66d9ef">implements</span> Validator <span style="color:#f92672">{</span>
+    <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>如果不知道这个Bean是否存在，可以在Autowired加上required = false参数</p>
+<h3 id="注入配置">注入配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SmtpConfig</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${smtp.host}&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String host<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${smtp.port:25}&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> port<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getHost</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> host<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getPort</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> port<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fioc%25E5%25AE%25B9%25E5%2599%25A8%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fioc%25E5%25AE%25B9%25E5%2599%25A8%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fioc%25E5%25AE%25B9%25E5%2599%25A8%2f&amp;text=Spring%20Ioc%e5%ae%b9%e5%99%a8%e8%a7%a3%e8%af%bb" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
+<li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
+
+<li><a href="/post/java/jvm/">Jvm原理解析</a></li>
+
+<li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
+
+<li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
+
+<li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
+
+<li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

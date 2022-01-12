@@ -134,6 +134,23 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqstart/">RabbitMQ的启动过程</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-01T21:27:07+08:00">Mon Jun 1, 2020</time> by 吉法师</p>
+  </header>
+  RMQ的代码结构 RabbitMQ的代码都是存放在src目录下的，其中rabbit.erl就是整个程序的启动入口。
+在程序启动的过程中，自动地启动相关的进程，检查RMQ的版本，检查网络情况，确定日志的路径。
+据说RMQ的启动构建了一张有向无环图，启动了一大堆的进程，这一块也可以在src目录下查阅。
+前期的准备知识  AMQP协议    AMQP协议的全称
+  <a href='https://only0322.github.io/post/rabbitmq/rmqstart/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rabbitmq/">RabbitMQ源码详解合集</a></h2>
     <p class="blog-post-meta"><time datetime="2020-05-31T22:15:34+08:00">Sun May 31, 2020</time> by 吉法师</p>
   </header>
@@ -192,21 +209,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/pos/">Vue+Vue-cli+ElementUI实战</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-05-14T21:25:25+08:00">Thu May 14, 2020</time> by 吉法师</p>
-  </header>
-  用Vue和Element-ui做的点菜系统，一些基本的代码记录
-图标库使用 &lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view/&gt; &lt;i class = &#34;icon iconfont iconchild&#34;&gt;&lt;/i&gt; &lt;br&gt; &lt;i class = &#34;icon iconfont iconbrightness&#34;&gt;&lt;/i&gt; &lt;/div&gt; &lt;/template&gt; 侧边栏及样式 &lt;template&gt; &lt;div class=&#34;left-nav&#34;&gt; &lt;ul&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconaddto&#34; &gt;&lt;/i&gt; &lt;div&gt;收银&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont icondelete&#34; &gt;&lt;/i&gt; &lt;div&gt;店铺&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbrightness&#34; &gt;&lt;/i&gt; &lt;div&gt;商品&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluray&#34; &gt;&lt;/i&gt; &lt;div&gt;会员&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;统计&lt;/div&gt; &lt;/li&gt; &lt;li&gt; &lt;i class=&#34;icon iconfont iconbluetooth_link&#34; &gt;&lt;/i&gt; &lt;div&gt;设置&lt;/div&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { } &lt;/script&gt; &lt;style &gt; .
-  <a href='https://only0322.github.io/post/front/pos/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/12/" rel="prev" role="button">Previous page</a>
@@ -236,6 +238,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
 <li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
 
 <li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
@@ -253,8 +257,6 @@
 <li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
 <li><a href="/post/book/critique/">《纯粹理性批判》解析</a></li>
-
-<li><a href="/post/geek/computertheory/">深入浅出计算机组成原理</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
