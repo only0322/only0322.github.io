@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Tue, 11 Jan 2022 10:52:29 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Jan 2022 11:27:57 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aop面向切面编程</title>
+      <link>https://only0322.github.io/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Thu, 13 Jan 2022 11:27:57 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/</guid>
+      <description>AOP的产生 OOP：Object Oriented Programming，OOP作为面向对象编程的模式，获得了巨大的成功，OOP的主要功能是数据封装、继承和多态。
+而AOP是一种新的编程方式，它和OOP不同，OOP把系统看作多个对象的交互，AOP把系统分解为不同的关注点，或者称之为切面（Aspect）。
+也就是AOP能把需求做拆分，分为安全控制、日志、业务等模块，减少重复的实现和代码编写。
+使用 一、装配AOP @Aspect @Component public class LoggingAspect { // 在执行UserService的每个方法前执行:  @Before(&amp;#34;execution(public * com.</description>
+    </item>
+    
     <item>
       <title>Spring Ioc容器解读</title>
       <link>https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/</link>
@@ -46,7 +58,7 @@ Spring 框架是一个开源的 Java 平台，它最初是由 Rod Johnson 编写
       <pubDate>Wed, 05 Jan 2022 15:55:51 +0800</pubDate>
       
       <guid>https://only0322.github.io/post/java/spring/</guid>
-      <description> spring概述 Ioc容器  </description>
+      <description> spring概述 Ioc容器 Aop面向切面编程  </description>
     </item>
     
     <item>
