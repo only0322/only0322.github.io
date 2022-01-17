@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2022-01-13T11:27:57+08:00" />
+<meta property="og:updated_time" content="2022-01-17T16:26:07+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-13T11:27:57+08:00",
+  "dateModified": "2022-01-17T16:26:07+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,24 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/anafich/">Anafich——报文解析工具</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-29T21:22:23+08:00">Wed Apr 29, 2020</time> by 吉法师</p>
+  </header>
+  项目背景 通过预先配置好报文或文件的格式，在项目中遇到需要人工解析的报文，可以通过AnaFich来实现。
+源码 AnaFich
+用到的编程语言和环境 操作系统：Windows10/MacOS
+语言：C++/Qt
+软件流程 1.创建项目 通过读取和写入Json文件，完成对项目的配置。之后每次使用软件都需要读取Json文件，获得目前的项目和报文格式的配置。
+  <a href='https://only0322.github.io/post/opensource/anafich/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/binarytree/">用C++实现一个二叉树</a></h2>
     <p class="blog-post-meta"><time datetime="2020-04-25T06:20:47+08:00">Sat Apr 25, 2020</time> by 吉法师</p>
   </header>
@@ -202,23 +220,6 @@ cpp循环链表
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/bit/">C++位运算总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-18T09:25:22+08:00">Wed Mar 18, 2020</time> by 吉法师</p>
-  </header>
-  位运算是什么？ 程序中的所有数在计算机内存中都是以二进制的形式储存的。位运算就是直接对整数在内存中的二进制位进行操作。
-实际运用 1.找出数组中只出现过一次的数 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
-题目的关键点是，其他数都出现了两次，这时可以想到异或的妙用。
-a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后的异或交换律，我们只需要将数组的每个元素依次异或，最后的结果就是只出现一次的那个数了。
-  <a href='https://only0322.github.io/post/cpp/bit/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/14/" rel="prev" role="button">Previous page</a>
@@ -248,6 +249,8 @@ a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后�
     <ol class="list-unstyled">
 
 
+<li><a href="/post/java/servlet/">Java Servlet解析</a></li>
+
 <li><a href="/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">Aop面向切面编程</a></li>
 
 <li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
@@ -265,8 +268,6 @@ a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后�
 <li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
 <li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
-
-<li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

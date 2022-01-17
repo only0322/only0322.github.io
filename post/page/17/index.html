@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-13T11:27:57+08:00" />
+<meta property="og:updated_time" content="2022-01-17T16:26:07+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-13T11:27:57+08:00",
+  "dateModified": "2022-01-17T16:26:07+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,26 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/opensource/webbench/">著名压测工具webbench源码解析</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-02-27T16:33:28+08:00">Thu Feb 27, 2020</time> by 吉法师</p>
+  </header>
+  项目概述 Webbench是用的标准C语言编写，仅仅只有500多行代码的轻量级压测软件。
+用到的技术有：Linux提供的运行时参数解析，多进程，服务器通信，管道。 github地址：wenbbench
+项目整体流程 1.解析程序运行时的参数。
+2.根据选择的http协议组装报文。
+3.开始压力测试。
+4.获取压力测试的结果。
+1.解析程序运行时的参数 其实这就是传说中的argc argv[]，不过程序在此处用到了C语言的getopt_long函数。
+  <a href='https://only0322.github.io/post/opensource/webbench/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/socketlearn/">C++ socket初探</a></h2>
     <p class="blog-post-meta"><time datetime="2020-02-25T09:54:15+08:00">Tue Feb 25, 2020</time> by 吉法师</p>
   </header>
@@ -196,24 +216,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/linux/bash/">macOS配置环境变量与Linux的不同点</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-02-22T21:44:19+08:00">Sat Feb 22, 2020</time> by 吉法师</p>
-  </header>
-  前因后果 在Linux中，用户的环境变量由根目录的.bash_profile管理。事实上macOS也该是如此的，但我这么设置了之后，却发现每次都需要重新source，环境变量才能正常工作。
-原因 其实也很简单，在同级目录下的.zshrc，是新版macOS更换bash到zsh之后，真正的配置文件。
-因此，每次用户登录的时候，调用的不是.bash_profile，而是.zshrc了。
-解决方案 可以考虑在.zshrc里source我们的配置文件，这样与在Linux的习惯一致。当然也可以直接在.zshrc编写环境变量。
-问题到这里，也算是解决了。
-  <a href='https://only0322.github.io/post/linux/bash/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/post/page/16/" rel="prev" role="button">Previous page</a>
@@ -243,6 +245,8 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/java/servlet/">Java Servlet解析</a></li>
+
 <li><a href="/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">Aop面向切面编程</a></li>
 
 <li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
@@ -260,8 +264,6 @@
 <li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
 <li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
-
-<li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

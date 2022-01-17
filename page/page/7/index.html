@@ -134,6 +134,20 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/leetcode/binary/">位运算总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-09-11T17:05:36+08:00">Fri Sep 11, 2020</time> by 吉法师</p>
+  </header>
+  求出反码中2的个数 class Solution { public: int NumberOf1(int n) { unsigned int m = n; int count = 0; while(m) { count += (m&amp;1); m = m&gt;&gt;1; } return count; } }; unsigned 可以将int转换一下，有符号整数变为无符号数。
+  <a href='https://only0322.github.io/post/leetcode/binary/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/leetcode/listcircle/">链表部分</a></h2>
     <p class="blog-post-meta"><time datetime="2020-09-11T08:16:07+08:00">Fri Sep 11, 2020</time> by 吉法师</p>
   </header>
@@ -189,21 +203,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/virtual/">C++虚函数总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-09-09T17:08:08+08:00">Wed Sep 9, 2020</time> by 吉法师</p>
-  </header>
-  一、虚函数的定义 虚函数是为了允许用基类的指针来调用子类的这个函数
-二、简单实现 class Next :public Base { void show() { cout&lt;&lt;&#34;Next show&#34;&lt;&lt;endl; } }; class That :public Base { void show() override { cout&lt;&lt;&#34;That show&#34;&lt;&lt;endl; } }; class Same :public Base { virtual void show() { cout&lt;&lt;&#34;That show&#34;&lt;&lt;endl; } }; int main() { Base *be = new Next; be-&gt;show(); return 0; } 这就实现了Base调用Next类的函数了。
-  <a href='https://only0322.github.io/post/cpp/virtual/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/6/" rel="prev" role="button">Previous page</a>
@@ -233,6 +232,8 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/java/servlet/">Java Servlet解析</a></li>
+
 <li><a href="/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">Aop面向切面编程</a></li>
 
 <li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
@@ -250,8 +251,6 @@ function Module(id, parent) { this.id = id; this.exports = {}; this.
 <li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
 <li><a href="/post/other/wrk/">Wrk使用浅谈</a></li>
-
-<li><a href="/post/book/critiquesummary/">《纯粹理性批判》总结</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
