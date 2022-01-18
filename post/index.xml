@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Mon, 17 Jan 2022 16:26:07 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Jan 2022 16:05:34 +0800</lastBuildDate><atom:link href="https://only0322.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringMVC详解</title>
+      <link>https://only0322.github.io/post/spring/springmvc/</link>
+      <pubDate>Tue, 18 Jan 2022 16:05:34 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/spring/springmvc/</guid>
+      <description>一、什么是MVC MVC是指Model、View、Controller分离，但在Java中可能有另一层意思。
+  模型代表一个存取数据的对象或 JAVA POJO。它也可以带有逻辑，在数据变化时更新控制器。
+  视图代表模型包含的数据的可视化。</description>
+    </item>
+    
     <item>
       <title>Java Servlet解析</title>
       <link>https://only0322.github.io/post/java/servlet/</link>
@@ -69,7 +80,7 @@ Spring 框架是一个开源的 Java 平台，它最初是由 Rod Johnson 编写
       <pubDate>Wed, 05 Jan 2022 15:55:51 +0800</pubDate>
       
       <guid>https://only0322.github.io/post/java/spring/</guid>
-      <description> spring概述 Ioc容器 Aop面向切面编程  </description>
+      <description> spring概述 Ioc容器 Aop面向切面编程 Spring Mvc  </description>
     </item>
     
     <item>
