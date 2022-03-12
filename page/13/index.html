@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2022-01-18T16:05:34+08:00" />
+<meta property="og:updated_time" content="2022-03-07T11:06:57+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-18T16:05:34+08:00",
+  "dateModified": "2022-03-07T11:06:57+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,40 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/innodb/">InnoDB存储引擎相关知识</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-03T20:06:13+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
+  </header>
+  简介 InnoDB存储引擎支持B+树索引，哈希索引，全文索引和空间索引。后两者很少用到，但B+索引和哈希索引就很常见了。
+前置知识 B+树 B+树是一种平衡查找树，其中B并不是指二叉树（Binary），而是平衡（Balance）。
+MySQL的B+树索引可分为聚焦索引和非聚焦索引。
+B+ 树是一种树数据结构，是一个n叉树，每个节点通常有多个孩子，一颗B+树包含根节点、内部节点和叶子节点。B+ 树通常用于数据库和操作系统的文件系统中。 B+ 树的特点是能够保持数据稳定有序，其插入与修改拥有较稳定的对数时间复杂度。 B+ 树元素自底向上插入。
+  <a href='https://only0322.github.io/post/mysql/innodb/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/mysqlsrc/">MySQL的代码结构</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-06-03T19:46:59+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
+  </header>
+  代码结构简介 在阅读源码之前，我们首先要熟悉MySQL的项目结构。而MySQL由于项目过于庞大，开发人员众多，理解每个文件夹、模块的用途，也是一件非常重要的事。
+以下是MySQL的项目路径：
+  BUILD: 内含在各个平台、各种编译器下进行编译的脚本。如compile-pentium-debug表示在pentium架构上进行编译的脚本。
+  Client: 客户端工具，如mysql, mysqladmin之类。
+  <a href='https://only0322.github.io/post/mysql/mysqlsrc/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/mysql/mysql/">MySQL源码解析合集</a></h2>
     <p class="blog-post-meta"><time datetime="2020-06-03T19:39:29+08:00">Wed Jun 3, 2020</time> by 吉法师</p>
   </header>
@@ -182,37 +216,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rmqstart/">RabbitMQ的启动过程</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-06-01T21:27:07+08:00">Mon Jun 1, 2020</time> by 吉法师</p>
-  </header>
-  RMQ的代码结构 RabbitMQ的代码都是存放在src目录下的，其中rabbit.erl就是整个程序的启动入口。
-在程序启动的过程中，自动地启动相关的进程，检查RMQ的版本，检查网络情况，确定日志的路径。
-据说RMQ的启动构建了一张有向无环图，启动了一大堆的进程，这一块也可以在src目录下查阅。
-前期的准备知识  AMQP协议    AMQP协议的全称
-  <a href='https://only0322.github.io/post/rabbitmq/rmqstart/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/rabbitmq/rabbitmq/">RabbitMQ源码详解合集</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-05-31T22:15:34+08:00">Sun May 31, 2020</time> by 吉法师</p>
-  </header>
-   RabbitMQ的启动过程 RabbitMQ的消息机制 RabbitMQ消息重发、死信处理  
-  <a href='https://only0322.github.io/post/rabbitmq/rabbitmq/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/12/" rel="prev" role="button">Previous page</a>
@@ -242,6 +245,10 @@
     <ol class="list-unstyled">
 
 
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
 <li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
 
 <li><a href="/post/java/servlet/">Java Servlet解析</a></li>
@@ -257,10 +264,6 @@
 <li><a href="/post/java/spring/">Spring学习合集</a></li>
 
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
-
-<li><a href="/post/java/jvm/">Jvm原理解析</a></li>
-
-<li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

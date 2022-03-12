@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Tue, 18 Jan 2022 16:05:34 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Mar 2022 11:06:57 +0800</lastBuildDate><atom:link href="https://only0322.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js后端面试整理</title>
+      <link>https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/</link>
+      <pubDate>Mon, 07 Mar 2022 11:06:57 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/</guid>
+      <description>一、Node.js语言部分 I.语言基础 1.闭包的原理 函数就是一个闭包，js的特点是可以在函数内部创建另一个函数。js可以在函数内用外部的变量，所以自然而然产生的闭包概念。
+function foo(){ var local = 1 function bar(){ local++ return local } return bar } var func = foo() func() 在内部的那个函数可以引用外部的变量，但同时这个变量也无法被销毁，有消耗内存的风险。</description>
+    </item>
+    
+    <item>
+      <title>Spring面试</title>
+      <link>https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Fri, 21 Jan 2022 17:35:44 +0800</pubDate>
+      
+      <guid>https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/</guid>
+      <description>·
+1. 对Spring的理解 Spring框架是一个轻量级的开源框架，是核心容器、数据访问与集成、AOP、Web、消息、测试六个模块的集成。
+主要是为了简化企业级应用的后台开发，降低耦合性。平时接触到最多的还是IoC和AOP两个特性。IoC指的是控制反转，把对象的创建和依赖关系的维护交给Spring容器去管理。
+Spring通过工厂模式、反射机制等技术管理对象的作用域和生命周期。AoP一般称为面向切面编程，是面向对象的一种补充，将程序中独立于其他功能的方法抽取出来，使Java开发模块化，仅需专注于主业务即可。
+2.Spring的特点 MVC,IOC,AOP,事务管理。
+3.SPring的优缺点？ 优点 方便解耦，简化开发</description>
+    </item>
+    
     <item>
       <title>SpringMVC详解</title>
       <link>https://only0322.github.io/post/spring/springmvc/</link>
@@ -990,7 +1014,10 @@ weekdatebin=weekdate.slice(0,8); weekdatebin=parseInt(weekdatebin,&amp;quot;16&a
       <pubDate>Tue, 03 Mar 2020 21:25:15 +0800</pubDate>
       
       <guid>https://only0322.github.io/nodejs/</guid>
-      <description> nodejs2进制转16进制 koa库的具体使用 Nodejs连接数据库、读取文件 Nodejs面试大方向总结 Nodejs闭包 Nodejs的垃圾回收 Nodejs按行读文件的简便方法n-readlines  </description>
+      <description>面试集合
+  nodejs2进制转16进制
+  koa库的具体使用
+  Nodejs连接数据库、读取文件</description>
     </item>
     
     <item>

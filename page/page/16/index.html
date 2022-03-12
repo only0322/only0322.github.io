@@ -134,6 +134,39 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/cirlist/">C++循环链表总结</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-13T18:37:12+08:00">Mon Apr 13, 2020</time> by 吉法师</p>
+  </header>
+  循环链表的结构与特点 循环链表也分为单链循环和双链循环，和普通的链表相比，区别就是遍历到尾节点之后，next指针不是空指针，而又重新指向了head。
+还是先给出源码
+cpp循环链表
+具体实现 1.类定义 class Node { public: int data; Node * next; }; class CirList { private: Node * head; }; 2.
+  <a href='https://only0322.github.io/post/shuju/cirlist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/doublelist/">C++双向链表实现</a></h2>
+    <p class="blog-post-meta"><time datetime="2020-04-10T18:20:46+08:00">Fri Apr 10, 2020</time> by 吉法师</p>
+  </header>
+  双向链表的原理与特点 双链表相比单链表而言，有头结点和尾节点，而每个数据节点也有前后两个节点指针。
+源码地址 码云链接
+具体实现及原理 1.类结构定义 class Node { public: int data; Node * last; Node * next; }; class DoubleNode { private: Node * head; //头结点  Node * tail; //尾节点 }; 定义了head和tail节点，以及每个数据节点的前后指针，最基本的双向链表。
+  <a href='https://only0322.github.io/post/shuju/doublelist/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/shuju/nodelist/">单链表原理与C++实现</a></h2>
     <p class="blog-post-meta"><time datetime="2020-03-22T15:42:43+08:00">Sun Mar 22, 2020</time> by 吉法师</p>
   </header>
@@ -184,41 +217,6 @@ a^a = 0; a^0 = a; a^b^a = a^a^b = 0^b = b; 通过前两条特性，以及最后�
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/cpp/arrayautoadd/">用C++实现数组的自动扩容</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-07T20:32:27+08:00">Sat Mar 7, 2020</time> by 吉法师</p>
-  </header>
-  用到的技巧 其实就是指针的简单使用，能够通过练习，加深对指针的理解。而在C++容器中，vector也是用数组实现的自动扩容。
-当然，我们需要保证数组名不会随之改变，不然就不算什么自动扩容了。
-代码部分  动态数组的创建。  假设数组的长度是未知的，完全可以用new在堆区分配内存。
-int *p =new int[len];
-  <a href='https://only0322.github.io/post/cpp/arrayautoadd/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/nodedb/">Nodejs数据库和文件操作总结</a></h2>
-    <p class="blog-post-meta"><time datetime="2020-03-05T19:48:53+08:00">Thu Mar 5, 2020</time> by 吉法师</p>
-  </header>
-  文件操作 需要引入nodejs自带的fs模块
-var fs=require(&quot;fs&quot;); var path=require(&quot;path&quot;); 异步读取文件fs.readFileSync()
-对buffer进行切割：slice()
-buffer转为方便操作的字符串toString()
-还需要进制转换操作
-  <a href='https://only0322.github.io/post/node/nodedb/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/page/page/15/" rel="prev" role="button">Previous page</a>
@@ -248,6 +246,10 @@ buffer转为方便操作的字符串toString()
     <ol class="list-unstyled">
 
 
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
 <li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
 
 <li><a href="/post/java/servlet/">Java Servlet解析</a></li>
@@ -263,10 +265,6 @@ buffer转为方便操作的字符串toString()
 <li><a href="/post/java/spring/">Spring学习合集</a></li>
 
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
-
-<li><a href="/post/java/jvm/">Jvm原理解析</a></li>
-
-<li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

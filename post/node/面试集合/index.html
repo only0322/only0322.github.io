@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Node.js后端面试整理" />
+<meta property="og:description" content="一、Node.js语言部分 I.语言基础 1.闭包的原理 函数就是一个闭包，js的特点是可以在函数内部创建另一个函数。js可以在函数内用外部的变量，所以自然而然产生的闭包概念。
+function foo(){ var local = 1 function bar(){ local&#43;&#43; return local } return bar } var func = foo() func() 在内部的那个函数可以引用外部的变量，但同时这个变量也无法被销毁，有消耗内存的风险。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/" />
+<meta property="article:published_time" content="2022-03-07T11:06:57+08:00" />
+<meta property="article:modified_time" content="2022-03-07T11:06:57+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Node.js后端面试整理"/>
+<meta name="twitter:description" content="一、Node.js语言部分 I.语言基础 1.闭包的原理 函数就是一个闭包，js的特点是可以在函数内部创建另一个函数。js可以在函数内用外部的变量，所以自然而然产生的闭包概念。
+function foo(){ var local = 1 function bar(){ local&#43;&#43; return local } return bar } var func = foo() func() 在内部的那个函数可以引用外部的变量，但同时这个变量也无法被销毁，有消耗内存的风险。"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Node.js后端面试整理",
+  "url": "https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/",
+  "wordCount": "604",
+  "datePublished": "2022-03-07T11:06:57+08:00",
+  "dateModified": "2022-03-07T11:06:57+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">
+
+    <title>Node.js后端面试整理 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/java" title="">Java学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/math" title="">数学</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/book" title="">文学</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-03-07T11:06:57+08:00">Mon Mar 7, 2022</time>
+</p>
+  </header>
+  <h1 id="一nodejs语言部分">一、Node.js语言部分</h1>
+<h2 id="i语言基础">I.语言基础</h2>
+<h3 id="1闭包的原理">1.闭包的原理</h3>
+<p>函数就是一个闭包，js的特点是可以在函数内部创建另一个函数。js可以在函数内用外部的变量，所以自然而然产生的闭包概念。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(){
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">local</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bar</span>(){
+    <span style="color:#a6e22e">local</span><span style="color:#f92672">++</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">local</span>
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bar</span>
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">func</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">foo</span>()
+<span style="color:#a6e22e">func</span>()
+</code></pre></div><p>在内部的那个函数可以引用外部的变量，但同时这个变量也无法被销毁，有消耗内存的风险。</p>
+<h4 id="块级作用域">块级作用域</h4>
+<p>{}也是划分作用域的概念，和闭包略有不同。</p>
+<h3 id="2js的内置对象">2.Js的内置对象</h3>
+<p>Object、Array、Boolean、Number、String、Buffer等等。</p>
+<h3 id="3nodejs-gc">3.Nodejs gc</h3>
+<h4 id="引用计数法">引用计数法</h4>
+<p>假设有一个对象A，任何对象对A进行引用，那么对象A的引用计数器+1，当引用失效时，对象A的引用计数器-1，当对象A的引用计数器为0时，就说明对象A没用被引用，那么就可以进行回收。</p>
+<h5 id="优点">优点：</h5>
+<ul>
+<li>
+<p>实时性高 不需要等内存不足再回首。</p>
+</li>
+<li>
+<p>垃圾回收的时候不需要挂起应用。</p>
+</li>
+<li>
+<p>区域更新对象，不需要扫描全部对象</p>
+</li>
+</ul>
+<h5 id="缺点">缺点：</h5>
+<ul>
+<li>
+<p>每次对象被引用都要更新</p>
+</li>
+<li>
+<p>浪费cpu资源，因为内存足够的时候还在统计</p>
+</li>
+<li>
+<p>无法解决循环引用</p>
+</li>
+</ul>
+<p>比如两个对象互相引用 都赋值成null，那就永远回收不了了。</p>
+<h4 id="标记清除法">标记清除法</h4>
+<p>标记清除法是把gc分为两个阶段，标记和清除。</p>
+<ul>
+<li>
+<p>标记：从根节点开始标记引用的对象</p>
+</li>
+<li>
+<p>清除：没被标记的就是垃圾对象 可以清除。</p>
+</li>
+</ul>
+<p>结构有点像多叉树。</p>
+<p>从根节点开始遍历，找到所有可达的对象，其他的都是可以清除的。</p>
+<h5 id="优点-1">优点</h5>
+<p>解决了循环引用的问题</p>
+<h5 id="缺点-1">缺点</h5>
+<p>标记和清除都需要遍历所有对象，gc的时候需要暂停程序。对交互性高的程序体验很差。</p>
+<p>内存碎片多，被清理的对象在内存的各个角落。</p>
+<h4 id="标记压缩算法">标记压缩算法</h4>
+<p>标记压缩算法是在标记清除法的基础上进行了优化，标记阶段是一样的，在清理阶段不是直接清理标记对象，而是将存活对象压缩到内存的一端，然后清理边界以外的垃圾，从而解决碎片化问题。</p>
+<h5 id="优缺点">优缺点</h5>
+<p>解决了内存碎片化的问题，但是多了压缩的一步，对象移动内存位置的步骤，对效率有影响。</p>
+<h3 id="4-原型">4. 原型</h3>
+<p>在js中，对象都有__proto__属性，一般这个是被称为隐式的原型，该隐式原型指向构造该对象的构造函数的原型。</p>
+<p>函数比较特殊，它除了和其他对象一样有__proto__属性，还有自己特有的属性&mdash;-prototype，这个属性是一个指针，指向一个包含所有实例共享的属性和方法的对象，称之为原型对象。原型对象也有一个constructor属性，该属性指回该函数。</p>
+<h2 id="iilibuv原理">II.libuv原理</h2>
+<p>libuv底层是用了生产者-消费者的模型，libuv在整个生命周期中，每一次循环都执行每个阶段（phase）维护的任务队列。逐个执行节点里的回调，在回调中，不断生产新的任务，从而不断驱动libuv。</p>
+<h3 id="nodejs的事件循环原理">Nodejs的事件循环原理</h3>
+<p>事件循环底层使用libuv。</p>
+<h4 id="nodejs的特点">Nodejs的特点</h4>
+<p>单线程，它不会为每个请求分配一个线程，而是用主线程处理所有请求，对输入输出进行异步处理，避开了创建销毁线程，和线程切换的开销和复杂性。</p>
+<h4 id="核心原理">核心原理</h4>
+<p>Node.js 在主线程里维护了一个事件队列，当接到请求后，就将该请求作为一个事件放入这个队列中，然后继续接收其他请求。</p>
+<p>当主线程空闲时(没有请求接入时)，就开始循环事件队列，检查队列中是否有要处理的事件，这时要分两种情况：如果是非 I/O 任务，就亲自处理，并通过回调函数返回到上层调用；如果是 I/O 任务，就从 线程池 中拿出一个线程来处理这个事件，并指定回调函数，然后继续循环队列中的其他事件。</p>
+<p>当线程中的 I/O 任务完成以后，就执行指定的回调函数，并把这个完成的事件放到事件队列的尾部，等待事件循环，当主线程再次循环到该事件时，就直接处理并返回给上层调用。 这个过程就叫 事件循环 (Event Loop)。</p>
+<p>无论是 Linux 平台还是 Windows 平台，Node.js 内部都是通过 线程池 来完成异步 I/O 操作的，而 LIBUV 针对不同平台的差异性实现了统一调用。因此，Node.js 的单线程仅仅是指 JavaScript 运行在单线程中，而并非 Node.js 是单线程。</p>
+<p>在事件队列中，如果前面的 CPU 计算任务没有完成，后面的任务就会被阻塞，出现响应缓慢的情况，当 Node.js 被CPU 密集型任务占用，导致其他任务被阻塞时，却还有 CPU 内核处于闲置状态，造成资源浪费。</p>
+<h4 id="使用要点">使用要点</h4>
+<p>尽量不在服务器中使用需要同步等待的CPU密集型任务，如fs的同步读文件，因为这会阻塞事件队列的轮询。</p>
+<p><strong>每个 CPU 密集任务只在它被调度到的时候才会得到执行。</strong></p>
+<p>Node.js 有两种类型的线程：一个事件循环线程和 k 个工作线程。 事件循环负责 JavaScript 回调和非阻塞 I/O，工作线程执行与 C++ 代码对应的、完成异步请求的任务，包括阻塞 I/O 和 CPU 密集型工作。</p>
+<p>这两种类型的线程一次都只能处理一个活动。 如果任意一个回调或任务需要很长时间，则运行它的线程将被 阻塞。 如果你的应用程序发起阻塞的回调或任务，在好的情况下这可能只会导致吞吐量下降（客户端/秒），而在最坏情况下可能会导致完全拒绝服务。</p>
+<h2 id="iiiv8">III.v8</h2>
+<p>v8解决的问题是快速解析和执行JavaScript脚本。</p>
+<h3 id="1内存限制">1.内存限制</h3>
+<p>32位是0.7gb，64位是1.4gb</p>
+<h3 id="2和nodejs的关系">2.和Nodejs的关系</h3>
+<p>v8把js代码翻译成机器码，直接运行。</p>
+<h3 id="3内存结构">3.内存结构</h3>
+<p>内存区主要能够分为如下几类：栈区、堆区、常量区、函数定义区、函数缓存区。</p>
+<h4 id="堆区">堆区</h4>
+<p>JavaScript的变量名是用来保存内存中某块内存区的地址的，而栈区就是用来保存变量名和内存地址的键值对的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> {}
+</code></pre></div><p>对于该语句，V8会在堆区中开辟一块内存，而后在栈区添加一个键值对，键名是咱们声明的变量名a，键值是堆区中开辟出的内存的地址。</p>
+<p>在堆区中存在一个特殊的预置对象null，它在堆区中有固定的内存地址，而且是惟一的。也就是说全部被赋值为null的变量指向的都是这同一块内存地址（所以被赋值为null的变量也是有内存地址的）。</p>
+<h4 id="常量区">常量区</h4>
+<ul>
+<li>全部的值都是不可变的</li>
+<li>全部相同的常量值在常量区都是唯一的。</li>
+</ul>
+<h4 id="函数定义区">函数定义区</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//函数声明
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(){
+  ...
+}
+<span style="color:#75715e">//函数引用
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+ ...
+}
+</code></pre></div><p>其实没什么卵用的知识。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//能够正常调用，由于引擎会提早扫描代码，将该函数存储到函数定义区
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span>();
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(){}
+
+<span style="color:#75715e">//报错，由于虽然g也进行了变量提高，但此时g的值是undefined，不能调用
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">g</span>();
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){}
+</code></pre></div><h4 id="函数缓存区">函数缓存区</h4>
+<p>所谓函数缓存区，就是函数运行所用的内存区。当V8引擎须要执行一个函数时，它就会在函数缓存区开辟一块内存，保存该函数运行所须要存储的状态和变量。</p>
+<p>一般情况都会回收内存，用了闭包就有可能不回收（上面有提到）</p>
+<h4 id="理解--和-">理解 == 和 ===</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">b</span>;   <span style="color:#75715e">//值为true，同一个常量在常量区只会生成一个，所以二者获得地址是同样的
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> {};
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> {};
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">b</span>;    <span style="color:#75715e">//值为false，引擎会分别为a和b开辟内存，所以二者的地址并不相同
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">null</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>;  <span style="color:#75715e">//值为true，由于堆区只有一个null
+</span><span style="color:#75715e"></span>[] <span style="color:#f92672">===</span> [];  <span style="color:#75715e">//值为false，原理与{}相同
+</span></code></pre></div><p>在比较字符串的时候，数字会先转成字符串，然后去比较地址。</p>
+<h3 id="4v8的垃圾回收机制">4.V8的垃圾回收机制</h3>
+<p>V8的垃圾回收机制采用的是标记清除法，这也是如今JavaScript引擎通用的一种回收机制。</p>
+<p>新生代空间小一点，老生代空间大一点。</p>
+<h4 id="新生代">新生代</h4>
+<p>新生代区域一分为二，每个16M，一个使用，一个空闲。</p>
+<p>开始垃圾回收的时候，会检查FROM区域中的存活对象，如果还活着，拷贝到TO空间，所有存活对象拷贝完后，清空(释放)FROM区域
+然后FROM和To区域互换。</p>
+<p>新生代的空间小，存活对象少。</p>
+<p>当一个对象经理多次的垃圾回收依然存活的时候，生存周期比较差的对象会被移动到老生代，这个移动过程被称为晋升或升级。</p>
+<ul>
+<li>
+<p>经历过5次以上的回收还存在</p>
+</li>
+<li>
+<p>TO的空间使用占比超过25%，或者超大对象</p>
+</li>
+</ul>
+<h4 id="老生代">老生代</h4>
+<p>老生代垃圾回收策略分为两种：</p>
+<h5 id="mark-sweep-标记清除">mark-sweep 标记清除</h5>
+<p>标记活着的对象，虽然清楚在标记阶段没有标记的对象，只清理死亡对象</p>
+<p>会出现的问题：清除后内存不连续，碎片内存无法分配</p>
+<h5 id="mark-compact-标记整理">mark-compact 标记整理</h5>
+<p>标记死亡后会对对象进行整理，活着的左移，移动完成后清理掉边界外的内存(死亡的对象)</p>
+<p>老生代空间大，大部分都是活着的对象，GC耗时比较长</p>
+<p><strong>GC的时候程序无法进行响应</strong></p>
+<h1 id="二计算机网络">二、计算机网络</h1>
+<h3 id="i网络架构">I.网络架构</h3>
+<p>七层网络模型：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
+<h3 id="ii三次握手">II.三次握手</h3>
+<h4 id="粗略的目的">粗略的目的</h4>
+<ul>
+<li>
+<p>第一次客户端给服务器发送，服务器能确认客户端的发送、服务器的接收能力。</p>
+</li>
+<li>
+<p>第二次服务器给客户端发送，客户端能确认服务器的发送、客户端的接收能力。同时根据第一次握手，能知道自己的发送、服务器的接收都正常。</p>
+</li>
+</ul>
+<p><strong>为什么需要三次握手</strong></p>
+<ul>
+<li>因为服务器不知道自己的发送，客户端的接收是否正常，所以需要第三次握手，得到客户端的应答才能做最后的确认。</li>
+</ul>
+<h4 id="syn和ack">SYN和ACK</h4>
+<p>SYN 是 TCP/IP 建立连接时使用的握手信号。在客户机和服务器之间建立正常的 TCP 网络连接时，客户机首先发出一个 SYN 消息，服务器使用 SYN-ACK 应答表示接收到了这个消息，最后客户机再以 ACK(Acknowledgement[汉译：确认字符 ,在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。 ]）消息响应。这样在客户机和服务器之间才能建立起可靠的TCP连接，数据才可以在客户机和服务器之间传递。</p>
+<h4 id="位码">位码</h4>
+<p>位码即tcp标志位，有6种标示：SYN(synchronous建立联机) ACK(acknowledgement 确认) PSH(push传送) FIN(finish结束) RST(reset重置) URG(urgent紧急)Sequence number(顺序号码) Acknowledge number(确认号码)</p>
+<h3 id="iii四次挥手">III.四次挥手</h3>
+<ul>
+<li>
+<p>客户端-发送一个 FIN，用来关闭客户端到服务器的数据传送</p>
+</li>
+<li>
+<p>服务器-收到这个 FIN，它发回一 个 ACK，确认序号为收到的序号加1 。和 SYN 一样，一个 FIN 将占用一个序号</p>
+</li>
+<li>
+<p>服务器-关闭与客户端的连接，发送一个FIN给客户端</p>
+</li>
+<li>
+<p>客户端-发回 ACK 报文确认，并将确认序号设置为收到序号加1</p>
+</li>
+</ul>
+<h3 id="iv各种协议">IV.各种协议</h3>
+<h4 id="1tcpudp-协议的区别">1.TCP,UDP 协议的区别</h4>
+<p>UDP 在传送数据之前不需要先建立连接，远地主机在收到 UDP 报文后，不需要给出任何确认。虽然 UDP 不提供可靠交付，但在某些情况下 UDP 确是一种最有效的工作方式（一般用于即时通信），比如： QQ 语音、 QQ 视频 、直播等等。</p>
+<p>TCP 提供面向连接的服务。在传送数据之前必须先建立连接，数据传送结束后要释放连接。 TCP 不提供广播或多播服务。由于 TCP 要提供可靠的，面向连接的传输服务（TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源），这一难以避免增加了许多开销，如确认，流量控制，计时器以及连接管理等。这不仅使协议数据单元的首部增大很多，还要占用许多处理机资源。TCP 一般用于文件传输、发送和接收邮件、远程登录等场景。</p>
+<h4 id="2tcp-协议如何保证可靠传输">2.TCP 协议如何保证可靠传输</h4>
+<p>简单来说，数据会分包、TCP有检验和：判断数据有缺失会直接丢掉，而且不确认这次收到了、流量控制、拥塞处理、ARQ协议。</p>
+<h4 id="3dns">3.DNS</h4>
+<p>域名系统，能够获取域名对应的ip地址。</p>
+<h3 id="vhttp协议">V.http协议</h3>
+<h4 id="1当输入wwwgooglecom时页面发生了哪些事情">1.当输入www.google.com时，页面发生了哪些事情</h4>
+<ol>
+<li>
+<p>域名解析检查顺序为：浏览器自身DNS缓存&mdash;》OS自身的DNS缓存&ndash;》读取host文件&ndash;》本地域名服务器&ndash;》权限域名服务器&ndash;》根域名服务器。如果有且没有过期，则结束本次域名解析。域名解析成功之后，进行后续操作。</p>
+</li>
+<li>
+<p>三次握手</p>
+</li>
+<li>
+<p>建立连接，发起http请求。</p>
+</li>
+<li>
+<p>服务器响应，浏览器得到内容。</p>
+</li>
+<li>
+<p>浏览器解析html代码，并且请求其中的资源</p>
+</li>
+<li>
+<p>浏览器对页面渲染，呈现给用户。</p>
+</li>
+</ol>
+<h4 id="2什么是http协议无状态协议怎么解决http协议无状态协议">2.什么是Http协议无状态协议？怎么解决Http协议无状态协议？</h4>
+<p>http是无状态的，也就是后续处理无法处理之前的信息。</p>
+<p>处理办法有Cookie，Section会话保存，甚至可以用数据库和缓存处理。</p>
+<h4 id="3http协议组成">3.http协议组成</h4>
+<p><strong>请求报文包含三部分：</strong></p>
+<ul>
+<li>
+<p>请求行：包含请求方法、URI、HTTP版本信息</p>
+</li>
+<li>
+<p>请求首部字段</p>
+</li>
+<li>
+<p>请求内容实体</p>
+</li>
+</ul>
+<p><strong>响应报文包含三部分：</strong></p>
+<ul>
+<li>
+<p>状态行：包含HTTP版本、状态码、状态码的原因短语</p>
+</li>
+<li>
+<p>响应首部字段</p>
+</li>
+<li>
+<p>响应内容实体</p>
+</li>
+</ul>
+<p><strong>空行</strong></p>
+<p>最后一个请求头之后是一个空行，发送回车符和换行符，通知服务器以下不再有请求头。</p>
+<p><strong>请求正文</strong></p>
+<p>请求数据不在GET方法中使用，而是在POST方法中使用。POST方法适用于需要客户填写表单的场合。与请求数据相关的最常使用的请求头是Content-Type和Content-Length。</p>
+<p><strong>返回值</strong></p>
+<p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</p>
+<h5 id="请求行">请求行</h5>
+<p>请求行由请求方法字段、URL字段和HTTP协议版本字段3个字段组成，它们用空格分隔。例如，GET /index.html HTTP/1.1。</p>
+<p>GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，</p>
+<p>POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。</p>
+<p>个人不推荐用GET，全部用POST比较方便。</p>
+<h5 id="请求头部">请求头部</h5>
+<p>请求头部由关键字/值对组成，每行一对，关键字和值用英文冒号“:”分隔。请求头部通知服务器有关于客户端请求的信息，典型的请求头有：</p>
+<ul>
+<li>
+<p>User-Agent：产生请求的浏览器类型。</p>
+</li>
+<li>
+<p>Accept：客户端可识别的内容类型列表。</p>
+</li>
+<li>
+<p>Host：请求的主机名，允许多个域名同处一个IP地址，即虚拟主机。</p>
+</li>
+</ul>
+<h4 id="4状态码">4.状态码</h4>
+<ul>
+<li>
+<p>1xx：指示信息&ndash;表示请求已接收，继续处理</p>
+</li>
+<li>
+<p>2xx：成功&ndash;表示请求已被成功接收、理解、接受</p>
+</li>
+<li>
+<p>3xx：重定向&ndash;要完成请求必须进行更进一步的操作</p>
+</li>
+<li>
+<p>4xx：客户端错误&ndash;请求有语法错误或请求无法实现</p>
+</li>
+<li>
+<p>5xx：服务器端错误&ndash;服务器未能实现合法的请求</p>
+</li>
+</ul>
+<h4 id="5http的版本-10与11">5.http的版本 1.0与1.1</h4>
+<p>在http1.0中，当建立连接后，客户端发送一个请求，服务器端返回一个信息后就关闭连接，当浏览器下次请求的时候又要建立连接，显然这种不断建立连接的方式，会造成很多问题。</p>
+<p>在http1.1中，引入了持续连接的概念，通过这种连接，浏览器可以建立一个连接之后，发送请求并得到返回信息，然后继续发送请求再次等到返回信息，也就是说客户端可以连续发送多个请求，而不用等待每一个响应的到来。</p>
+<h4 id="6get和post的区别">6.GET和POST的区别</h4>
+<p>GET重点是请求数据，POST的重点是提交数据。GET传输数据以URL的方式，POST通过http的post机制，把数据封装在了请求实体中，所以是不可见的，安全性也更高一点。</p>
+<p>GET只支持ASCII字符，有可能出现乱码，POST不会。</p>
+<h3 id="vihttps和http">VI.https和http</h3>
+<p>HTTPS协议 = HTTP协议 + SSL/TLS协议，在HTTPS数据传输的过程中，需要用SSL/TLS对数据进行加密和解密，需要用HTTP对加密后的数据进行传输，由此可以看出HTTPS是由HTTP和SSL/TLS一起合作完成的。</p>
+<h4 id="传输的过程">传输的过程</h4>
+<p>服务器端的公钥和私钥，用来进行非对称加密。</p>
+<p>客户端生成的随机密钥，用来进行对称加密。</p>
+<p>Https先用非对称加密，去加密对称加密的密钥，后面的传输都用对称加密算法，因为可以提升性能。</p>
+<h4 id="传输步骤">传输步骤</h4>
+<p>一个HTTPS请求实际上包含了两次HTTP传输，可以细分为8步。</p>
+<ul>
+<li>
+<p>1.客户端向服务器发起HTTPS请求，连接到服务器的443端口</p>
+</li>
+<li>
+<p>2.服务器端有一个密钥对，即公钥和私钥，是用来进行非对称加密使用的，服务器端保存着私钥，不能将其泄露，公钥可以发送给任何人。</p>
+</li>
+<li>
+<p>3.服务器将自己的公钥发送给客户端。</p>
+</li>
+<li>
+<p>4.客户端收到服务器端的证书之后，会对证书进行检查，验证其合法性，如果发现发现证书有问题，那么HTTPS传输就无法继续。严格的说，这里应该是验证服务器发送的数字证书的合法性。如果公钥合格，那么客户端会生成一个随机值，这个随机值就是用于进行对称加密的密钥，我们将该密钥称之为client key，即客户端密钥，这样在概念上和服务器端的密钥容易进行区分。然后用服务器的公钥对客户端密钥进行非对称加密，这样客户端密钥就变成密文了，至此，HTTPS中的第一次HTTP请求结束。</p>
+</li>
+<li>
+<p>5.客户端会发起HTTPS中的第二个HTTP请求，将加密之后的客户端密钥发送给服务器。</p>
+</li>
+<li>
+<p>6.服务器接收到客户端发来的密文之后，会用自己的私钥对其进行非对称解密，解密之后的明文就是客户端密钥，然后用客户端密钥对数据进行对称加密，这样数据就变成了密文。</p>
+</li>
+<li>
+<p>7.然后服务器将加密后的密文发送给客户端。</p>
+</li>
+<li>
+<p>8.客户端收到服务器发送来的密文，用客户端密钥对其进行对称解密，得到服务器发送的数据。这样HTTPS中的第二个HTTP请求结束，整个HTTPS传输完成。</p>
+</li>
+</ul>
+<h1 id="三数据结构和算法">三、数据结构和算法</h1>
+<h4 id="排序算法的稳定性是什么有什么用">排序算法的稳定性是什么，有什么用？</h4>
+<p>稳定性，指两个相同元素在排序后的相对顺序。</p>
+<p>稳定性的好处。排序算法如果是稳定的，那么从一个键上排序，然后再从另一个键上排序，第一个键排序的结果可以为第二个键排序所用。基数排序就是这样，先按低位排序，逐次按高位排序，低位相同的元素其顺序再高位也相同时是不会改变的。</p>
+<h2 id="i常见排序算法">I.常见排序算法</h2>
+<p>时间复杂度中，^符号代表幂次方。</p>
+<h3 id="1冒泡排序">1.冒泡排序</h3>
+<p>冒泡排序是两层循环，将数组两个元素挨个比较，进行交换。</p>
+<p>第一层循环是n，第二层则是n-1，所以时间复杂度为O(n^2)</p>
+<p>稳定，因为相同的元素选择不交换即可。</p>
+<h3 id="2选择排序">2.选择排序</h3>
+<p>每次都寻找最大的元素，交换的相应的位置。</p>
+<p>和冒泡排序时间复杂度一样，因为循环结构相似，O(n^2)。</p>
+<p>不稳定，一般会颠倒位置。</p>
+<h3 id="3插入排序">3.插入排序</h3>
+<p>未排序的元素从已排序的元素中选择位置插入。</p>
+<p>和冒泡排序时间复杂度一样，因为循环结构相似，O(n^2)。</p>
+<p>稳定，后来的碰到相同元素就往后插入。</p>
+<h3 id="4希尔排序">4.希尔排序</h3>
+<p>希尔排序是插入排序的一种高效率的实现，也叫缩小增量排序。先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录基本有序时再对全体记录进行一次直接插入排序。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sort</span>(<span style="color:#66d9ef">int</span>[] array) {
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> array.length;
+        <span style="color:#66d9ef">int</span> h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (h<span style="color:#f92672">&lt;</span>n<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>) { <span style="color:#75715e">//动态定义间隔序列
+</span><span style="color:#75715e"></span>              h <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>h <span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+                 }
+         <span style="color:#66d9ef">while</span> (h <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>) {
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> h; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i; j <span style="color:#f92672">&gt;=</span> h <span style="color:#f92672">&amp;&amp;</span> (array[j] <span style="color:#f92672">&lt;</span> array[j <span style="color:#f92672">-</span> h]); j <span style="color:#f92672">-=</span> h) {
+                    <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> array[j];
+                    array[j] <span style="color:#f92672">=</span> array[j <span style="color:#f92672">-</span> h];
+                    array[j<span style="color:#f92672">-</span>h]<span style="color:#f92672">=</span> temp;
+                }
+            }
+            h <span style="color:#f92672">/=</span><span style="color:#ae81ff">3</span>;
+        }
+    }
+</code></pre></div><p>两次循环，有除以3的操作，所以是O(n^1.3)</p>
+<p>不稳定，因为数据被打乱了。</p>
+<h3 id="5快速排序">5.快速排序</h3>
+<p>分治法，选中一个元素，把大的和小的各放一边，然后对每一块数据都按此方法做处理。</p>
+<p>一次循环决定要处理几次，另外一个是递归操作，所以是O(n*logn)</p>
+<p>递归，显然不稳定。</p>
+<h3 id="6归并排序">6.归并排序</h3>
+<p>将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并。它使用了递归分治的思想；相当于：左半边用尽，则取右半边元素；右半边用尽，则取左半边元素；右半边的当前元素小于左半边的当前元素，则取右半边元素；右半边的当前元素大于左半边的当前元素，则取左半边的元素。</p>
+<p>和快排的时间复杂度一样，因为都用了递归，O(n*logn)</p>
+<p>稳定，合并序列的时候相同的往后排。</p>
+<h3 id="7堆排序">7.堆排序</h3>
+<p>堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<p>因为是二叉树，也用到了递归的概念，和快速排序类似，O(n*logn)</p>
+<p>不稳定，构建了二叉树。</p>
+<h3 id="8计数排序">8.计数排序</h3>
+<p>找出待排序元素最大最小值，然后开辟数据存储，计算每个元素出现的次数，最后一次排序完毕。</p>
+<p>时间复杂度O(n+k)</p>
+<p>K很大的时候就不能忽略了，这是O(n+k)的含义。</p>
+<p>稳定，倒着输出，搞一个数组的栈即可。看实现方式，如果是只记录出现的次数，最后自己组数组，则不稳定，但如果是看到有存在的元素，将元素取出来，那就是稳定的。</p>
+<h3 id="9桶排序">9.桶排序</h3>
+<p>将数据分到不同的桶里面排序，然后每个再分别排序。</p>
+<p>时间复杂度O(n+k)</p>
+<p>不稳定，不同的桶遇到相同的值不好处理。</p>
+<h3 id="10基数排序">10.基数排序</h3>
+<p>按每一位进行排序，先从低位开始排序，每一轮遍历，最后排序到最后一位。</p>
+<p>时间复杂度O(n+k) 时间复杂度和位数有关系。</p>
+<p>稳定。</p>
+<h2 id="ii常见数据结构应用">II.常见数据结构应用</h2>
+<h3 id="1链表lru缓存淘汰">1.链表LRU缓存淘汰</h3>
+<p>我们维护一个有序单链表，越靠近链表尾部的结点是越早之前访问的。</p>
+<p>当有一个新的数据被访问时，我们从链表头开始顺序遍历链表。</p>
+<ol>
+<li>
+<p>如果此数据之前已经被缓存在链表中了，我们遍历得到这个数据对应的结点，并将其从原来的位置删除，然后再插入到链表的头部。</p>
+</li>
+<li>
+<p>如果此数据没有在缓存链表中，又可以分为两种情况：如果此时缓存未满，则将此结点直接插入到链表的头部；如果此时缓存已满，则链表尾结点删除，将新的数据结点插入链表的头部。</p>
+</li>
+</ol>
+<p>这样就实现了一个LRU算法。</p>
+<h3 id="2栈在括号匹配中的作用">2.栈在括号匹配中的作用</h3>
+<p>当遇到左括号的时候，压入栈，遇到右括号的时候出栈。空栈遇到右括号的话，则表示这个括号对已经不匹配了。</p>
+<p>只要最后看栈中的元素是否为空，就能知道括号是否匹配了。</p>
+<p>栈也可以实现浏览器的前进后退，前进的时候在后退栈压入数据（同时可能需要出栈），后退的时候出栈，入前进栈。前进时前进栈出栈，入后退栈。</p>
+<h3 id="3检查拼写错误用什么数据结构实现">3.检查拼写错误，用什么数据结构实现？</h3>
+<p>哈希表，不解释。</p>
+<h3 id="4完全二叉树满二叉树堆的区别">4.完全二叉树，满二叉树，堆的区别</h3>
+<p>完全二叉树是一棵树没有光秃秃的树枝，树叶长满了。满二叉树是除了最后一层，其他的树叶都长满了。堆是完全二叉树，且满足每一个节点都大于子节点的值，或小于，即大顶堆和小顶堆的概念。</p>
+<h3 id="5第k大即排行榜问题">5.第k大，即排行榜问题</h3>
+<p>可以用堆，链表的LRU算法感觉也很方便。</p>
+<h3 id="6有向图">6.有向图</h3>
+<p>微信的好友关系，知乎的关注关系。</p>
+<h2 id="iii哈希算法">III.哈希算法</h2>
+<p>这里仅介绍下如何解决冲突，哈希算法的概念不多赘述：</p>
+<h3 id="1开放地址法">1.开放地址法</h3>
+<p>我们可以对哈希值取mod，或者以其他规则，挨个在内存中探测，若发现某个地址为空，则把数据存入。</p>
+<h3 id="2多次哈希">2.多次哈希</h3>
+<p>换一种哈希算法，不可能每次都一样的值，但这样会有效率问题。</p>
+<h3 id="3拉链法">3.拉链法</h3>
+<p>相同哈希值的拉链表，挨个查找。</p>
+<h3 id="4溢出区">4.溢出区</h3>
+<p>将哈希表分为公共和溢出区域,把冲突的哈希值放在另一个地方。</p>
+<h1 id="四数据库">四、数据库</h1>
+<h2 id="i表">I.表</h2>
+<h3 id="1sql语句组成部分">1.SQL语句组成部分</h3>
+<p>数据定义：Create Table,Alter Table,Drop Table, Craete/Drop Index等</p>
+<p>数据操纵：Select ,insert,update,delete,</p>
+<p>数据控制：grant,revoke</p>
+<p>数据查询：select</p>
+<h3 id="2mysql的锁">2.MySQL的锁</h3>
+<ul>
+<li>
+<p>表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。</p>
+</li>
+<li>
+<p>行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。</p>
+</li>
+<li>
+<p>页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</p>
+</li>
+</ul>
+<h3 id="3索引">3.索引</h3>
+<p>索引就像是目录，为了能增加我们的查询速度而被设计了出来。</p>
+<h4 id="b树">B+树</h4>
+<p>B+树索引能轻易存储上百万的数据，且只需要查询三次索引，非叶子节点不存储数据，但存储指向数据的位置。</p>
+<p>真实的情况是，3层的b+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高。</p>
+<p>且B+树有数据块，能够轻易进行范围查找</p>
+<h4 id="哈希索引">哈希索引</h4>
+<p>单次查询极快，但不适合做范围查询。</p>
+<h4 id="使用索引的技巧">使用索引的技巧</h4>
+<ul>
+<li>
+<p>最左前缀原则：如果name是索引，email不是，则查询得先查name再匹配email。</p>
+</li>
+<li>
+<p>选择区分度高，可能会被命中的列作为索引。</p>
+</li>
+<li>
+<p>B+树用自增索引很适合，因为增删改查不会大幅度改变B+树的结构。</p>
+</li>
+<li>
+<p>索引值不能参与计算，否则开销极大</p>
+</li>
+</ul>
+<h2 id="ii引擎">II.引擎</h2>
+<h3 id="1myisam">1.Myisam</h3>
+<p>不支持事务，但是每次查询都是原子的；</p>
+<p>支持表级锁，即每次操作是对整个表加锁；</p>
+<p>存储表的总行数；</p>
+<p>一个MYISAM表有三个文件：索引文件、表结构文件、数据文件；</p>
+<p>采用非聚集索引，索引文件的数据域存储指向数据文件的指针。辅索引与主索引基本一致，但是辅索引不用保证唯一性。</p>
+<h3 id="2innodb">2.Innodb</h3>
+<p>支持ACID的事务，支持事务的四种隔离级别；</p>
+<p>支持行级锁及外键约束：因此可以支持写并发；</p>
+<p>不存储总行数；</p>
+<p>一个InnoDb引擎存储在一个文件空间（共享表空间，表大小不受操作系统控制，一个表可能分布在多个文件里），也有可能为多个（设置为独立表空，表大小受操作系统文件大小限制，一般为2G），受操作系统文件大小的限制；</p>
+<p>主键索引采用聚集索引（索引的数据域存储数据文件本身），辅索引的数据域存储主键的值；因此从辅索引查找数据，需要先通过辅索引找到主键值，再访问辅索引；最好使用自增主键，防止插入数据时，为维持B+树结构，文件的大调整。</p>
+<h2 id="iii事务与回滚">III.事务与回滚</h2>
+<h3 id="1事务的隔离级别">1.事务的隔离级别</h3>
+<h4 id="意外情况">意外情况</h4>
+<p>脏读：一个事务读了另一个事务尚未提交的修改数据</p>
+<p>非重复读：同一个事务，在两个时刻读取某一行的结果不同。</p>
+<p>幻读：同一个事务中，返回的结果集被改动。</p>
+<h4 id="隔离级别">隔离级别</h4>
+<p>read uncommitted：读未提交，三种故障都会发生。</p>
+<p>read commited：读已提交，除了脏读都有可能发生，也是oracle数据库的默认隔离级别。</p>
+<p>REPEATABLE READ:可重复读，MySQL的默认事务隔离级别，只会允许幻读。通过next-key lock锁定一定范围的数据，阻止他人插入。</p>
+<p>SERIALIZABLE：串行，效率最低，但不会有任何意外情况。</p>
+<h1 id="五设计模式">五、设计模式</h1>
+<h1 id="六linux">六、Linux</h1>
+<h1 id="七容器云">七、容器云</h1>
+<h1 id="八redis">八、Redis</h1>
+<h1 id="九操作系统">九、操作系统</h1>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fnode%2f%25E9%259D%25A2%25E8%25AF%2595%25E9%259B%2586%25E5%2590%2588%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fnode%2f%25E9%259D%25A2%25E8%25AF%2595%25E9%259B%2586%25E5%2590%2588%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fnode%2f%25E9%259D%25A2%25E8%25AF%2595%25E9%259B%2586%25E5%2590%2588%2f&amp;text=Node.js%e5%90%8e%e7%ab%af%e9%9d%a2%e8%af%95%e6%95%b4%e7%90%86" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
+<li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
+
+<li><a href="/post/java/servlet/">Java Servlet解析</a></li>
+
+<li><a href="/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">Aop面向切面编程</a></li>
+
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
+<li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

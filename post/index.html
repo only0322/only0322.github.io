@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/post/" />
-<meta property="og:updated_time" content="2022-01-18T16:05:34+08:00" />
+<meta property="og:updated_time" content="2022-03-07T11:06:57+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-18T16:05:34+08:00",
+  "dateModified": "2022-03-07T11:06:57+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,40 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></h2>
+    <p class="blog-post-meta"><time datetime="2022-03-07T11:06:57+08:00">Mon Mar 7, 2022</time> by 吉法师</p>
+  </header>
+  一、Node.js语言部分 I.语言基础 1.闭包的原理 函数就是一个闭包，js的特点是可以在函数内部创建另一个函数。js可以在函数内用外部的变量，所以自然而然产生的闭包概念。
+function foo(){ var local = 1 function bar(){ local++ return local } return bar } var func = foo() func() 在内部的那个函数可以引用外部的变量，但同时这个变量也无法被销毁，有消耗内存的风险。
+  <a href='https://only0322.github.io/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></h2>
+    <p class="blog-post-meta"><time datetime="2022-01-21T17:35:44+08:00">Fri Jan 21, 2022</time> by 吉法师</p>
+  </header>
+  ·
+1. 对Spring的理解 Spring框架是一个轻量级的开源框架，是核心容器、数据访问与集成、AOP、Web、消息、测试六个模块的集成。
+主要是为了简化企业级应用的后台开发，降低耦合性。平时接触到最多的还是IoC和AOP两个特性。IoC指的是控制反转，把对象的创建和依赖关系的维护交给Spring容器去管理。
+Spring通过工厂模式、反射机制等技术管理对象的作用域和生命周期。AoP一般称为面向切面编程，是面向对象的一种补充，将程序中独立于其他功能的方法抽取出来，使Java开发模块化，仅需专注于主业务即可。
+2.Spring的特点 MVC,IOC,AOP,事务管理。
+3.SPring的优缺点？ 优点 方便解耦，简化开发
+  <a href='https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/springmvc/">SpringMVC详解</a></h2>
     <p class="blog-post-meta"><time datetime="2022-01-18T16:05:34+08:00">Tue Jan 18, 2022</time> by 吉法师</p>
   </header>
@@ -180,38 +214,6 @@
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></h2>
-    <p class="blog-post-meta"><time datetime="2022-01-11T10:52:29+08:00">Tue Jan 11, 2022</time> by 吉法师</p>
-  </header>
-  一、概述 什么是容器？ 容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。
-通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。
-Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。
-二、Ioc原理 Ioc介绍 IoC全称Inversion of Control，直译为控制反转
-  <a href='https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></h2>
-    <p class="blog-post-meta"><time datetime="2022-01-07T10:39:31+08:00">Fri Jan 7, 2022</time> by 吉法师</p>
-  </header>
-  一、工具选用 electron-packager 或electron-builder都可以，但个人还是更喜欢electron-packager
-二、命令 electron-packager . Tal --platform=darwin --arch=x64 --icon=./Tal.ico --out=.
-  <a href='https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   
@@ -241,6 +243,10 @@ Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级�
     <ol class="list-unstyled">
 
 
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
 <li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
 
 <li><a href="/post/java/servlet/">Java Servlet解析</a></li>
@@ -256,10 +262,6 @@ Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级�
 <li><a href="/post/java/spring/">Spring学习合集</a></li>
 
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
-
-<li><a href="/post/java/jvm/">Jvm原理解析</a></li>
-
-<li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

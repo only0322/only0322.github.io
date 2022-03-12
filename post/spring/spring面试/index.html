@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<meta property="og:title" content="Spring面试" />
+<meta property="og:description" content="·
+1. 对Spring的理解 Spring框架是一个轻量级的开源框架，是核心容器、数据访问与集成、AOP、Web、消息、测试六个模块的集成。
+主要是为了简化企业级应用的后台开发，降低耦合性。平时接触到最多的还是IoC和AOP两个特性。IoC指的是控制反转，把对象的创建和依赖关系的维护交给Spring容器去管理。
+Spring通过工厂模式、反射机制等技术管理对象的作用域和生命周期。AoP一般称为面向切面编程，是面向对象的一种补充，将程序中独立于其他功能的方法抽取出来，使Java开发模块化，仅需专注于主业务即可。
+2.Spring的特点 MVC,IOC,AOP,事务管理。
+3.SPring的优缺点？ 优点 方便解耦，简化开发" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/" />
+<meta property="article:published_time" content="2022-01-21T17:35:44+08:00" />
+<meta property="article:modified_time" content="2022-01-21T17:35:44+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring面试"/>
+<meta name="twitter:description" content="·
+1. 对Spring的理解 Spring框架是一个轻量级的开源框架，是核心容器、数据访问与集成、AOP、Web、消息、测试六个模块的集成。
+主要是为了简化企业级应用的后台开发，降低耦合性。平时接触到最多的还是IoC和AOP两个特性。IoC指的是控制反转，把对象的创建和依赖关系的维护交给Spring容器去管理。
+Spring通过工厂模式、反射机制等技术管理对象的作用域和生命周期。AoP一般称为面向切面编程，是面向对象的一种补充，将程序中独立于其他功能的方法抽取出来，使Java开发模块化，仅需专注于主业务即可。
+2.Spring的特点 MVC,IOC,AOP,事务管理。
+3.SPring的优缺点？ 优点 方便解耦，简化开发"/>
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Spring面试",
+  "url": "https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/",
+  "wordCount": "197",
+  "datePublished": "2022-01-21T17:35:44+08:00",
+  "dateModified": "2022-01-21T17:35:44+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "吉法师"
+  }
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/">
+
+    <title>Spring面试 | 吉法师的博客</title>
+
+    
+    <!-- combined, minified CSS -->
+    
+    <link href="https://only0322.github.io/css/style.beb8012edc08ba10be012f079d618dc243812267efe62e11f22fe49618f976a4.css" rel="stylesheet" integrity="sha256-vrgBLtwIuhC&#43;AS8HnWGNwkOBImfv5i4R8i/klhj5dqQ=" crossorigin="anonymous">
+    
+
+    <!-- minified Font Awesome for SVG icons -->
+    
+    <script defer src="https://only0322.github.io/js/fontawesome.min.ffbfea088a9a1666ec65c3a8cb4906e2a0e4f92dc70dbbf400a125ad2422123a.js" integrity="sha256-/7/qCIqaFmbsZcOoy0kG4qDk&#43;S3HDbv0AKElrSQiEjo=" crossorigin="anonymous"></script>
+
+    <!-- RSS 2.0 feed -->
+    
+
+    
+
+  </head>
+
+  <body>
+
+    
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://only0322.github.io/">Home</a>
+          
+          <a class="nav-link" href="/cpp" title="">C/C&#43;&#43;学习归档</a>
+          
+          
+          <a class="nav-link" href="/java" title="">Java学习归档</a>
+          
+          
+          <a class="nav-link" href="/linux" title="">macOS&amp;Linux学习</a>
+          
+          
+          <a class="nav-link" href="/nodejs" title="">Node.js学习</a>
+          
+          
+          <a class="nav-link" href="/other" title="">其他语言</a>
+          
+          
+          <a class="nav-link" href="/front" title="">前端知识汇总</a>
+          
+          
+          <a class="nav-link" href="/opensource" title="">开源项目学习</a>
+          
+          
+          <a class="nav-link" href="/math" title="">数学</a>
+          
+          
+          <a class="nav-link" href="/shuju" title="">数据结构&amp;算法</a>
+          
+          
+          <a class="nav-link" href="/book" title="">文学</a>
+          
+          
+          <a class="nav-link" href="/allin" title="">编程知识大杂烩</a>
+          
+          
+          <a class="nav-link" href="/netdb" title="">网络和数据库</a>
+          
+        </nav>
+      </div>
+    </div>
+    
+
+    
+    
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title" dir="auto"><a href="https://only0322.github.io/" rel="home">吉法师的博客</a></h1>
+        <p class="lead blog-description" dir="auto">不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4</p>
+      </div>
+    </header>
+    
+    
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></h2>
+    <p class="blog-post-meta">
+<time datetime="2022-01-21T17:35:44+08:00">Fri Jan 21, 2022</time>
+</p>
+  </header>
+  <p>·</p>
+<h4 id="1-对spring的理解">1. 对Spring的理解</h4>
+<p>Spring框架是一个轻量级的开源框架，是核心容器、数据访问与集成、AOP、Web、消息、测试六个模块的集成。</p>
+<p>主要是为了简化企业级应用的后台开发，降低耦合性。平时接触到最多的还是IoC和AOP两个特性。IoC指的是控制反转，把对象的创建和依赖关系的维护交给Spring容器去管理。</p>
+<p>Spring通过工厂模式、反射机制等技术管理对象的作用域和生命周期。AoP一般称为面向切面编程，是面向对象的一种补充，将程序中独立于其他功能的方法抽取出来，使Java开发模块化，仅需专注于主业务即可。</p>
+<h4 id="2spring的特点">2.Spring的特点</h4>
+<p>MVC,IOC,AOP,事务管理。</p>
+<h4 id="3spring的优缺点">3.SPring的优缺点？</h4>
+<h5 id="优点">优点</h5>
+<p>方便解耦，简化开发</p>
+<p>可以将对象的创建和依赖关系的维护交给Spring管理。</p>
+<p>提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能。</p>
+<p>声明式事务的支持</p>
+<p>只需要通过配置就可以完成对事务的管理，而无需手动编程。</p>
+<p>可以通过注解方便的测试程序。</p>
+<p>内部提供了对各种优秀框架的直接支持，方便集成各种优秀框架。</p>
+<p>降低 JavaEE API 的使用难度。</p>
+<h5 id="缺点">缺点</h5>
+<p>pring明明一个很轻量级的框架，却给人感觉大而全</p>
+<p>Spring依赖反射，反射影响性能</p>
+<p>使用门槛过高，入门Spring需要较长时间</p>
+<h4 id="4ioc的优点是什么">4.Ioc的优点是什么？</h4>
+<p>把应用的代码量降到最低。</p>
+<p>它使应用容易测试，单元测试不再需要单例和JNDI查找机制。</p>
+<p>最小的代价和最小的侵入性使松散耦合得以实现。</p>
+<p>IoC容器支持加载服务时的饿汉式初始化和懒加载。</p>
+<h4 id="5ioc的实现机制">5.Ioc的实现机制</h4>
+<p>反射和工厂模式。</p>
+<h4 id="6ioc支持哪些功能">6.Ioc支持哪些功能</h4>
+<p>依赖注入、依赖检查、自动装配、指定初始化和销毁的方法、回调。</p>
+<h4 id="7什么是spring的依赖注入">7.什么是Spring的依赖注入</h4>
+<p>依赖注入是组件之间的依赖关系，由容器在应用系统运行期来决定，也就是由容器动态地将某种依赖关系的目标对象实例化，并注入到应用系统中的各个关联的组件之中。组件不做定位查询，只提供普通的Java方法让容器去决定依赖关系。</p>
+<h4 id="8-解释对象关系映射集成orm模块">8. 解释对象/关系映射集成（ORM）模块</h4>
+<p>Spring 通过提供ORM模块，支持我们直接在JDBC 之上使用一个对象/关系映射(ORM)工具。</p>
+<p>Spring 支持集成主流的 ORM 框架。</p>
+<p>Spring 的事务管理同样支持主流的 ORM 框架及 JDBC。</p>
+<h4 id="9-spring的web模块">9. Spring的web模块</h4>
+<p>Spring 的 WEB 模块是构建在 application context 模块基础之上，提供一个适合 web 应用的上下文。</p>
+<h4 id="10spring的配置文件">10.Spring的配置文件</h4>
+<p>Spring 配置文件是个XML文件，这个文件包含了类信息，描述了如何配置它们，以及如何相互调用</p>
+<h4 id="11ioc">11.Ioc</h4>
+<p>Ioc把传统上程序直接操控的对象调用权交给容器，由程序代码本身转移到了外部容器。</p>
+<h4 id="12控制反转ioc的优点是什么">12.控制反转(IoC)的优点是什么?</h4>
+<p>把应用的代码量降到最低。</p>
+<p>它使应用容易测试，单元测试不再需要单例和JNDI查找机制。</p>
+<p>最小的代价和最小的侵入性使松散耦合得以实现。</p>
+<p>IoC容器支持加载服务时的饿汉式初始化和懒加载。</p>
+<h4 id="13ioc实现机制">13.Ioc实现机制</h4>
+<p>反射和工厂模式。</p>
+<h4 id="14spring-的-ioc支持哪些功能">14.Spring 的 IoC支持哪些功能</h4>
+<p>依赖注入</p>
+<p>依赖检查</p>
+<p>自动装配</p>
+<p>支持集合</p>
+<p>指定初始化方法和销毁方法</p>
+<p>支持回调某些方法</p>
+<h4 id="15什么是-spring-beans-">15.什么是 Spring Beans ?</h4>
+<p>Spring beans 是那些形成 Spring 应用主干的 java 对象，它们被 Spring IOC 容器初始化，装配，和管理，这些 beans 通过容器中配置的元数据创建。</p>
+<h4 id="16-一个-spring-bean-定义包含什么">16. 一个 Spring Bean 定义包含什么?</h4>
+<p>一个 Spring Bean 的定义包含容器必知的所有配置元数据，包括如何创建一个bean，它的生命周期详情及它的依赖。</p>
+<h4 id="17-如何给-spring-容器提供配置元数据">17. 如何给 Spring 容器提供配置元数据?</h4>
+<p>XML 配置文件。</p>
+<p>基于注解的配置。</p>
+<p>基于 java 的配置。</p>
+<h4 id="18-解释-spring-支持的几种bean的作用域">18. 解释 Spring 支持的几种bean的作用域?</h4>
+<p>singleton作用域 : 是spring默认的作用域,bean 在每个 Spring ioc 容器中只有一个实例。</p>
+<p>prototype作用域：一个 bean 的定义可以有多个实例,但该作用域谨慎使用，频繁创建和销毁会严重影响性能。</p>
+<p>request作用域：每次 http 请求都会创建一个 bean， 该作用域仅在基于 web 的 Spring Application Context 情况下有效。</p>
+<p>session作用域：在一个 HTTP Session 中，一个 bean 定义对应一个实例。该作用域仅在基于 web 的 Spring Application Context 情况下有效 。</p>
+<p>global-session作用域：在一个全局的 HTTP Session 中，一个 bean 定义对应一个实例。该作用域仅在基于 web 的 Spring Application Context 情况下有效。</p>
+<h4 id="19-spring-框架中的单例-bean是线程安全的吗">19. Spring 框架中的单例 bean是线程安全的吗？</h4>
+<p>Spring 框架中的单例 bean 不是线程安全的，spring 中的 bean 默认是单例模式，Spring框架并没有对单例 bean 进行多线程的封装处理。实际上大部分时候 spring bean 是无状态的（比如 dao类），某种程度上来说 bean 也是安全的，但如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了。最简单的就是改变 bean 的作用域，把“singleton”变更为“prototype”，这样请求 bean 相当于 new Bean()了，就可以保证线程安全了。</p>
+
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fspring%25E9%259D%25A2%25E8%25AF%2595%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fspring%25E9%259D%25A2%25E8%25AF%2595%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fonly0322.github.io%2fpost%2fspring%2fspring%25E9%259D%25A2%25E8%25AF%2595%2f&amp;text=Spring%e9%9d%a2%e8%af%95" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-auto blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p dir="auto">当我走在街上看到一颗奇怪的树，满脑子想的都是与你分享，我就知道我出大事了。</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
+<li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
+
+<li><a href="/post/java/servlet/">Java Servlet解析</a></li>
+
+<li><a href="/post/spring/aop%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/">Aop面向切面编程</a></li>
+
+<li><a href="/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></li>
+
+<li><a href="/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></li>
+
+<li><a href="/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></li>
+
+<li><a href="/post/java/spring/">Spring学习合集</a></li>
+
+<li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
+
+    </ol>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://only0322.github.io/">QQ交流群609376922</a></li>
+      
+      <li><a href="https://gitee.com/onlyyyy_admin">码云主页</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+    
+
+    
+    <footer class="blog-footer">
+      <p dir="auto">
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+    
+
+  </body>
+
+</html>

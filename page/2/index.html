@@ -10,7 +10,7 @@
 <meta property="og:description" content="不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://only0322.github.io/" />
-<meta property="og:updated_time" content="2022-01-18T16:05:34+08:00" />
+<meta property="og:updated_time" content="2022-03-07T11:06:57+08:00" />
 
 
 
@@ -31,7 +31,7 @@
     "@type": "Person",
     "name": "吉法师"
   },
-  "dateModified": "2022-01-18T16:05:34+08:00",
+  "dateModified": "2022-03-07T11:06:57+08:00",
   "keywords": "",
   "description":"不知道能否追到喜欢的人呀，今年努力下吧~ 2022.1.4"
 }
@@ -134,6 +134,38 @@
 
 <article class="blog-post">
   <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/">Spring Ioc容器解读</a></h2>
+    <p class="blog-post-meta"><time datetime="2022-01-11T10:52:29+08:00">Tue Jan 11, 2022</time> by 吉法师</p>
+  </header>
+  一、概述 什么是容器？ 容器是一种为某种特定组件的运行提供必要支持的一个软件环境。例如，Tomcat就是一个Servlet容器，它可以为Servlet的运行提供运行环境。类似Docker这样的软件也是一个容器，它提供了必要的Linux环境以便运行一个特定的Linux进程。
+通常来说，使用容器运行组件，除了提供一个组件运行环境之外，容器还提供了许多底层服务。例如，Servlet容器底层实现了TCP连接，解析HTTP协议等非常复杂的服务，如果没有容器来提供这些服务，我们就无法编写像Servlet这样代码简单，功能强大的组件。早期的JavaEE服务器提供的EJB容器最重要的功能就是通过声明式事务服务，使得EJB组件的开发人员不必自己编写冗长的事务处理代码，所以极大地简化了事务处理。
+Spring的核心就是提供了一个IoC容器，它可以管理所有轻量级的JavaBean组件，提供的底层服务包括组件的生命周期管理、配置和组装服务、AOP支持，以及建立在AOP基础上的声明式事务服务等。
+二、Ioc原理 Ioc介绍 IoC全称Inversion of Control，直译为控制反转
+  <a href='https://only0322.github.io/post/spring/ioc%E5%AE%B9%E5%99%A8/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/">Electron打包简易教程</a></h2>
+    <p class="blog-post-meta"><time datetime="2022-01-07T10:39:31+08:00">Fri Jan 7, 2022</time> by 吉法师</p>
+  </header>
+  一、工具选用 electron-packager 或electron-builder都可以，但个人还是更喜欢electron-packager
+二、命令 electron-packager . Tal --platform=darwin --arch=x64 --icon=./Tal.ico --out=.
+  <a href='https://only0322.github.io/post/front/electron%E6%89%93%E5%8C%85/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
     <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/spring/spring%E6%A6%82%E8%BF%B0/">Spring概述</a></h2>
     <p class="blog-post-meta"><time datetime="2022-01-05T16:20:55+08:00">Wed Jan 5, 2022</time> by 吉法师</p>
   </header>
@@ -174,42 +206,6 @@ Spring 框架是一个开源的 Java 平台，它最初是由 Rod Johnson 编写
 
 
 
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/java/jvm/">Jvm原理解析</a></h2>
-    <p class="blog-post-meta"><time datetime="2022-01-04T18:40:40+08:00">Tue Jan 4, 2022</time> by 吉法师</p>
-  </header>
-  jvm知识导图
-一、概述 JVM是Java虚拟机的简称，那Jvm到底做了什么事情呢？其实是实现了Java的一次编译，到处运行。
-二、编译流程 java程序经过一次编译之后，将java代码编译为字节码也就是class文件，然后在不同的操作系统上依靠不同的java虚拟机进行解释，最后再转换为不同平台的机器码，最终得到执行。
-这样我们是不是可以推演，如果要在mac系统上运行，是不是只需要安装mac java虚拟机就行了。那么了解了这个基本原理后，我们尝试去做更深的研究，一个普通的java程序它的执行流程到底是怎样的呢？例如我们写了一段这样的代码：
-public class HelloWorld { public static void main(String[] args) { System.
-  <a href='https://only0322.github.io/post/java/jvm/'>Read more →</a>
-</article> 
-
-
-
-
-
-
-<article class="blog-post">
-  <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://only0322.github.io/post/java/hashmap/">Java HashMap知识归纳</a></h2>
-    <p class="blog-post-meta"><time datetime="2022-01-04T14:33:23+08:00">Tue Jan 4, 2022</time> by 吉法师</p>
-  </header>
-  一、什么是HashMap HashMap是一个通过键值对存储数据的容器，所谓容器就是能够自动扩容的存储工具。我之前一直很好奇为什么叫Map，不是地图的意思吗？查了一下字典终于是明白了，这里的Map应该翻译成——映射。
-二、原理 1.构造 HashMap构造的时候会有默认的初始容量16，以及扩展因子，默认是0.75。数据存储的比例达到扩展因子之后，HashMap就会扩充，增加大小是2倍，和C++的Vector类似。长度小于8的时候是链表，后面就会转为红黑树存储。
-2.modCount 大概就是HashMap的结构信息，每次增加或者删除数据都会维护这个值。
-3.fail-fast机制 在我们常见的java集合中就可能出现fail-fast机制,比如ArrayList，HashMap。在多线程和单线程环境下都有可能出现快速失败。
-单线程在迭代的时候remove一个元素就会有fail-fast。
-  <a href='https://only0322.github.io/post/java/hashmap/'>Read more →</a>
-</article> 
-
-
-
-
-
 <nav class="blog-pagination">
   
   <a class="btn btn-outline-primary" href="/" rel="prev" role="button">Previous page</a>
@@ -239,6 +235,10 @@ public class HelloWorld { public static void main(String[] args) { System.
     <ol class="list-unstyled">
 
 
+<li><a href="/post/node/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88/">Node.js后端面试整理</a></li>
+
+<li><a href="/post/spring/spring%E9%9D%A2%E8%AF%95/">Spring面试</a></li>
+
 <li><a href="/post/spring/springmvc/">SpringMVC详解</a></li>
 
 <li><a href="/post/java/servlet/">Java Servlet解析</a></li>
@@ -254,10 +254,6 @@ public class HelloWorld { public static void main(String[] args) { System.
 <li><a href="/post/java/spring/">Spring学习合集</a></li>
 
 <li><a href="/post/java/javaimage/">Java思维导图合集</a></li>
-
-<li><a href="/post/java/jvm/">Jvm原理解析</a></li>
-
-<li><a href="/post/java/hashmap/">Java HashMap知识归纳</a></li>
 
     </ol>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
